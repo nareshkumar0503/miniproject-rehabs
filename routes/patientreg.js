@@ -36,4 +36,9 @@ router.post('/patientregister', async(req,res) =>{
     }
 });
 
+router.get('/patientregistration', (req,res)=>{
+    const username = null;
+    const email = null;
+    res.render('patientreg' ,{username,email});
+})
 module.exports = router;
