@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <style>
+        .thank-you-card {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .checkmark-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #4CAF50;
+            position: relative;
+            display: inline-block;
+        }
+        .checkmark {
+            display: block;
+            width: 30px;
+            height: 70px;
+            border: solid white;
+            border-width: 0 10px 10px 0;
+            transform: rotate(45deg);
+            position: absolute;
+            top: 15%;
+            left: 35%;
+        }
+        .checkmark-circle::before {
+            content: '';
+            display: block;
+            width: 130%;
+            height: 130%;
+            background: rgba(76, 175, 80, 0.2);
+            position: absolute;
+            top: -15%;
+            left: -15%;
+            border-radius: 50%;
+            animation: ripple 1s infinite;
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+        .thank-you-card h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="thank-you-card">
+            <div class="checkmark-circle">
+                <div class="checkmark"></div>
+            </div>
+            <h3>Thank you for registering!</h3>
+            <button type="button" onclick="window.location.href='/'">OK</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
