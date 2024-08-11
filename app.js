@@ -8,6 +8,10 @@ const userpauth = require('./routes/userPAuth');
 const patientRoutes = require('./routes/patientreg')
 const passport = require('passport');
 const session = require('express-session');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
