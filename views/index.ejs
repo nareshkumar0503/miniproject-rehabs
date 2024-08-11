@@ -10,11 +10,11 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
+      overflow-x: hidden; /* Prevent horizontal scrollbar */
     }
     /* Navbar */
     .navbar {
       padding: 1rem 2rem;
-      background-image: url(/public/img/logo.png);
       background-color: #343a40;
     }
     .navbar-brand {
@@ -46,7 +46,7 @@
       position: relative;
       width: 100%;
       height: 50vh;
-      background: url('./img/add.jpg') repeat center center;
+      background: url('./img/add.jpg') no-repeat center center;
       background-size: cover;
       display: flex;
       justify-content: center;
@@ -79,9 +79,10 @@
     /* Center Cards */
     .center-cards {
       display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
+      overflow-x: hidden; /* Hide scrollbar */
       padding: 20px 0;
+      scroll-behavior: smooth;
+      flex-wrap: nowrap;
     }
     .center-card {
       flex: 0 0 auto;
@@ -114,11 +115,10 @@
       font-size: 0.9rem;
       color: #6c757d;
     }
-
     .rating {
-    color: #ffc107;
-    font-size: 1.2rem;
-  }
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
     /* Scroll Buttons */
     .scroll-button {
       background-color: #343a40;
@@ -141,6 +141,9 @@
       .welcome-section h2 {
         font-size: 1.25rem;
       }
+      .center-card {
+        width: 200px;
+      }
     }
   </style>
 </head>
@@ -152,7 +155,7 @@
       DEADDICTION
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
@@ -216,7 +219,8 @@
                     <i class="fa<%= i <= center.rating ? 's' : 'r' %> fa-star"></i>
                   <% } %>
                 </span>
-              </p>              <p class="card-text">Price Range: <%= center.priceRange %></p>
+              </p>
+              <p class="card-text">Price Range: <%= center.priceRange %></p>
             </div>
           </div>
         <% }) %>
@@ -244,7 +248,8 @@
                     <i class="fa<%= i <= center.rating ? 's' : 'r' %> fa-star"></i>
                   <% } %>
                 </span>
-              </p>              <p class="card-text">Price Range: <%= center.priceRange %></p>
+              </p>
+              <p class="card-text">Price Range: <%= center.priceRange %></p>
             </div>
           </div>
         <% }) %>
@@ -254,52 +259,27 @@
   </div>
 
   <!-- Footer -->
-<footer class="bg-dark text-white mt-5">
-  <div class="container py-4">
-    <div class="row">
-      <div class="col-md-4">
-        <h5>About Us</h5>
-        <p>We are committed to providing comprehensive information and support to help individuals find the best rehabilitation centers in Coimbatore and beyond. Our mission is to empower individuals on their journey to recovery.</p>
-      </div>
-      <div class="col-md-4">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="http://localhost:3000/" class="text-white">Home</a></li>
-          <li><a href="#" class="text-white">Guidance</a></li>
-          <li><a href="#" class="text-white">Map</a></li>
-          <li><a href="#" class="text-white">Events</a></li>
-          <li><a href="/login" class="text-white">Account</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <h5>Follow Us</h5>
-        <div>
-          <a href="#" class="text-white mr-3"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-white mr-3"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="bg-secondary text-center py-2">
-    <small>&copy; 2024 Your Website. All Rights Reserved.</small>
-  </div>
-</footer>
+  <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
+    <p>&copy; 2024 DEADDICATION. All Rights Reserved.</p>
+  </footer>
 
-
-  <script>
-    function scrollLeft(selector) {
-      document.querySelector(selector).scrollBy({ left: -250, behavior: 'smooth' });
-    }
-
-    function scrollRight(selector) {
-      document.querySelector(selector).scrollBy({ left: 250, behavior: 'smooth' });
-    }
-  </script>
-  
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function scrollLeft(selector) {
+      document.querySelector(selector).scrollBy({
+        left: -250,
+        behavior: 'smooth'
+      });
+    }
+    function scrollRight(selector) {
+      document.querySelector(selector).scrollBy({
+        left: 250,
+        behavior: 'smooth'
+      });
+    }
+  </script>
 </body>
 </html>
