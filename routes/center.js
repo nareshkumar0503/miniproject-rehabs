@@ -57,4 +57,7 @@ router.post('/centerregister', upload.array('centerImages', 10), async (req, res
   }
 });
 
+router.get('/centerregistration', (req,res)=>{
+  res.render('centerregistration');
+})
 module.exports = router;
