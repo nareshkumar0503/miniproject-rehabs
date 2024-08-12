@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+a {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+.profile-details {
+    padding: 20px;
+}
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.update-profile {
+    margin-top: 20px;
+}
