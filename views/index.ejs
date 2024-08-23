@@ -244,7 +244,7 @@
       <button class="scroll-button" onclick="scrollLeftCards('.coimbatore-cards')">&#8249;</button>
       <div class="center-cards coimbatore-cards">
         <% centers.forEach(center => { %>
-          <div class="card center-card">
+          <div class="card center-card" onclick="Description('<%= center.email %>')">
             <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
             <div class="card-body">
               <h5 class="card-title"><%= center.centerName %></h5>
