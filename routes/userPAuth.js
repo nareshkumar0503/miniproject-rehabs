@@ -81,15 +81,23 @@ router.get('/auth/google/callback',
         res.redirect('/login'); // Redirect to login on error
     }
   }
-
-  
 );
-
-
 
 router.get('/signup', (req,res)=>{
     res.render('centerregistration');
 })
+
+// Profile route
+router.get('/profile', isAuthenticated, async (req, res) => {
+  try {
+      const user = res.locals.user;
+      res.render('profile', { user });
+  } catch (err) {
+      console.error('Error loading profile:', err);
+      res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Logout route
 router.get('/logout', (req, res) => {
     req.session.destroy(err => {
