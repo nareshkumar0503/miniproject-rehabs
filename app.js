@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/rehabDB', {
+mongoose.connect(process.env.MongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
