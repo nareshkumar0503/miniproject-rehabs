@@ -27,7 +27,6 @@ router.post('/patientregister', async(req,res) =>{
                 currentPhysicalHealth,
                 currentMentalHealth
             });
-            console.log(newPatient);
             await newPatient.save();
             res.redirect('/');
         }

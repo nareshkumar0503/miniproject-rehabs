@@ -8,7 +8,6 @@ router.get('/', async(req, res) => {
     try {
       const centers = await Center.find();
       const username = req.session.username;
-      console.log(username);
       res.render('index', { centers , username});
     } catch (err) {
       res.status(500).send('Server Error');

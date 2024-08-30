@@ -10,7 +10,6 @@ async function isAuthenticated(req, res, next) {
     if (req.session.userId) {
         try {
             const user = await User.findById(req.session.userId).lean();
-            console.log('User from session:', user);
             if (user) {
                 res.locals.user = user;
                 return next();
@@ -41,7 +40,6 @@ router.post('/login', async (req, res) => {
       }
       req.login(user, (err) => {
         if (err) {
-          console.error('Login error:', err);
           return res.status(500).json({ message: 'Login error' });
         }
         req.session.userId = user._id;
@@ -77,7 +75,6 @@ router.get('/auth/google/callback',
               });
         }
     } catch (error) {
-        console.error(error);
         res.redirect('/login'); // Redirect to login on error
     }
   }
@@ -93,7 +90,6 @@ router.get('/profile', isAuthenticated, async (req, res) => {
       const user = res.locals.user;
       res.render('profile', { user });
   } catch (err) {
-      console.error('Error loading profile:', err);
       res.status(500).json({ message: 'Server error' });
   }
 });
