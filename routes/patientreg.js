@@ -8,7 +8,8 @@ router.post('/patientregister', async(req,res) =>{
     const userId = req.session.userId;
     const email = req.session.email;
     const username = req.session.username;
-    const {   password, name, age, gender, address, contactNumber,  addictionType,  addictionDurationValue, addictionDurationUnit,
+    const {   password, name, age, bloodGroup, gender, height,
+        weight, contactNumber,  addictionType,  addictionDurationValue, addictionDurationUnit,
         frequencyOfUse,
         previousTreatmentHistory,
         currentPhysicalHealth,
@@ -21,7 +22,7 @@ router.post('/patientregister', async(req,res) =>{
             res.redirect('/');
         }else{
             const newPatient = new Patient({    
-                userId, username, password, name, age, gender, address, contactNumber, email, addictionType, addictionDuration,
+                userId, username, password, name, age, bloodGroup, gender, height, weight, address, contactNumber, email, addictionType, addictionDuration,
                 frequencyOfUse,
                 previousTreatmentHistory,
                 currentPhysicalHealth,

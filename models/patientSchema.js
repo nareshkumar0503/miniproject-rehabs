@@ -6,7 +6,10 @@ const patientSchema = new mongoose.Schema({
     password: String,
     name: String,
     age: Number,
+    bloodGroup: String, // New field for blood group
     gender: String,
+    height: Number, // New field
+    weight: Number, // New field
     address: String,
     contactNumber: String,
     email: String,
