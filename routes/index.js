@@ -14,4 +14,16 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.get('/descPage', async (req, res) => {
+  const email = req.query.email || 'No email provided';
+  try {
+    const userEmail = req.session.email;
+    const centerDocument = await Center.findOne({ email });
+    const center = centerDocument ? centerDocument.toObject() : null; // Convert to plain JS object
+    res.render('descPage', { center, userEmail });
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

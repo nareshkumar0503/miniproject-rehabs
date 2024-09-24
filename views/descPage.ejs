@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centers Information</title>
+</head>
+<body>
+  <h1>Center Details</h1>
+  
+  <!-- Display user email -->
+  
+
+  <!-- Check if centers exist -->
+  <% if (center) { %>
+    <h2>Center Information:</h2>
+    <ul>
+      <% Object.keys(center).forEach(function(key) { %>
+        <li><strong><%= key %>:</strong> <%= center[key] %></li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No center information available for this email.</p>
+  <% } %>
+  
+</body>
+</html>

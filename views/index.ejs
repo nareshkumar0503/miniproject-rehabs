@@ -248,12 +248,21 @@
             <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
             <div class="card-body">
               <h5 class="card-title"><%= center.centerName %></h5>
-              <p class="card-text"><%= center.description %></p>
+              <!-- <p class="card-text"><%= center.description %></p> -->
               <p class="card-text">
                 Rating:
                 <span class="rating">
                   <% for (let i = 1; i <= 5; i++) { %>
-                    <i class="fa<%= i <= center.rating ? 's' : 'r' %> fa-star"></i>
+                    <% if (i <= Math.floor(3)) { %>
+                      <!-- Full star -->
+                      <i class="fas fa-star"></i>
+                    <% } else if (i === Math.ceil(3) && 3 % 1 !== 0) { %>
+                      <!-- Half star for decimal part -->
+                      <i class="fas fa-star-half-alt"></i>
+                    <% } else { %>
+                      <!-- Empty star -->
+                      <i class="far fa-star"></i>
+                    <% } %>
                   <% } %>
                 </span>
               </p>
@@ -277,12 +286,21 @@
             <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
             <div class="card-body">
               <h5 class="card-title"><%= center.centerName %></h5>
-              <p class="card-text"><%= center.description %></p>
+              <!-- <p class="card-text"><%= center.description %></p> -->
               <p class="card-text">
                 Rating:
                 <span class="rating">
                   <% for (let i = 1; i <= 5; i++) { %>
-                    <i class="fa<%= i <= center.rating ? 's' : 'r' %> fa-star"></i>
+                    <% if (i <= Math.floor(3)) { %>
+                      <!-- Full star -->
+                      <i class="fas fa-star"></i>
+                    <% } else if (i === Math.ceil(3) && 3 % 1 !== 0) { %>
+                      <!-- Half star for decimal part -->
+                      <i class="fas fa-star-half-alt"></i>
+                    <% } else { %>
+                      <!-- Empty star -->
+                      <i class="far fa-star"></i>
+                    <% } %>
                   <% } %>
                 </span>
               </p>
@@ -357,6 +375,10 @@ function scrollRightCards(selector) {
       behavior: 'smooth'
     });
   }
+}
+function Description(email) {
+  // Redirect the user to the server-rendered page with the email as a query parameter
+  window.location.href = `/descPage?email=${encodeURIComponent(email)}`;
 }
 
   </script>
