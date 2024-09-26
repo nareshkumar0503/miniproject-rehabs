@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/UserSchema');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const Patient = require('../models/patientSchema');
 
 // Middleware to check if user is authenticated
@@ -28,14 +28,16 @@ router.get('/login', (req,res)=>{
 router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
-  
-      const user = await User.findOne({ email });
+      const user = await Patient.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: 'Invalid credentials' });
       }
   
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
+      // const isPasswordValid = await bcrypt.compare(password, user.password);
+      // if (!isPasswordValid) {
+      //   return res.status(400).json({ message: 'Invalid credentials' });
+      // }
+      if(password != user.password){
         return res.status(400).json({ message: 'Invalid credentials' });
       }
       req.login(user, (err) => {
@@ -44,10 +46,11 @@ router.post('/login', async (req, res) => {
         }
         req.session.userId = user._id;
         req.session.email = user.email;
+        req.session.username = user.username;
         res.redirect('/');
       });
     } catch (err) {
-      res.status(500).json({ message: 'Server error' });
+      res.status(500).json({ message:  'Server error' });
     }
   });
 // Google OAuth routes
@@ -91,7 +94,7 @@ router.get('/profile', isAuthenticated, async (req, res) => {
       res.render('profile', { user });
   } catch (err) {
       res.status(500).json({ message: 'Server error' });
-  }
+  } 
 });
 
 // Logout route

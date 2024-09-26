@@ -37,7 +37,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            
+
         }
 
         .services-list {
@@ -77,7 +77,7 @@
             /* Light green background for visibility */
             border-radius: 10px;
             padding: 30px;
-            
+
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -171,7 +171,7 @@
                         <form id="appointmentForm">
                             <div class="mb-3">
                                 <label for="patientName" class="form-label">Patient Name</label>
-                                <input type="text" class="form-control" id="patientName" value="<%= patient.name %>"
+                                <input type="text" class="form-control" id="patientName" value="<%= patient.username %>"
                                     readonly>
                             </div>
                             <div class="mb-3">
@@ -191,6 +191,8 @@
                             <div class="mb-3">
                                 <input type="hidden" id="centerEmail" value="<%= center.email %>">
                             </div>
+                            <div class="mb-3"></div>
+                            <input type="hidden" id="patientPhone" value="<%= patient.contactNumber %>">
                             <div class="mb-3">
                                 <label for="appointmentSession" class="form-label">Session</label>
                                 <select class="form-select" id="appointmentSession" required>
@@ -205,11 +207,8 @@
                                 Appointment</button>
                         </form>
                     </div>
-
                 </div>
-
             </div>
-
             <!-- Right Column: Programs & Services -->
             <div class="col-lg-6">
                 <div class="info-card">
@@ -247,28 +246,31 @@
                     </ul>
                 </div>
             </div>
+
         </div>
 
-        <!-- Contact Information -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="info-card contact-card">
-                    <h4>Contact Information</h4>
-                    <p><strong>Phone:</strong>
-                        <%= center.contactNo %>
-                    </p>
-                    <p><strong>Email:</strong>
-                        <%= center.email %>
-                    </p>
-                </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="info-card contact-card">
+                <h4>Contact Information</h4>
+                <p><strong>Phone:</strong>
+                    <%= center.contactNo %>
+                </p>
+                <p><strong>Email:</strong>
+                    <%= center.email %>
+                </p>
             </div>
         </div>
+    </div>
 
-        <!-- Emergency Contact Banner -->
-        <div class="emergency-banner">
-            <h4>For Immediate Assistance, Call Our Emergency Line: <%= center.emergencyContact %>
-            </h4>
-        </div>
+    <!-- Emergency Contact Banner -->
+    <div class="emergency-banner">
+        <h4>For Immediate Assistance, Call Our Emergency Line: <%= center.emergencyContact %>
+        </h4>
+    </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
@@ -281,6 +283,7 @@
             const patientAddiction = document.getElementById('patientAddiction').value;
             const appointmentDate = document.getElementById('appointmentDate').value;
             const appointmentSession = document.getElementById('appointmentSession').value;
+            const patientContactNo = document.getElementById('patientPhone').value;
             const centerEmail = document.getElementById('centerEmail').value;
             if (appointmentDate && appointmentSession) {
                 // Logic to handle booking the appointment (e.g., send a request to the server)
@@ -295,19 +298,20 @@
                         patientAddiction: patientAddiction,
                         appointmentDate: appointmentDate,
                         appointmentSession: appointmentSession,
+                        patientContactNo: patientContactNo,
                         centerEmail: centerEmail // Include center's email
                     })
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Hide the Book Appointment button and show the View Appointment button
-                        document.getElementById('bookAppointmentButton').classList.add('hidden');
-                        document.getElementById('viewAppointmentButton').classList.remove('hidden');
-                    } else {
-                        alert('Error booking appointment.');
-                    }
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Hide the Book Appointment button and show the View Appointment button
+                            document.getElementById('bookAppointmentButton').classList.add('hidden');
+                            document.getElementById('viewAppointmentButton').classList.remove('hidden');
+                        } else {
+                            alert(data.message);
+                        }
+                    });
             } else {
                 alert('Please fill in all required fields.');
             }

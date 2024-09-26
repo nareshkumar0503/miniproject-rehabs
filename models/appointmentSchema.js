@@ -9,6 +9,7 @@ const appointmentSchema = new mongoose.Schema({
     patientEmail: { type: String, required: true },
     date: { type: String },
     appointmentSession: { type: String, required: true },
+    centerName:{type:String, required:true},
     patientAddiction: { type: [String], required: true },
     status:{type:String}
 },{

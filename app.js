@@ -33,6 +33,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
 // Middleware setup
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');

@@ -19,9 +19,9 @@ router.get('/descPage', async(req, res) => {
   const email = req.query.email || 'No email provided';
   try {
     const userEmail = req.session.email;
-    const patient = await Patient.findOne({userEmail});
+    const patient = await Patient.findOne({email:userEmail});
     if(!patient){
-      res.status(404).send('Patient not found');
+      res.redirect('/login');
     }
     const center = await Center.findOne({email});
     res.render('descPage', { center, patient });
@@ -31,13 +31,13 @@ router.get('/descPage', async(req, res) => {
 });
 
 router.post('/book-appointment', async(req,res) => {
-  const { patientName,  patientEmail, patientAddiction, appointmentDate, appointmentSession, centerEmail } = req.body;
+  const { patientName,  patientEmail, patientContactNo,patientAddiction, appointmentDate, appointmentSession, centerEmail } = req.body;
   try {
     const existingAppointment = await Appointment.findOne({ 
       patientEmail: patientEmail, 
       centerEmail: centerEmail 
     });
-
+    console.log('Existing appointment:', existingAppointment);
     if (existingAppointment) {
         // Step 2: If an appointment already exists, send a response to the client
         return res.status(400).json({ message: 'Appointment already exists for this patient and center.' });
@@ -47,8 +47,9 @@ router.post('/book-appointment', async(req,res) => {
         patientName,
         patientEmail,
         patientAddiction,
-        appointmentDate,
+        date:appointmentDate,
         appointmentSession,
+        patientPhone: patientContactNo,
         centerEmail,
         status: "Not Confirmed"
     });
@@ -61,4 +62,10 @@ router.post('/book-appointment', async(req,res) => {
   }
 });
 
+//view Appointment 
+router.get('/view-appointment', async(req, res) => {
+    const patientEmail = req.session.email;
+    const patient = await Appointment.findOne({patientEmail});
+    res.render('viewappointment', { patient });
+});
 module.exports = router;
