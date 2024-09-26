@@ -8,30 +8,37 @@
     <style>
         /* Custom styles for the form */
         body {
-            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
             font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            background: linear-gradient(-45deg, #83a4d4, #b6fbff, #f5f7fa, #c4e0e5);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-            width: 600px;
-            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
         }
 
         h2 {
-            margin-bottom: 30px;
             color: #3498db;
             text-align: center;
+            margin-bottom: 30px;
             font-size: 2em;
             font-weight: bold;
         }
@@ -41,10 +48,10 @@
         }
 
         label {
+            font-weight: bold;
+            color: #555;
             display: block;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: bold;
         }
 
         input, select, textarea {
@@ -86,29 +93,20 @@
             display: block;
         }
 
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group .form-check {
+            margin-bottom: 5px;
+        }
+
         /* Responsive styles */
         @media (max-width: 767px) {
             h2 {
                 font-size: 1.5em;
-            }
-
-            input, select, textarea {
-                padding: 10px;
-            }
-
-            button {
-                padding: 10px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 15px;
-            }
-
-            input, select, textarea {
-                padding: 8px;
             }
 
             button {
@@ -122,7 +120,7 @@
     <div class="container">
         <h2>Patient Registration</h2>
         <form id="patientForm" action="/patientregister" method="post">
-            <!-- Page 1: Personal Details -->
+            <!-- Page 1: Personal Information -->
             <div id="page1" class="form-section active">
                 <div class="form-group">
                     <label for="patientName">Patient Name</label>
@@ -133,20 +131,21 @@
                     <input type="text" class="form-control" id="attenderName" name="attenderName" required>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
+                <button type="button" class="btn btn-primary" id="nextButton">Next</button>
+            </div>
+
+            <!-- Page 2: Medical Details -->
+            <div id="page2" class="form-section">
                 <div class="form-group">
-                    <label for="email">Patient Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" id="age" name="age" required>
+                    <label for="patientAge">Patient Age</label>
+                    <input type="number" class="form-control" id="patientAge" name="patientAge" required>
                 </div>
                 <div class="form-group">
                     <label for="bloodGroup">Blood Group</label>
@@ -173,6 +172,12 @@
                     <label for="height">Height (cm)</label>
                     <input type="number" class="form-control" id="height" name="height" required>
                 </div>
+                <button type="button" class="btn btn-primary" id="nextButton2">Next</button>
+                <button type="button" class="btn btn-secondary" id="backButton1">Back</button>
+            </div>
+
+            <!-- Page 3: Contact Details -->
+            <div id="page3" class="form-section">
                 <div class="form-group">
                     <label for="weight">Weight (kg)</label>
                     <input type="number" class="form-control" id="weight" name="weight" required>
@@ -182,78 +187,103 @@
                     <input type="text" class="form-control" id="address" name="address" required>
                 </div>
                 <div class="form-group">
-                    <label for="contactNumber">Contact Number</label>
-                    <input type="tel" class="form-control" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
-                    <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+                    <label for="patientContactNumber">Patient Contact Number</label>
+                    <input type="tel" class="form-control" id="patientContactNumber" name="patientContactNumber" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
                 </div>
-                <button type="button" class="btn btn-primary" id="nextButton">Next</button>
+                <div class="form-group">
+                    <label for="attenderContactNumber">Attender Contact Number (optional)</label>
+                    <input type="tel" class="form-control" id="attenderContactNumber" name="attenderContactNumber" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                </div>
+                <button type="button" class="btn btn-primary" id="nextButton3">Next</button>
+                <button type="button" class="btn btn-secondary" id="backButton2">Back</button>
             </div>
 
-            <!-- Page 2: Addiction Details -->
-            <div id="page2" class="form-section">
+            <!-- Page 4: Addiction Information -->
+            <div id="page4" class="form-section">
                 <div class="form-group">
-                    <label for="addictionType">Type of Addiction (Select Multiple)</label>
-                    <select class="form-control" id="addictionType" name="addictionType[]" multiple required>
-                        <option value="Alcohol">Alcohol</option>
-                        <option value="Drugs">Drugs</option>
-                        <option value="Gambling">Gambling</option>
-                        <option value="Smoking">Smoking</option>
-                        <option value="Internet">Internet</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="addictionDuration">Duration of Addiction</label>
-                    <div class="form-row">
-                        <div class="col-6">
-                            <input type="number" class="form-control" id="addictionDurationValue" name="addictionDurationValue" placeholder="Number" required>
+                    <label>Type of Addiction</label>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Alcohol" id="addictionAlcohol">
+                            <label class="form-check-label" for="addictionAlcohol">Alcohol</label>
                         </div>
-                        <div class="col-6">
-                            <select class="form-control" id="addictionDurationUnit" name="addictionDurationUnit" required>
-                                <option value="Days">Days</option>
-                                <option value="Months">Months</option>
-                                <option value="Years">Years</option>
-                            </select>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Drugs" id="addictionDrugs">
+                            <label class="form-check-label" for="addictionDrugs">Drugs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Gambling" id="addictionGambling">
+                            <label class="form-check-label" for="addictionGambling">Gambling</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Smoking" id="addictionSmoking">
+                            <label class="form-check-label" for="addictionSmoking">Smoking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Internet" id="addictionInternet">
+                            <label class="form-check-label" for="addictionInternet">Internet</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Other" id="addictionOther">
+                            <label class="form-check-label" for="addictionOther">Other</label>
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="addictionDuration">Addiction Duration (Years)</label>
+                    <select class="form-control" id="addictionDuration" name="addictionDuration" required>
+                        <option value="Less than 1 year">Less than 1 year</option>
+                        <option value="1-2 years">1-2 years</option>
+                        <option value="3-5 years">3-5 years</option>
+                        <option value="5-10 years">5-10 years</option>
+                        <option value="More than 10 years">More than 10 years</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label for="frequencyOfUse">Frequency of Use</label>
                     <select class="form-control" id="frequencyOfUse" name="frequencyOfUse" required>
+                        <option value="Occasionally">Occasionally</option>
+                        <option value="Once a week">Once a week</option>
+                        <option value="Several times a week">Several times a week</option>
                         <option value="Daily">Daily</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Monthly">Monthly</option>
-                        <!-- <option value="Occasionally">Occasionally</option> -->
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="previousTreatmentHistory">Previous Treatment History</label>
-                    <textarea class="form-control" id="previousTreatmentHistory" name="previousTreatmentHistory" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="currentPhysicalHealth">Current Physical Health</label>
-                    <textarea class="form-control" id="currentPhysicalHealth" name="currentPhysicalHealth" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="currentMentalHealth">Current Mental Health</label>
-                    <textarea class="form-control" id="currentMentalHealth" name="currentMentalHealth" rows="3" required></textarea>
+                    <label for="previousTreatmentHistory">Previous Treatment History (optional)</label>
+                    <textarea class="form-control" id="previousTreatmentHistory" name="previousTreatmentHistory" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" id="backButton">Back</button>
+                <button type="button" class="btn btn-secondary" id="backButton3">Back</button>
             </div>
         </form>
     </div>
 
     <script>
-        // JavaScript to handle form page navigation
-        document.getElementById('nextButton').addEventListener('click', function () {
-            document.getElementById('page1').classList.remove('active');
-            document.getElementById('page2').classList.add('active');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentPage = 1;
 
-        document.getElementById('backButton').addEventListener('click', function () {
-            document.getElementById('page2').classList.remove('active');
-            document.getElementById('page1').classList.add('active');
+            const formSections = document.querySelectorAll('.form-section');
+            const nextButtons = document.querySelectorAll('button[id^="nextButton"]');
+            const backButtons = document.querySelectorAll('button[id^="backButton"]');
+
+            nextButtons.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    formSections[currentPage - 1].classList.remove('active');
+                    currentPage++;
+                    formSections[currentPage - 1].classList.add('active');
+                });
+            });
+
+            backButtons.forEach((btn, index) => {
+                btn.addEventListener('click', () => {
+                    formSections[currentPage - 1].classList.remove('active');
+                    currentPage--;
+                    formSections[currentPage - 1].classList.add('active');
+                });
+            });
         });
     </script>
 </body>
