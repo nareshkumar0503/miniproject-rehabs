@@ -41,7 +41,7 @@ router.post('/patientregister', async (req, res) => {
                 patientname, 
                 attendername,
                 patientage, 
-                patientbloodgroup, 
+                bloodgroup, 
                 gender, 
                 height, 
                 weight, 
@@ -60,7 +60,7 @@ router.post('/patientregister', async (req, res) => {
             // Save the new patient record in the database
             await newPatient.save();
             // Redirect to home after successful registration
-            res.redirect('/');
+            res.redirect('/login');
         }
     } catch (err) {
         console.log(err.message);
@@ -69,11 +69,8 @@ router.post('/patientregister', async (req, res) => {
     }
 });
 
-module.exports = router;
-
 router.get('/patientregistration', (req, res) => {
-    const email = req.session.email;
-    res.render('patientreg', { username, email });
+    res.render('patientreg');
 });
 
 module.exports = router;

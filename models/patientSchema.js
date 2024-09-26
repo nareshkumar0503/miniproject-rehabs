@@ -12,7 +12,7 @@ const patientSchema = new mongoose.Schema({
     password:String,
     patientcontactnumber: String,
     attendercontactnumber: String,
-    email:String,
+    email: { type: String, unique: true },
     addictionType: [String],
     addictionDuration: String,
     frequencyOfUse: String,

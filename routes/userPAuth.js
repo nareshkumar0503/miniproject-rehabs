@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
       if (!user) {
         return res.status(400).json({ message: 'Invalid credentials' });
       }
-      console.log(user.password) 
+      console.log(user.patientname) 
       // const isPasswordValid = await bcrypt.compare(password, user.password);
       // if (!isPasswordValid) {
       //   return res.status(400).json({ message: 'Invalid credentials' });
@@ -52,7 +52,8 @@ router.post('/login', async (req, res) => {
         }
         req.session.userId = user._id;
         req.session.email = user.email;
-        req.session.username = user.username;
+        req.session.username = user.patientname;
+        console.log(req.session.username)
         res.redirect('/');
       });
     } catch (err) {

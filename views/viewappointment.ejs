@@ -87,7 +87,6 @@
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
-        /* cancle button */
         .btn-danger {
             background-color: #e74c3c;
             border: none;
@@ -133,23 +132,19 @@
                         </div>
                         <div class="appointment-body">
                             <div class="appointment-info">
-                                <label>Token No:</label>
-                                <p>
-                                    <% if (patient.tokenNo) { %>
-                                        <%= patient.tokenNo %>
-                                            <% } else { %>
-                                                Yet to be assigned
-                                                <% } %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
                                 <label>Center Name:</label>
                                 <p>
                                     <% if (patient.centerName) { %>
                                         <%= patient.centerName %>
-                                            <% } else { %>
-                                                Yet to be assigned
-                                                <% } %>
+                                    <% } else { %>
+                                        Yet to be assigned
+                                    <% } %>
+                                </p>
+                            </div>
+                            <div class="appointment-info">
+                                <label>Appointment Date:</label>
+                                <p>
+                                    <%= patient.appointmentDate %>
                                 </p>
                             </div>
                             <div class="appointment-info">
@@ -157,27 +152,23 @@
                                 <p>
                                     <% if (patient.time) { %>
                                         <%= patient.time %>
-                                            <% } else { %>
-                                                Yet to be assigned
-                                                <% } %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Condition (Addiction):</label>
-                                <p>
-                                    <%= patient.patientAddiction %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Appointment Date:</label>
-                                <p>
-                                    <%= patient.date %>
+                                    <% } else { %>
+                                        Yet to be assigned
+                                    <% } %>
                                 </p>
                             </div>
                             <div class="appointment-info">
                                 <label>Session:</label>
                                 <p>
                                     <%= patient.appointmentSession %>
+                                </p>
+                            </div>
+                            <div class="appointment-info">
+                                <label>Condition (Addiction):</label>
+                                <p>
+                                    <% patient.patientAddiction.forEach(function(addiction) { %>
+                                        <span><%= addiction %></span><br>
+                                    <% }); %>
                                 </p>
                             </div>
                             <div class="appointment-info">
@@ -204,14 +195,13 @@
                             </div>
                         </div>
                     </div>
-                    <% } else { %>
-                        <div class="text-center">
-                            <h4>No appointment found for your account.</h4>
-                            <p>It seems like you haven't booked an appointment yet. Please click below to schedule one.
-                            </p>
-                            <a href="/" class="btn btn-primary">Explore Centers and Schedule Your Appointment</a>
-                        </div>
-                        <% } %>
+                <% } else { %>
+                    <div class="text-center">
+                        <h4>No appointment found for your account.</h4>
+                        <p>It seems like you haven't booked an appointment yet. Please click below to schedule one.</p>
+                        <a href="/" class="btn btn-primary">Explore Centers and Schedule Your Appointment</a>
+                    </div>
+                <% } %>
             </div>
         </div>
     </div>
