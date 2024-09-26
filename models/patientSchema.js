@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const patientSchema = new mongoose.Schema({
-    userId:String,
+    userId: String,
     username: String,
     password: String,
     name: String,
     age: Number,
-    bloodGroup: String, // New field for blood group
+    bloodGroup: String,
     gender: String,
-    height: Number, // New field
-    weight: Number, // New field
+    height: Number,
+    weight: Number,
     address: String,
     contactNumber: String,
     email: String,
@@ -18,7 +18,11 @@ const patientSchema = new mongoose.Schema({
     frequencyOfUse: String,
     previousTreatmentHistory: String,
     currentPhysicalHealth: String,
-    currentMentalHealth: String
+    currentMentalHealth: String,
+    addictionQuestion1: String, // Store first unique question
+    addictionQuestion2: String, // Store second unique question
+    addictionQuestion3: String, // Store third unique question
+    role: String // New field for role (Patient/Attender)
 });
 
 module.exports = mongoose.model('Patient', patientSchema);

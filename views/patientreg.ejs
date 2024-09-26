@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Registration</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css">
     <style>
         /* Custom styles for the form */
         body {
@@ -126,26 +125,24 @@
             <!-- Page 1: Personal Details -->
             <div id="page1" class="form-section active">
                 <div class="form-group">
+                    <label for="patientName">Patient Name</label>
+                    <input type="text" class="form-control" id="patientName" name="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="attenderName">Attender Name</label>
+                    <input type="text" class="form-control" id="attenderName" name="attenderName" required>
+                </div>
+                <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" 
-                        value="<%= username ? username : '' %>" 
-                        <%= username ? 'disabled' : '' %> 
-                        required>
+                    <input type="text" class="form-control" id="username" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" 
-                        value="<%= email ? email : '' %>" 
-                        <%= email ? 'disabled' : '' %> 
-                        required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <label for="email">Patient Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
@@ -186,8 +183,7 @@
                 </div>
                 <div class="form-group">
                     <label for="contactNumber">Contact Number</label>
-                    <input type="tel" class="form-control" id="contactNumber" name="contactNumber" 
-                        pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                    <input type="tel" class="form-control" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
                     <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
                 </div>
                 <button type="button" class="btn btn-primary" id="nextButton">Next</button>
@@ -196,8 +192,8 @@
             <!-- Page 2: Addiction Details -->
             <div id="page2" class="form-section">
                 <div class="form-group">
-                    <label for="addictionType">Type of Addiction</label>
-                    <select class="form-control" id="addictionType" name="addictionType" required>
+                    <label for="addictionType">Type of Addiction (Select Multiple)</label>
+                    <select class="form-control" id="addictionType" name="addictionType[]" multiple required>
                         <option value="Alcohol">Alcohol</option>
                         <option value="Drugs">Drugs</option>
                         <option value="Gambling">Gambling</option>
@@ -227,7 +223,7 @@
                         <option value="Daily">Daily</option>
                         <option value="Weekly">Weekly</option>
                         <option value="Monthly">Monthly</option>
-                        <option value="Occasionally">Occasionally</option>
+                        <!-- <option value="Occasionally">Occasionally</option> -->
                     </select>
                 </div>
                 <div class="form-group">
