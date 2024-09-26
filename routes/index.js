@@ -9,6 +9,7 @@ router.get('/', async(req, res) => {
     try {
       const centers = await Center.find();
       const username = req.session.username;
+      console.log(username)
       res.render('index', { centers , username});
     } catch (err) {
       res.status(500).send('Server Error');
@@ -20,11 +21,12 @@ router.get('/descPage', async(req, res) => {
   try {
     const userEmail = req.session.email;
     const patient = await Patient.findOne({email:userEmail});
+    const username = req.session.username
     if(!patient){
       res.redirect('/login');
     }
     const center = await Center.findOne({email});
-    res.render('descPage', { center, patient });
+    res.render('descPage', { center, patient, username });
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -35,7 +37,7 @@ router.post('/book-appointment', async(req,res) => {
   try {
     const existingAppointment = await Appointment.findOne({ 
       patientEmail: patientEmail, 
-      centerEmail: centerEmail 
+      data:appointmentDate
     });
     console.log('Existing appointment:', existingAppointment);
     if (existingAppointment) {
@@ -68,4 +70,16 @@ router.get('/view-appointment', async(req, res) => {
     const patient = await Appointment.findOne({patientEmail});
     res.render('viewappointment', { patient });
 });
+
+
+//c/center-dashboard
+router.get('/center-dashboard' , async (req,res)=>{
+  const email = req.session.email;
+  const center = await Center.findOne({email});
+  if(!center){
+    res.redirect('/login');
+  }
+  return res.render('centerdashboard', {center});
+});
+
 module.exports = router;

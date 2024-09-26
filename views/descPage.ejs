@@ -100,10 +100,84 @@
         .hidden {
             display: none;
         }
+        /* Navbar */
+.navbar {
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #343a40, #495057);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: white;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+
+.nav-link {
+  color: white;
+  margin-right: 1.5rem;
+  font-size: 1rem;
+}
+
+.nav-link:hover {
+  color: #f8f9fa;
+}
+
+.navbar-toggler {
+  border-color: white;
+}
+
+.dropdown-menu {
+  background-color: #343a40;
+}
+
+
     </style>
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="/public/img/logo.png" alt="">
+            DEADDICTION
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost:3000/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Guidance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3009/">Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% if (username) { %>
+                            <a class="dropdown-item" href="profile.ejs">Profile</a>
+                            <a class="dropdown-item" href="http://localhost:3000/login">Logout</a>
+                            <% } else { %>
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <% } %>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Carousel Section -->
     <div id="centerCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -322,6 +396,46 @@
             alert('Displaying appointment details.');
         });
     </script>
+    <!-- Footer -->
+    <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
+        <div class="container">
+            <div class="row">
+                <!-- About Section -->
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>DEADDICTION is dedicated to helping individuals overcome addiction through our comprehensive
+                        rehabilitation programs. Our centers are equipped with the latest facilities and experienced
+                        professionals to ensure the best care.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
+                        <li><a href="#" style="color: #ffffff;">Guidance</a></li>
+                        <li><a href="#" style="color: #ffffff;">Map</a></li>
+                        <li><a href="#" style="color: #ffffff;">Events</a></li>
+                        <li><a href="/view-appointment" style="color: #ffffff;">Appointments</a></li>
+                        <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Section -->
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
+                    <p><i class="fas fa-phone"></i> +91 9361169510</p>
+                    <p><i class="fas fa-phone"></i> +91 9655442017</p>
+                    <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
+                </div>
+            </div>
+            <hr style="border-color: #ffffff;">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

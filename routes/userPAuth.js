@@ -4,6 +4,7 @@ const router = express.Router();
 const User = require('../models/UserSchema');
 // const bcrypt = require('bcryptjs');
 const Patient = require('../models/patientSchema');
+const Center = require('../models/Center');
 
 // Middleware to check if user is authenticated
 async function isAuthenticated(req, res, next) {
@@ -28,17 +29,22 @@ router.get('/login', (req,res)=>{
 router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
+      const center = await Center.findOne({email})
+      if(center){
+        req.session.email = email;
+        return res.redirect('/center-dashboard');
+      }
       const user = await Patient.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: 'Invalid credentials' });
       }
-  
+      console.log(user.password) 
       // const isPasswordValid = await bcrypt.compare(password, user.password);
       // if (!isPasswordValid) {
       //   return res.status(400).json({ message: 'Invalid credentials' });
       // }
       if(password != user.password){
-        return res.status(400).json({ message: 'Invalid credentials' });
+        return res.status(400).json({ message: 'Invalid password' });
       }
       req.login(user, (err) => {
         if (err) {
@@ -107,5 +113,6 @@ router.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
 
 module.exports = router;
