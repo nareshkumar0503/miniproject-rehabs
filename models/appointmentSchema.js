@@ -8,7 +8,7 @@ const appointmentSchema = new mongoose.Schema({
     patientAge:{type:String},
     centerEmail: { type: String, required: true },
     patientEmail: { type: String, required: true },
-    appointmentDate: { type: Date },
+    appointmentDate: { type: String },
     appointmentSession: { type: String, required: true },
     centerName:{type:String, required:true},
     patientBloodGroup :{type:String},

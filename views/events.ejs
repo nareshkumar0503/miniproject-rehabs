@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Navbar */
+        .navbar {
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, #343a40, #495057);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: white;
+            margin-right: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover {
+            color: #f8f9fa;
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .dropdown-menu {
+            background-color: #343a40;
+        }
+
+        .dropdown-item {
+            color: white;
+        }
+
+        .dropdown-item:hover {
+            background-color: #495057;
+        }
+        /* event */
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        /* Card Styling */
+        .event-card {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .event-details {
+            display: none;
+        }
+
+        .show-details {
+            cursor: pointer;
+        }
+
+        .btn-book {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-book:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-confirm {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-confirm:hover {
+            background-color: #218838;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .no-events {
+            text-align: center;
+            color: #888;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="/public/img/logo.png" alt="">
+            DEADDICTION
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost:3000/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Guidance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:3009/">Map</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <% if (username) { %>
+                            <a class="dropdown-item" href="profile.ejs">Profile</a>
+                            <a class="dropdown-item" href="http://localhost:3000/login">Logout</a>
+                            <% } else { %>
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <% } %>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- My Events Section -->
+        <div class="my-events">
+            <h2 class="section-title">My Events</h2>
+            <div class="row">
+                <% if (myEvents.length===0) { %>
+                    <div class="col-12 no-events">No events booked yet.</div>
+                    <% } else { %>
+                        <% myEvents.forEach(function(event) { %>
+                            <div class="col-md-6">
+                                <div class="event-card">
+                                    <div class="event-header">
+                                        <h4 class="event-title">
+                                            <%= event.title %>
+                                        </h4>
+                                        <p><strong>Date:</strong>
+                                            <%= event.date %>
+                                        </p>
+                                        <p><strong>Time:</strong>
+                                            <%= event.time %>
+                                        </p>
+                                        <button class="btn btn-warning btn-block">Event Booked</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } %>
+            </div>
+        </div>
+
+        <!-- Available Events Section -->
+        <div class="available-events mt-5">
+            <h2 class="section-title">Available Events</h2>
+            <div class="row">
+                <% if (availableEvents.length===0) { %>
+                    <div class="col-12 no-events">No available events at the moment.</div>
+                    <% } else { %>
+                        <% availableEvents.forEach(function(event) { %>
+                            <div class="col-md-6">
+                                <div class="event-card">
+                                    <div class="event-header">
+                                        <h4 class="event-title show-details" data-id="<%= event.id %>">
+                                            <%= event.title %>
+                                        </h4>
+                                        <p><strong>Date:</strong>
+                                            <%= event.date %>
+                                        </p>
+                                        <p><strong>Time:</strong>
+                                            <%= event.time %>
+                                        </p>
+                                    </div>
+                                    <!-- Hidden Event Details -->
+                                    <div class="event-details" id="details-<%= event.id %>">
+                                        <p><strong>Description:</strong>
+                                            <%= event.description %>
+                                        </p>
+                                        <p><strong>Center:</strong>
+                                            <%= event.centerName %>
+                                        </p>
+                                        <p><strong>Location:</strong>
+                                            <%= event.location %>
+                                        </p>
+                                        <button class="btn btn-book" data-id="<%= event.id %>">Book Event</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
+        <div class="container">
+            <div class="row">
+                <!-- About Section -->
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>DEADDICTION is dedicated to helping individuals overcome addiction through our comprehensive
+                        rehabilitation programs. Our centers are equipped with the latest facilities and experienced
+                        professionals to ensure the best care.</p>
+                </div>
+                <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
+                        <li><a href="#" style="color: #ffffff;">Guidance</a></li>
+                        <li><a href="#" style="color: #ffffff;">Map</a></li>
+                        <li><a href="#" style="color: #ffffff;">Events</a></li>
+                        <li><a href="/view-appointment" style="color: #ffffff;">Appointments</a></li>
+                        <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Section -->
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
+                    <p><i class="fas fa-phone"></i> +91 9361169510</p>
+                    <p><i class="fas fa-phone"></i> +91 9655442017</p>
+                    <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
+                </div>
+            </div>
+            <hr style="border-color: #ffffff;">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

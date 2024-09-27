@@ -125,86 +125,90 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <% if (patient) { %>
-                    <div class="appointment-card">
-                        <div class="appointment-header text-center">
-                            <h3>Your Appointment</h3>
+                <% if (appointments && appointments.length > 0) { %>
+                    <% appointments.forEach(function(appointment) { %>
+                        <div class="appointment-card">
+                            <div class="appointment-header text-center">
+                                <h3>Your Appointment</h3>
+                            </div>
+                            <div class="appointment-body">
+                                <div class="appointment-info">
+                                    <label>Center Name:</label>
+                                    <p>
+                                        <% if (appointment.centerName) { %>
+                                            <%= appointment.centerName %>
+                                        <% } else { %>
+                                            Yet to be assigned
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Appointment Date:</label>
+                                    <p id="appointmentDate">
+                                        <%= appointment.appointmentDate %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Time:</label>
+                                    <p>
+                                        <% if (appointment.time) { %>
+                                            <%= appointment.time %>
+                                        <% } else { %>
+                                            Yet to be assigned
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Session:</label>
+                                    <p>
+                                        <%= appointment.appointmentSession %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Condition (Addiction):</label>
+                                    <p>
+                                        <% appointment.patientAddiction.forEach(function(addiction) { %>
+                                            <span>
+                                                <%= addiction %>
+                                            </span><br>
+                                        <% }); %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Center Email:</label>
+                                    <p id="centerEmail">
+                                        <%= appointment.centerEmail %>
+                                    </p>
+                                </div>
+                                <div class="appointment-info">
+                                    <label>Status:</label>
+                                    <p class="<%= appointment.status === 'Confirmed' ? 'text-success' : 'text-warning' %>">
+                                        <%= appointment.status %>
+                                    </p>
+                                </div>
+                                <!-- Cancel Appointment Button -->
+                                <button class="btn btn-danger btn-block" id="cancelAppointmentBtn">Cancel Appointment</button>
+    
+                                <!-- Confirmation Section (Initially hidden) -->
+                                <div id="cancelConfirmation" class="confirmation-box" style="display: none;">
+                                    <p>Are you sure you want to cancel your appointment?</p>
+                                    <button class="btn btn-warning" id="confirmCancelBtn">Yes, Cancel</button>
+                                    <button class="btn btn-secondary" id="dismissCancelBtn">No, Keep Appointment</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="appointment-body">
-                            <div class="appointment-info">
-                                <label>Center Name:</label>
-                                <p>
-                                    <% if (patient.centerName) { %>
-                                        <%= patient.centerName %>
-                                    <% } else { %>
-                                        Yet to be assigned
-                                    <% } %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Appointment Date:</label>
-                                <p>
-                                    <%= patient.appointmentDate %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Time:</label>
-                                <p>
-                                    <% if (patient.time) { %>
-                                        <%= patient.time %>
-                                    <% } else { %>
-                                        Yet to be assigned
-                                    <% } %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Session:</label>
-                                <p>
-                                    <%= patient.appointmentSession %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Condition (Addiction):</label>
-                                <p>
-                                    <% patient.patientAddiction.forEach(function(addiction) { %>
-                                        <span><%= addiction %></span><br>
-                                    <% }); %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Center Email:</label>
-                                <p>
-                                    <%= patient.centerEmail %>
-                                </p>
-                            </div>
-                            <div class="appointment-info">
-                                <label>Status:</label>
-                                <p class="<%= patient.status === 'Confirmed' ? 'text-success' : 'text-warning' %>">
-                                    <%= patient.status %>
-                                </p>
-                            </div>
-                            <!-- Cancel Appointment Button -->
-                            <button class="btn btn-danger btn-block" id="cancelAppointmentBtn">Cancel
-                                Appointment</button>
-
-                            <!-- Confirmation Section (Initially hidden) -->
-                            <div id="cancelConfirmation" class="confirmation-box" style="display: none;">
-                                <p>Are you sure you want to cancel your appointment?</p>
-                                <button class="btn btn-warning" id="confirmCancelBtn">Yes, Cancel</button>
-                                <button class="btn btn-secondary" id="dismissCancelBtn">No, Keep Appointment</button>
-                            </div>
-                        </div>
-                    </div>
+                    <% }); %>
                 <% } else { %>
                     <div class="text-center">
-                        <h4>No appointment found for your account.</h4>
-                        <p>It seems like you haven't booked an appointment yet. Please click below to schedule one.</p>
+                        <h4>No appointments found for your account.</h4>
+                        <p>It seems like you haven't booked any appointments yet. Please click below to schedule one.</p>
                         <a href="/" class="btn btn-primary">Explore Centers and Schedule Your Appointment</a>
                     </div>
                 <% } %>
             </div>
         </div>
     </div>
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -224,7 +228,34 @@
         // Handle 'Yes, Cancel' button click
         confirmCancelBtn.addEventListener('click', () => {
             // Here, you can trigger the actual cancellation logic (e.g., sending a request to the server)
-            alert('Appointment canceled successfully!');
+            const centerEmail = document.getElementById('centerEmail').textContent.trim();
+            const appointmentDate = document.getElementById('appointmentDate').textContent.trim(); // Assuming this is available on the page
+
+            // Send the request to the server to cancel the appointment
+            fetch('/cancel-appointment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    centerEmail,
+                    appointmentDate
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Appointment cancelled successfully!');
+                        // Optionally redirect the user or update the UI
+                        location.reload();  
+                    } else {
+                        alert('Failed to cancel the appointment: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cancelling appointment:', error);
+                    alert('An error occurred while trying to cancel the appointment. Please try again.');
+                });
             // Optionally, you can redirect or hide the confirmation section
         });
 

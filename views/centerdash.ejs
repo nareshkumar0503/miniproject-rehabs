@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehab Center Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            overflow-y: scroll;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            height: 100vh;
+            background: #343a40;
+            /* Darker sidebar */
+            color: #ffffff;
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .sidebar h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.75rem;
+            display: block;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-card {
+            border: none;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #343a40;
+            /* Darker header */
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-nav img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            border: none;
+            color: #343a40;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .logout-btn:hover {
+            color: #dc3545;
+            /* Red color for logout button */
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .appointment {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .appointment:last-child {
+            border-bottom: none;
+        }
+
+        .btn-approve {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+
+        /* Form styles */
+        .form-label {
+            font-weight: 500;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+            border: 1px solid #ced4da;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        /* Additional styling for buttons */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h2>Rehab Center</h2>
+                <a href="#">Dashboard</a>
+                <a href="#">Profile Manager</a>
+                <a href="#">Appointments</a>
+                <a href="#">Host Event</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Top Navigation -->
+                <div class="top-nav">
+                    <img src="https://via.placeholder.com/40" alt="User">
+                    <button class="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div class="grid-container">
+
+                    <!-- Profile Manager Card -->
+                    <div class="dashboard-card profile-card">
+                        <div class="card-header">Profile Manager</div>
+                        <form id="update-center">
+                            <div class="mb-3">
+                                <label for="centerName" class="form-label">Center Name</label>
+                                <input type="text" class="form-control" id="centerName"
+                                    value="<%= center?.centerName || '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registrationNo" class="form-label">Registration No</label>
+                                <input type="text" class="form-control" id="registrationNo"
+                                    value="<%= center?.registrationNo || '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address"
+                                    value="<%= center?.address || '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" value="<%= center?.contactNo || '' %>"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email (Read-only)</label>
+                                <input type="email" class="form-control" id="email" value="<%= center?.email || '' %>"
+                                    readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="servicesOffered" class="form-label">Services Offered</label>
+                                <select class="form-select" id="servicesOffered" multiple>
+                                    <% ['Detoxification', 'Counseling' , 'In-patient Rehab' ].forEach(service=> { %>
+                                        <option value="<%= service %>" <%=center?.servicesOffered?.includes(service)
+                                            ? 'selected' : '' %>><%= service %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="programsAvailable" class="form-label">Programs Available</label>
+                                <input type="text" class="form-control" id="programsAvailable"
+                                    value="<%= center?.programsAvailable?.join(', ') || '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addictions" class="form-label">Addictions Treated</label>
+                                <input type="text" class="form-control" id="addictions"
+                                    value="<%= center?.addictions?.join(', ') || '' %>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="operatingHours" class="form-label">Operating Hours</label>
+                                <div class="d-flex">
+                                    <input type="time" class="form-control me-2" id="startTime"
+                                        value="<%= center?.startTime || '09:00' %>" required>
+                                    <input type="time" class="form-control" id="endTime"
+                                        value="<%= center?.endTime || '18:00' %>" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emergencyServices" class="form-label">Emergency Services</label>
+                                <select class="form-select" id="emergencyServices" required>
+                                    <option value="Yes" <%=center?.emergencyServices==='Yes' ? 'selected' : '' %>>Yes
+                                    </option>
+                                    <option value="No" <%=center?.emergencyServices==='No' ? 'selected' : '' %>>No
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="priceRange" class="form-label">Price Range</label>
+                                <input type="text" class="form-control" id="priceRange"
+                                    value="<%= center?.priceRange?.join(' - ') || '' %>" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+
+                    <!-- Appointments Card -->
+
+                    <div class="appointment-details">
+                        <h2>Appointment Details</h2>
+
+                        <% if (appointments.length> 0) { %>
+                            <% appointments.forEach(appointment=> { %>
+
+                                <p><strong>Patient Name:</strong>
+                                    <%= appointment.patientName %>
+                                </p>
+                                <p><strong>Attender Phone:</strong>
+                                    <%= appointment.attenderPhone %>
+                                </p>
+                                <p><strong>Patient Email:</strong>
+                                    <%= appointment.patientEmail %>
+                                </p>
+                                <p><strong>Appointment Date:</strong>
+                                    <%= appointment.appointmentDate || 'Not Scheduled' %>
+                                </p>
+                                <p><strong>Appointment Session:</strong>
+                                    <%= appointment.appointmentSession %>
+                                </p>
+                                <p><strong>Patient Addiction(s):</strong>
+                                    <%= appointment.patientAddiction.join(', ') %></p>
+                                       
+ <!-- Time selection dropdown -->
+ <div class="time-update">
+    <label for="time-<%= appointment._id %>">Select Appointment Time:</label>
+    <select id="time-<%= appointment._id %>" name="time">
+        <% 
+            // Define time slots based on appointment session
+            let timeSlots = [];
+            if (appointment.appointmentSession ===  'Morning') { timeSlots=['07:00', '08:00' , '09:00' , '10:00'
+                                        , '11:00' , '12:00' , '13:00' ]; } else if
+                                        (appointment.appointmentSession==='Evening' ) { timeSlots=['15:00', '16:00'
+                                        , '17:00' , '18:00' , '19:00' , '20:00' , '21:00' ]; } %>
+                                        <% timeSlots.forEach(slot=> { %>
+                                            <option value="<%= slot %>" <%=appointment.time===slot ? 'selected' : '' %>
+                                                >
+                                                <%= slot %>
+                                            </option>
+                                            <% }); %>
+                                                </select>
+                    </div>
+                    <button onclick="approveAppointment('<%= appointment._id %>')">Approve</button>
+                    <button onclick="cancelAppointment('<%= appointment._id %>')">Cancel</button>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p>No appointments available at this time.</p>
+                        <% } %>
+
+
+
+                            <!-- Host Event Card -->
+                            <div class="dashboard-card host-event-card">
+                                <div class="card-header">Host an Event</div>
+                                <form id="eventForm">
+                                    <div class="mb-3">
+                                        <label for="eventName" class="form-label">Event Name</label>
+                                        <input type="text" class="form-control" id="eventName" name="eventName"
+                                            placeholder="Enter event name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="eventDesc" class="form-label">Event Description</label>
+                                        <textarea class="form-control" id="eventDesc" name="eventDesc" rows="3"
+                                            placeholder="Enter event description" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="eventDate" class="form-label">Event Date</label>
+                                        <input type="date" class="form-control" id="eventDate" name="eventDate"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="eventTime" class="form-label">Event Time</label>
+                                        <input type="time" class="form-control" id="eventTime" name="eventTime"
+                                            required>
+                                    </div>
+                                    <input type="hidden" name="centerName" value="<%= center.centerName %>">
+                                    <input type="hidden" name="centerEmail" value="<%= center.email %>">
+                                    <button type="submit" class="btn btn-primary">Host Event</button>
+                                </form>
+                            </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function approveAppointment(appointmentId) {
+            const selectedTime = document.getElementById(`time-${appointmentId}`).value;
+
+            // Make an AJAX request to approve the appointment with the selected time
+            fetch(`/appointments/approve/${appointmentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ time: selectedTime }), // Send the selected time
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alret('time updated succefully');
+                        location.reload(); // Reload the page to see updated appointments
+                    } else {
+                        alert('Failed to approve appointment.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while approving the appointment.');
+                });
+        }
+
+        function cancelAppointment(appointmentId) {
+            // Make an AJAX request to cancel the appointment
+            fetch(`/appointments/cancel/${appointmentId}`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Reload the page to see updated appointments
+                    } else {
+                        alert('Failed to cancel appointment.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while cancelling the appointment.');
+                });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('eventForm').addEventListener('submit', async function (event) {
+                console.log('Form submitted!'); 
+                event.preventDefault(); // Prevent the default form submission
+                const eventName = document.getElementById('eventName').value;
+                const eventDesc = document.getElementById('eventDesc').value;
+                const eventDate = document.getElementById('eventDate').value;
+                const eventTime = document.getElementById('eventTime').value;
+                const centerName = document.getElementById('centerName').value;
+                const centerEmail = document.getElementById('centerEmail').value;
+                
+
+                // Convert form data to a JSON object
+
+                try {
+                    // Send a POST request to the server
+                    const response = await fetch('/add-events', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            eventName,
+                            eventDesc,
+                            eventDate,
+                            eventTime,
+                            centerName,
+                            centerEmail
+                        }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Event added successfully.');
+                                document.getElementById('eventForm').reset(); // Reset the form
+                                location.reload(); // Reload the page to see updated events
+                            } else {
+                                alert(data.message);
+                            }
+                        });
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while hosting the event.');
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>
