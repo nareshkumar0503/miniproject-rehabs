@@ -15,6 +15,37 @@
             background-color: #f9f9f9;
         }
 
+        /* Navbar */
+        .navbar {
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, #343a40, #495057);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: white;
+            margin-right: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .nav-link:hover {
+            color: #f8f9fa;
+        }
+
+        .navbar-toggler {
+            border-color: white;
+        }
+
+        .dropdown-menu {
+            background-color: #343a40;
+        }
+
         .carousel-caption {
             background-color: rgba(0, 0, 0, 0.6);
             padding: 10px;
@@ -101,36 +132,7 @@
             display: none;
         }
 
-        /* Navbar */
-        .navbar {
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, #343a40, #495057);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            color: white;
-            font-weight: 600;
-            font-size: 1.8rem;
-        }
-
-        .nav-link {
-            color: white;
-            margin-right: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .nav-link:hover {
-            color: #f8f9fa;
-        }
-
-        .navbar-toggler {
-            border-color: white;
-        }
-
-        .dropdown-menu {
-            background-color: #343a40;
-        }
+    
     </style>
 </head>
 
@@ -302,36 +304,35 @@
                     <h4>Programs & Addictions Treated</h4>
                     <ul class="services-list">
                         <!-- Services Offered -->
-                        <li><strong>Services Offered:</strong></li>
-                        <ul>
-                            <% center.servicesOffered.forEach(function(service) { %>
-                                <li>
-                                    <%= service %>
-                                </li>
-                                <% }); %>
-                        </ul>
+<li><strong>Services Offered:</strong></li>
+<div>
+    <% center.servicesOffered.forEach(function(service) { %>
+        <span class="badge bg-primary rounded-pill p-2 m-1">
+            <%= service %>
+        </span>
+    <% }); %>
+</div>
 
-                        <!-- Programs Available -->
-                        <li><strong>Programs Available:</strong></li>
-                        <ul>
-                            <% center.programsAvailable.forEach(function(program) { %>
-                                <li>
-                                    <%= program %>
-                                </li>
-                                <% }); %>
-                        </ul>
+<!-- Programs Available -->
+<li><strong>Programs Available:</strong></li>
+<div>
+    <% center.programsAvailable.forEach(function(program) { %>
+        <span class="badge bg-success rounded-pill p-2 m-1">
+            <%= program %>
+        </span>
+    <% }); %>
+</div>
 
-                        <!-- Addictions Treated -->
-                        <li><strong>Addictions Treated:</strong></li>
-                        <ul>
-                            <% center.addictions.forEach(function(addiction) { %>
-                                <li>
-                                    <%= addiction %>
-                                </li>
-                                <% }); %>
-                        </ul>
-                    </ul>
-                </div>
+<!-- Addictions Treated -->
+<li><strong>Addictions Treated:</strong></li>
+<div>
+    <% center.addictions.forEach(function(addiction) { %>
+        <span class="badge bg-danger rounded-pill p-2 m-1">
+            <%= addiction %>
+        </span>
+    <% }); %>
+</div>
+
             </div>
 
         </div>
