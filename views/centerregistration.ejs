@@ -6,8 +6,6 @@
     <title>Center Registration</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
@@ -33,9 +31,9 @@
         .form-group label {
             font-weight: bold;
             color: #333;
-        }                                   
+        }
 
-        .form-control, .form-control-file, .bootstrap-select .dropdown-toggle {
+        .form-control, .form-control-file {
             border-radius: 4px;
         }
 
@@ -50,21 +48,13 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
-
-        .selectpicker {
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            padding: .375rem 1.75rem .375rem .75rem;
-            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        }
-
     </style>
 </head>
 <body>
+    <%- include('notifications') %>
     <div class="container">
         <h2 class="text-center mt-4 mb-4">Center Registration</h2>
-        <form id="registrationForm" action="/centerregister" method="POST" enctype="multipart/form-data">
+        <form id="registrationForm" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="centerName">Center Name:</label>
@@ -87,10 +77,9 @@
                 <div class="form-group col-md-6">
                     <label for="contactNo">Contact Number:</label>
                     <input type="tel" class="form-control" id="contactNo" name="contactNo" 
-                           pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                            title="Please enter a valid 10-digit phone number" required>
                     <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
                 </div>
-                
                 <div class="form-group col-md-6">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -112,21 +101,10 @@
                         <label class="form-check-label" for="service1">Detoxification</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="service2" name="servicesOffered[]" value="Inpatient Rehabilitation">
-                        <label class="form-check-label" for="service2">Inpatient Rehabilitation</label>
+                        <input type="checkbox" class="form-check-input" id="service2" name="servicesOffered[]" value="Counseling">
+                        <label class="form-check-label" for="service2">Counseling</label>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="service3" name="servicesOffered[]" value="Outpatient Rehabilitation">
-                        <label class="form-check-label" for="service3">Outpatient Rehabilitation</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="service4" name="servicesOffered[]" value="Therapy and Counseling">
-                        <label class="form-check-label" for="service4">Therapy and Counseling</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="service5" name="servicesOffered[]" value="Aftercare Programs">
-                        <label class="form-check-label" for="service5">Aftercare Programs</label>
-                    </div>
+                    <!-- Add more services as needed -->
                 </div>
                 <div class="form-group col-md-6">
                     <label>Programs Available:</label>
@@ -135,17 +113,10 @@
                         <label class="form-check-label" for="program1">12-Step Program</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="program2" name="programsAvailable[]" value="Holistic Programs">
-                        <label class="form-check-label" for="program2">Holistic Programs</label>
+                        <input type="checkbox" class="form-check-input" id="program2" name="programsAvailable[]" value="Outpatient Program">
+                        <label class="form-check-label" for="program2">Outpatient Program</label>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="program3" name="programsAvailable[]" value="Dual Diagnosis">
-                        <label class="form-check-label" for="program3">Dual Diagnosis</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="program4" name="programsAvailable[]" value="Gender-Specific Programs">
-                        <label class="form-check-label" for="program4">Gender-Specific Programs</label>
-                    </div>
+                    <!-- Add more programs as needed -->
                 </div>
             </div>
 
@@ -160,18 +131,7 @@
                         <input type="checkbox" class="form-check-input" id="addiction2" name="addictions[]" value="Drugs">
                         <label class="form-check-label" for="addiction2">Drugs</label>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction3" name="addictions[]" value="Gambling">
-                        <label class="form-check-label" for="addiction3">Gambling</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction4" name="addictions[]" value="Internet">
-                        <label class="form-check-label" for="addiction4">Internet</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction5" name="addictions[]" value="Smoking">
-                        <label class="form-check-label" for="addiction5">Smoking</label>
-                    </div>
+                    <!-- Add more addictions as needed -->
                 </div>
                 <div class="form-group col-md-6">
                     <label for="emergencyServices">Emergency Services:</label>
@@ -187,16 +147,9 @@
                     <label for="startTime">Start Time:</label>
                     <input type="time" class="form-control" id="startTime" name="startTime" required>
                 </div>
-                <div class="form-group col-md6">
+                <div class="form-group col-md-6">
                     <label for="endTime">End Time:</label>
                     <input type="time" class="form-control" id="endTime" name="endTime" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for="staffInformation">Description about your center</label>
-                    <textarea class="form-control" id="staffInformation" name="description" rows="3"></textarea>
                 </div>
             </div>
 
@@ -213,13 +166,13 @@
 
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="priceRange">Price Range (in INR):</label>
+                    <label for="priceRange">Consultancy Fee (in INR):</label>
                     <select class="form-control" id="priceRange" name="priceRange" required>
                         <option value="">Select Price Range</option>
-                        <option value="Below 10,000">Below 10,000</option>
-                        <option value="10,000 - 50,000">10,000 - 50,000</option>
-                        <option value="50,000 - 1,00,000">50,000 - 1,00,000</option>
-                        <option value="Above 1,00,000">Above 1,00,000</option>
+                        <option value="200">200</option>
+                        <option value="500">500</option>
+                        <option value="1000">1000</option>
+                        <option value="Above 1000">Above 1000</option>
                     </select>
                 </div>
             </div>
@@ -227,35 +180,24 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="centerImages">Center Images:</label>
-                    <input type="file" class="form-control-file" id="centerImages" name="centerImages" multiple>
+                    <input type="file" class="form-control-file" id="centerImages" name="centerImages" accept="image/*" multiple required>
                 </div>
             </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </form>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="description">Center Description:</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a brief description of the center" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="registerButton">Register</button>
+        </form> 
     </div>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <!-- Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        document.getElementById('contactNo').addEventListener('input', function (e) {
-    const phoneNumberPattern = /^[0-9]{10}$/;
-    const phoneNumberInput = e.target.value;
-
-    if (!phoneNumberPattern.test(phoneNumberInput)) {
-        e.target.setCustomValidity("Please enter a valid 10-digit phone number.");
-        e.target.classList.add('is-invalid');
-    } else {
-        e.target.setCustomValidity("");
-        e.target.classList.remove('is-invalid');
-    }
-});
-
+        
     </script>
-   
+     <script src="./js/centerRegistration.js"></script>
 </body>
 </html>

@@ -1,0 +1,131 @@
+ .descPage {
+     font-family: 'Poppins', sans-serif;
+     overflow-x: hidden;
+     /* Prevent horizontal scrollbar */
+ }
+
+ /* Navbar */
+ .descPage .navbar {
+     padding: 1rem 2rem;
+     background: linear-gradient(90deg, #343a40, #495057);
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ .descPage .navbar-brand {
+     color: white;
+     font-weight: 600;
+     font-size: 1.8rem;
+ }
+
+ .descPage .nav-link {
+     color: white;
+     margin-right: 1.5rem;
+     font-size: 1rem;
+ }
+
+ .descPage .nav-link:hover {
+     color: #f8f9fa;
+ }
+
+ .descPage .navbar-toggler {
+     border-color: white;
+ }
+
+ .descPage .dropdown-menu {
+     background-color: #343a40;
+ }
+
+ .descPage .dropdown-item {
+     color: white;
+ }
+
+ .descPage .dropdown-item:hover {
+     background-color: #495057;
+ }
+
+ /* nav bar end */
+
+ .descPage .carousel-caption {
+     background-color: rgba(0, 0, 0, 0.6);
+     padding: 10px;
+     border-radius: 10px;
+ }
+
+ .descPage .info-section {
+     padding: 50px 0;
+ }
+
+ .descPage .center-image {
+     height: 500px;
+     /* Adjust this value to reduce or increase the image height */
+     object-fit: cover;
+     /* Ensures the image fits within the specified height */
+ }
+
+ .descPage .info-card {
+     background-color: #fff;
+     border-radius: 10px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     padding: 30px;
+ }
+
+ .descPage .services-list {
+     list-style-type: none;
+     padding: 0;
+ }
+
+ .descPage .services-list li {
+     padding: 10px 0;
+     border-bottom: 1px solid #eaeaea;
+     font-size: 1.1rem;
+     color: #333;
+ }
+
+ .descPage .contact-card {
+     border-left: 5px solid #ffc107;
+     padding: 20px;
+     margin-top: 20px;
+ }
+
+ .descPage .emergency-banner {
+     background-color: #dc3545;
+     color: white;
+     text-align: center;
+     padding: 20px;
+     border-radius: 8px;
+     margin-top: 30px;
+ }
+
+ .descPage h4 {
+     font-weight: bold;
+     margin-bottom: 15px;
+ }
+
+ .descPage .appointment-card {
+     background-color: #e9f7ef;
+     /* Light green background for visibility */
+     border-radius: 10px;
+     padding: 30px;
+
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+ }
+
+ .descPage .appointment-button {
+     background-color: #28a745;
+     /* Bootstrap success color */
+     color: white;
+     border: none;
+     padding: 10px 20px;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+
+ .descPage .appointment-button:hover {
+     background-color: #218838;
+     /* Darker green on hover */
+ }
+
+ .descPage .hidden {
+     display: none;
+ }

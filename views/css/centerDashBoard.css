@@ -1,0 +1,273 @@
+body {
+font-family: 'Roboto', sans-serif;
+background-color: #f7f9fc; /* Lighter background for a fresh feel */
+overflow-y: scroll;
+}
+
+/* Sidebar styling */
+.sidebar {
+height: 100vh;
+background: #212529; /* Darker sidebar */
+color: #ffffff;
+padding: 2rem 1rem;
+position: sticky;
+top: 0;
+z-index: 1000;
+transition: width 0.3s; /* Smooth transition for sidebar */
+}
+
+.sidebar h2 {
+font-size: 1.8rem;
+font-weight: 700;
+margin-bottom: 2rem;
+}
+
+.sidebar a {
+color: #adb5bd; /* Lighter color for links */
+text-decoration: none;
+font-size: 1.1rem;
+padding: 0.75rem;
+display: block;
+margin-bottom: 1rem;
+border-radius: 4px;
+transition: background 0.3s, color 0.3s; /* Smooth color transitions */
+}
+
+.sidebar a:hover {
+background-color: rgba(255, 255, 255, 0.1);
+color: #ffffff; /* Change link color on hover */
+}
+
+.main-content {
+padding: 2rem;
+overflow-y: auto;
+}
+
+.dashboard-card {
+border: none;
+border-radius: 12px;
+padding: 1.5rem;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+background-color: #ffffff;
+margin-bottom: 2rem;
+transition: transform 0.2s, box-shadow 0.2s; /* Transition effects */
+}
+
+.dashboard-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.card-header {
+font-size: 1.5rem;
+font-weight: 600; /* Slightly bolder for emphasis */
+margin-bottom: 1rem;
+color: #343a40; /* Darker header */
+}
+
+.top-nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem;
+background-color: #ffffff;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Deeper shadow for separation */
+}
+
+.top-nav img {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+border: 2px solid #ffffff;
+}
+
+.logout-btn {
+background-color: transparent;
+border: none;
+color: #343a40;
+font-size: 1.5rem;
+cursor: pointer;
+transition: color 0.3s;
+}
+
+.logout-btn:hover {
+color: #dc3545; /* Red color for logout button */
+}
+
+.grid-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 2rem;
+}
+
+/* .appointment-card {
+border: 1px solid #e0e0e0;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+transition: transform 0.2s, box-shadow 0.2s; 
+}
+
+.appointment-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+} */
+
+.btn-approve {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+.btn-approve:hover {
+    background-color: #218838;
+}
+
+.btn-cancel {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #c82333;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+.modal-footer .btn {
+    margin-right: 10px;
+}
+
+.modal-footer .btn-danger {
+    background-color: #dc3545;
+}
+
+.modal-footer .btn-danger:hover {
+    background-color: #c82333;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
+    
+
+
+/* .btn-approve {
+background-color: #28a745;
+color: white;
+border-radius: 8px;
+border: none;
+padding: 0.5rem 1rem;
+transition: background-color 0.3s, transform 0.2s; Button transitions */
+/* } */
+
+/* .btn-approve:hover {
+background-color: #218838;
+transform: translateY(-2px); Lift effect on hover */
+/* } */
+
+/* .btn-cancel { */
+/* background-color: #dc3545;
+color: white;
+border-radius: 8px;
+border: none;
+padding: 0.5rem 1rem;
+transition: background-color 0.3s, transform 0.2s; Button transitions */
+/* } */
+
+/* .btn-cancel:hover {
+background-color: #c82333;
+transform: translateY(-2px); /* Lift effect on hover */
+/* } */ 
+
+/* Form styles */
+.form-label {
+font-weight: 500;
+}
+
+.form-control {
+border-radius: 8px;
+border: 1px solid #ced4da;
+transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.form-control:focus {
+border-color: #007bff;
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Additional styling for buttons */
+.btn-primary {
+background-color: #007bff;
+border-color: #007bff;
+border-radius: 8px;
+padding: 0.5rem 1rem;
+transition: background-color 0.3s, transform 0.2s; /* Button transitions */
+}
+
+.btn-primary:hover {
+background-color: #0056b3;
+border-color: #0056b3;
+transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Event card styling */
+.event-card {
+border: 1px solid #e0e0e0;
+border-radius: 8px;
+padding: 1.5rem;
+background-color: #ffffff;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+margin-bottom: 1.5rem;
+transition: transform 0.2s, box-shadow 0.2s; /* Event card transitions */
+}
+
+.event-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.event-card h3 {
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+}
+
+.event-card p {
+margin-bottom: 0.5rem;
+}
+
+.event-card .btn-primary {
+width: 100%;
+padding: 0.5rem 0; /* Full-width button with padding */
+}

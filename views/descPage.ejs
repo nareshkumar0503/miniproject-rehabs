@@ -9,457 +9,324 @@
     </title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-        }
-
-        /* Navbar */
-        .navbar {
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, #343a40, #495057);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            color: white;
-            font-weight: 600;
-            font-size: 1.8rem;
-        }
-
-        .nav-link {
-            color: white;
-            margin-right: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .nav-link:hover {
-            color: #f8f9fa;
-        }
-
-        .navbar-toggler {
-            border-color: white;
-        }
-
-        .dropdown-menu {
-            background-color: #343a40;
-        }
-
-        .carousel-caption {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .info-section {
-            padding: 50px 0;
-        }
-
-        .center-image {
-            height: 500px;
-            /* Adjust this value to reduce or increase the image height */
-            object-fit: cover;
-            /* Ensures the image fits within the specified height */
-        }
-
-        .info-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-
-        }
-
-        .services-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .services-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eaeaea;
-            font-size: 1.1rem;
-            color: #333;
-        }
-
-        .contact-card {
-            border-left: 5px solid #ffc107;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .emergency-banner {
-            background-color: #dc3545;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-
-        h4 {
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .appointment-card {
-            background-color: #e9f7ef;
-            /* Light green background for visibility */
-            border-radius: 10px;
-            padding: 30px;
-
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .appointment-button {
-            background-color: #28a745;
-            /* Bootstrap success color */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .appointment-button:hover {
-            background-color: #218838;
-            /* Darker green on hover */
-        }
-
-        .hidden {
-            display: none;
-        }
-
-    
-    </style>
+    <link rel="stylesheet" href="./css/descPage.css">
 </head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#">
-            <img src="/public/img/logo.png" alt="">
-            DEADDICTION
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:3000/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Guidance</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:3009/">Map</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Account
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <% if (username) { %>
-                            <a class="dropdown-item" href="profile.ejs">Profile</a>
-                            <a class="dropdown-item" href="http://localhost:3000/login">Logout</a>
-                            <% } else { %>
-                                <a class="dropdown-item" href="/login">Login</a>
-                                <% } %>
+    <%- include('navbar') %>
+        <%- include('notifications') %>
+            <div class="descPage">
+                <!-- Carousel Section -->
+                <div id="centerCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <% if (center.centerImages && center.centerImages.length> 0) { %>
+                            <% center.centerImages.forEach((image, index)=> { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <img src="./<%= image %>" class="d-block w-100 center-image"
+                                        alt="Center Image <%= index + 1 %>">
+                                    <div class="carousel-caption text-center">
+                                        <h1
+                                            style="font-size: 2.5rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+                                            <%= center.centerName %>
+                                        </h1>
+                                        <p style="font-size: 1.2rem; color: #ffffff;">A Holistic Approach to Recovery
+                                        </p>
+                                    </div>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <div class="carousel-item active">
+                                            <img src="/path/to/default-image.jpg" class="d-block w-100 center-image"
+                                                alt="Default Image">
+                                            <div class="carousel-caption text-center">
+                                                <h1
+                                                    style="font-size: 2.5rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
+                                                    <%= center.centerName %>
+                                                </h1>
+                                                <p style="font-size: 1.2rem; color: #ffffff;">A Holistic Approach to
+                                                    Recovery
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% } %>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#centerCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#centerCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
 
-    <!-- Carousel Section -->
-    <div id="centerCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <% if (center.centerImages && center.centerImages.length> 0) { %>
-                <% center.centerImages.forEach((image, index)=> { %>
-                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                        <img src="./<%= image %>" class="d-block w-100 center-image"
-                            alt="Center Image <%= index + 1 %>">
-                        <div class="carousel-caption text-center">
-                            <h1 style="font-size: 2.5rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
-                                <%= center.centerName %>
-                            </h1>
-                            <p style="font-size: 1.2rem; color: #ffffff;">A Holistic Approach to Recovery</p>
-                        </div>
-                    </div>
-                    <% }) %>
-                        <% } else { %>
-                            <div class="carousel-item active">
-                                <img src="/path/to/default-image.jpg" class="d-block w-100 center-image"
-                                    alt="Default Image">
-                                <div class="carousel-caption text-center">
-                                    <h1
-                                        style="font-size: 2.5rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
-                                        <%= center.centerName %>
-                                    </h1>
-                                    <p style="font-size: 1.2rem; color: #ffffff;">A Holistic Approach to Recovery</p>
+                <!-- Info Section -->
+                <div class="container info-section">
+                    <div class="row">
+                        <!-- Left Column: Center Information -->
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="info-card mb-1">
+                                    <h4>Center Information</h4>
+                                    <ul class="services-list">
+                                        <li><strong>Address:</strong>
+                                            <%= center.address %>
+                                        </li>
+                                        <li><strong>Registration No:</strong>
+                                            <%= center.registrationNo %>
+                                        </li>
+                                        <li><strong>Price Range:</strong> ₹<%= center.priceRange %>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <% } %>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#centerCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#centerCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+                            <!-- appointment section -->
+                            <div class="row">
+                                <!-- Conditionally show/hide the Book Appointment card -->
+                                <% if (status===0) { %> <!-- Show the card if not booked -->
+                                    <div class="appointment-card">
+                                        <h4>Book an Appointment</h4>
+                                        <form id="appointmentForm">
+                                            <div class="mb-3">
+                                                <label for="patientName" class="form-label">Patient Name</label>
+                                                <input type="text" class="form-control" id="patientName"
+                                                    value="<%= patient.patientname %>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" class="form-control" id="patientEmail"
+                                                    value="<%= patient.email %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" class="form-control" id="patientAge"
+                                                    value="<%= patient.patientage %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" class="form-control" id="bloodGroup"
+                                                    value="<%= patient.bloodgroup %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patientAddiction" class="form-label">Addiction</label>
+                                                <input type="text" class="form-control" id="patientAddiction"
+                                                    value="<%= patient.addictionType.join(', ') %>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="appointmentDate" class="form-label">Appointment Date</label>
+                                                <input type="date" class="form-control" id="appointmentDate" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" id="centerEmail" value="<%= center.email %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" id="centerName" value="<%= center.centerName %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" id="patientPhone"
+                                                    value="<%= patient.patientcontactnumber %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="hidden" id="attenderPhone"
+                                                    value="<%= patient.attendercontactnumber %>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="appointmentSession" class="form-label">Session</label>
+                                                <select class="form-select" id="appointmentSession" required>
+                                                    <option value="" disabled selected>Select Session</option>
+                                                    <option value="Morning">Morning</option>
+                                                    <option value="Evening">Evening</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="appointment-button">Book
+                                                Appointment</button>
+                                        </form>
+                                    </div>
+                                    <% } else { %> <!-- Show "View Appointment" button if booked -->
+                                        <div class="view-appointment-card">
+                                            <button type="button" class="appointment-button view-button"
+                                                onclick="window.location.href='/view-appointment'">View
+                                                Appointment</button>
+                                        </div>
+                                        <% } %>
+                            </div>
+                        </div>
+                        <!-- Right Column: Programs & Services -->
+                        <div class="col-lg-6">
+                            <div class="info-card">
+                                <h4>Programs & Addictions Treated</h4>
+                                <ul class="services-list">
+                                    <!-- Services Offered -->
+                                    <li><strong>Services Offered:</strong></li>
+                                    <div>
+                                        <% center.servicesOffered.forEach(function(service) { %>
+                                            <span class="badge bg-primary rounded-pill p-2 m-1">
+                                                <%= service %>
+                                            </span>
+                                            <% }); %>
+                                    </div>
 
-    <!-- Info Section -->
-    <div class="container info-section">
-        <div class="row">
-            <!-- Left Column: Center Information -->
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="info-card mb-1">
-                        <h4>Center Information</h4>
-                        <ul class="services-list">
-                            <li><strong>Address:</strong>
-                                <%= center.address %>
-                            </li>
-                            <li><strong>Registration No:</strong>
-                                <%= center.registrationNo %>
-                            </li>
-                            <li><strong>Price Range:</strong> ₹<%= center.priceRange %>
-                            </li>
-                        </ul>
+                                    <!-- Programs Available -->
+                                    <li><strong>Programs Available:</strong></li>
+                                    <div>
+                                        <% center.programsAvailable.forEach(function(program) { %>
+                                            <span class="badge bg-success rounded-pill p-2 m-1">
+                                                <%= program %>
+                                            </span>
+                                            <% }); %>
+                                    </div>
+
+                                    <!-- Addictions Treated -->
+                                    <li><strong>Addictions Treated:</strong></li>
+                                    <div>
+                                        <% center.addictions.forEach(function(addiction) { %>
+                                            <span class="badge bg-danger rounded-pill p-2 m-1">
+                                                <%= addiction %>
+                                            </span>
+                                            <% }); %>
+                                    </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="info-card contact-card">
+                                <h4>Contact Information</h4>
+                                <p><strong>Phone:</strong>
+                                    <%= center.contactNo %>
+                                </p>
+                                <p><strong>Email:</strong>
+                                    <%= center.email %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Contact Banner -->
+                    <div class="emergency-banner">
+                        <h4>For Immediate Assistance, Call Our Emergency Line: <%= center.emergencyContact %>
+                        </h4>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="appointment-card">
-                        <h4>Book an Appointment</h4>
-                        <form id="appointmentForm">
-                            <div class="mb-3">
-                                <label for="patientName" class="form-label">Patient Name</label>
-                                <input type="text" class="form-control" id="patientName"
-                                    value="<%= patient.patientname %>" readonly>
+                <!-- Footer -->
+                <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
+                    <div class="container">
+                        <div class="row">
+                            <!-- About Section -->
+                            <div class="col-md-4">
+                                <h5>About Us</h5>
+                                <p>DEADDICTION is dedicated to helping individuals overcome addiction through our
+                                    comprehensive
+                                    rehabilitation programs. Our centers are equipped with the latest facilities and
+                                    experienced
+                                    professionals to ensure the best care.</p>
                             </div>
-                            <div class="mb-3">
-                                <input type="hidden" class="form-control" id="patientEmail"
-                                    value="<%= patient.email %>">
+                            <!-- Quick Links -->
+                            <div class="col-md-4">
+                                <h5>Quick Links</h5>
+                                <ul class="list-unstyled">
+                                    <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
+                                    <li><a href="#" style="color: #ffffff;">Guidance</a></li>
+                                    <li><a href="#" style="color: #ffffff;">Map</a></li>
+                                    <li><a href="#" style="color: #ffffff;">Events</a></li>
+                                    <li><a href="/view-appointment" style="color: #ffffff;">Appointments</a></li>
+                                    <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
+                                </ul>
                             </div>
-                            <div class="mb-3">
-                                <input type="hidden" class="form-control" id="patientAge"
-                                    value="<%= patient.patientage %>">
+                            <!-- Contact Section -->
+                            <div class="col-md-4">
+                                <h5>Contact Us</h5>
+                                <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
+                                <p><i class="fas fa-phone"></i> +91 9361169510</p>
+                                <p><i class="fas fa-phone"></i> +91 9655442017</p>
+                                <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
                             </div>
-                            <div class="mb-3">
-                                <input type="hidden" class="form-control" id="bloodGroup"
-                                    value="<%= patient.bloodgroup %>">
+                        </div>
+                        <hr style="border-color: #ffffff;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
                             </div>
-                            <div class="mb-3">
-                                <label for="patientAddiction" class="form-label">Addiction</label>
-                                <input type="text" class="form-control" id="patientAddiction"
-                                    value="<%= patient.addictionType.join(', ') %>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="appointmentDate" class="form-label">Appointment Date</label>
-                                <input type="date" class="form-control" id="appointmentDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="hidden" id="centerEmail" value="<%= center.email %>">
-                            </div>
-                            <div class="mb-3">
-                                <input type="hidden" id="centerName" value="<%= center.centerName %>">
-                            </div>
-                            <div class="mb-3">
-                                <input type="hidden" id="patientPhone" value="<%= patient.patientcontactnumber %>">
-                            </div>
-                            <div class="mb-3">
-                                <input type="hidden" id="attenderPhone" value="<%= patient.attendercontactnumber %>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="appointmentSession" class="form-label">Session</label>
-                                <select class="form-select" id="appointmentSession" required>
-                                    <option value="" disabled selected>Select Session</option>
-                                    <option value="Morning">Morning</option>
-                                    <option value="Evening">Evening</option>
-                                </select>
-                            </div>
-                            <button type="button" class="appointment-button" id="bookAppointmentButton">Book
-                                Appointment</button>
-                            <button type="button" class="appointment-button hidden" id="viewAppointmentButton">View
-                                Appointment</button>
-                        </form>
+                        </div>
                     </div>
+                </footer>
+
+                <div id="appointmentContainer" class="mb-3">
+                    <label for="appointmentDate" class="form-label">Appointment Date</label>
+                    <input type="date" class="form-control" id="appointmentDate" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="appointmentSession" class="form-label">Session</label>
+                    <select class="form-select" id="appointmentSession" required>
+                        <option value="" disabled selected>Select Session</option>
+                        <option value="Morning">Morning</option>
+                        <option value="Evening">Evening</option>
+                    </select>
                 </div>
             </div>
-            <!-- Right Column: Programs & Services -->
-            <div class="col-lg-6">
-                <div class="info-card">
-                    <h4>Programs & Addictions Treated</h4>
-                    <ul class="services-list">
-                        <!-- Services Offered -->
-<li><strong>Services Offered:</strong></li>
-<div>
-    <% center.servicesOffered.forEach(function(service) { %>
-        <span class="badge bg-primary rounded-pill p-2 m-1">
-            <%= service %>
-        </span>
-    <% }); %>
-</div>
+            <script>
+                function setupAppointmentOptions() {
+                    // Get today's date
+                    const today = new Date();
+                    const currentHour = today.getHours();
 
-<!-- Programs Available -->
-<li><strong>Programs Available:</strong></li>
-<div>
-    <% center.programsAvailable.forEach(function(program) { %>
-        <span class="badge bg-success rounded-pill p-2 m-1">
-            <%= program %>
-        </span>
-    <% }); %>
-</div>
+                    // Format today's date as YYYY-MM-DD
+                    const todayFormatted = today.toISOString().split('T')[0];
 
-<!-- Addictions Treated -->
-<li><strong>Addictions Treated:</strong></li>
-<div>
-    <% center.addictions.forEach(function(addiction) { %>
-        <span class="badge bg-danger rounded-pill p-2 m-1">
-            <%= addiction %>
-        </span>
-    <% }); %>
-</div>
+                    // Calculate the date 7 days from today
+                    const sevenDaysLater = new Date(today);
+                    sevenDaysLater.setDate(today.getDate() + 7);
+                    const sevenDaysLaterFormatted = sevenDaysLater.toISOString().split('T')[0];
 
-            </div>
+                    // Set the min and max attributes of the appointment date input
+                    const appointmentDateInput = document.getElementById('appointmentDate');
+                    appointmentDateInput.setAttribute('min', todayFormatted);
+                    appointmentDateInput.setAttribute('max', sevenDaysLaterFormatted);
 
-        </div>
+                    // Check if it's past 8 PM today, then hide today's date in the date picker
+                    if (currentHour >= 20) {
+                        const tomorrow = new Date(today);
+                        tomorrow.setDate(today.getDate() + 1);
+                        appointmentDateInput.setAttribute('min', tomorrow.toISOString().split('T')[0]);
+                    }
 
-    </div>
+                    // If it's past noon (12 PM), remove the "Morning" option
+                    const morningOption = document.querySelector('#appointmentSession option[value="Morning"]');
+                    if (currentHour >= 12 && morningOption) {
+                        morningOption.style.display = 'none';
+                    }
 
-    <!-- Contact Information -->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="info-card contact-card">
-                <h4>Contact Information</h4>
-                <p><strong>Phone:</strong>
-                    <%= center.contactNo %>
-                </p>
-                <p><strong>Email:</strong>
-                    <%= center.email %>
-                </p>
-            </div>
-        </div>
-    </div>
+                    // Add event listener to dynamically update session options based on the selected date
+                    appointmentDateInput.addEventListener('change', function () {
+                        const selectedDate = new Date(this.value);
+                        const isTodaySelected = selectedDate.toDateString() === today.toDateString();
 
-    <!-- Emergency Contact Banner -->
-    <div class="emergency-banner">
-        <h4>For Immediate Assistance, Call Our Emergency Line: <%= center.emergencyContact %>
-        </h4>
-    </div>
-    </div>
+                        // Reset the session dropdown visibility for a new date
+                        if (morningOption) {
+                            morningOption.style.display = ''; // Show the morning option again for future dates
+                        }
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script>
-        document.getElementById('bookAppointmentButton').addEventListener('click', function () {
-            const patientName = document.getElementById('patientName').value;
-            const patientAge = document.getElementById('patientAge').value;
-            const patientEmail = document.getElementById('patientEmail').value;
-            const patientPhone = document.getElementById('patientPhone').value;
-            // Get the patient addiction input and convert it to an array
-            const patientAddictionInput = document.getElementById('patientAddiction').value;
-            const patientAddiction = patientAddictionInput.split(',').map(item => item.trim());
-            const appointmentDate = new Date(document.getElementById('appointmentDate').value).toISOString();  // Convert to ISO string if using Date type in the schema
-            const appointmentSession = document.getElementById('appointmentSession').value;
-            const centerEmail = document.getElementById('centerEmail').value;
-            const centerName = document.getElementById('centerName').value;
-            const attenderPhone = document.getElementById('attenderPhone').value;
-            const patientBloodGroup = document.getElementById('bloodGroup').value;
-            if (appointmentDate && appointmentSession) {
-                // Logic to handle booking the appointment (e.g., send a request to the server)
-                fetch('/book-appointment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        patientName,
-                        patientAge,
-                        patientEmail,
-                        patientPhone,
-                        patientAddiction,
-                        appointmentDate,
-                        appointmentSession,
-                        centerEmail,
-                        centerName,
-                        attenderPhone,
-                        patientBloodGroup,
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Hide the Book Appointment button and show the View Appointment button
-                            document.getElementById('bookAppointmentButton').classList.add('hidden');
-                            document.getElementById('viewAppointmentButton').classList.remove('hidden');
-                        } else {
-                            alert(data.message);
+                        // If today's date is selected and it's past noon, hide the Morning option
+                        if (isTodaySelected && currentHour >= 12 && morningOption) {
+                            morningOption.style.display = 'none';
                         }
                     });
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
+                }
+                // Initialize the appointment options setup on page load
+                window.onload = setupAppointmentOptions;
+            </script>
 
-        document.getElementById('viewAppointmentButton').addEventListener('click', function () {
-            // Logic to view the appointment details
-            alert('Displaying appointment details.');
-        });
-    </script>
-    <!-- Footer -->
-    <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
-        <div class="container">
-            <div class="row">
-                <!-- About Section -->
-                <div class="col-md-4">
-                    <h5>About Us</h5>
-                    <p>DEADDICTION is dedicated to helping individuals overcome addiction through our comprehensive
-                        rehabilitation programs. Our centers are equipped with the latest facilities and experienced
-                        professionals to ensure the best care.</p>
-                </div>
-                <!-- Quick Links -->
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
-                        <li><a href="#" style="color: #ffffff;">Guidance</a></li>
-                        <li><a href="#" style="color: #ffffff;">Map</a></li>
-                        <li><a href="#" style="color: #ffffff;">Events</a></li>
-                        <li><a href="/view-appointment" style="color: #ffffff;">Appointments</a></li>
-                        <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
-                    </ul>
-                </div>
-                <!-- Contact Section -->
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
-                    <p><i class="fas fa-phone"></i> +91 9361169510</p>
-                    <p><i class="fas fa-phone"></i> +91 9655442017</p>
-                    <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
-                </div>
-            </div>
-            <hr style="border-color: #ffffff;">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+            <!-- Bootstrap JS and dependencies -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+            <script src="./js/indexpage.js"></script>
 </body>
 
 </html>

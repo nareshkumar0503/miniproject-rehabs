@@ -1,0 +1,178 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    /* Prevent horizontal scrollbar */
+}
+
+/* Navbar */
+.navbar {
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, #343a40, #495057);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: white;
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.nav-link {
+    color: white;
+    margin-right: 1.5rem;
+    font-size: 1rem;
+}
+
+.nav-link:hover {
+    color: #f8f9fa;
+}
+
+.navbar-toggler {
+    border-color: white;
+}
+
+.dropdown-menu {
+    background-color: #343a40;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #495057;
+}
+
+/* Welcome Section */
+.welcome-section {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: url('../img/add.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-attachment: fixed;
+    /* Parallax effect */
+}
+
+.welcome-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+    z-index: 1;
+}
+
+.welcome-section h1,
+.welcome-section h2 {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-section h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+}
+
+.welcome-section h2 {
+    font-size: clamp(1rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+}
+
+/* Center Cards */
+.center-cards {
+    display: flex;
+    overflow-x: hidden;
+    /* Hide scrollbar */
+    padding: 20px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    gap: 15px;
+    /* Spacing between cards */
+}
+
+.center-card {
+    flex: 0 0 auto;
+    width: 270px;
+    margin: 10px;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.center-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.center-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.rating {
+    color: #ffc107;
+    font-size: 1.2rem;
+}
+
+/* Scroll Buttons */
+.scroll-button {
+    background-color: #343a40;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.scroll-button:hover {
+    background-color: #495057;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-section {
+        height: 50vh;
+    }
+
+    .welcome-section h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .welcome-section h2 {
+        font-size: clamp(0.9rem, 2vw, 1.3rem);
+    }
+
+    .center-card {
+        width: 200px;
+    }
+}

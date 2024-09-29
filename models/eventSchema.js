@@ -6,11 +6,7 @@ const eventSchema = new mongoose.Schema({
     eventDate:String,
     eventTime:String,
     centerName:String,
-    centerEmail:String,
-    patientName:String,
-    patientEmail:String,
-    patientPhone:String,
-    attenderPhone:String,
+    centerEmail:String
 });
 
 module.exports = mongoose.model('Event',eventSchema);

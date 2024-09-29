@@ -12,12 +12,11 @@ const patientSchema = new mongoose.Schema({
     password:String,
     patientcontactnumber: String,
     attendercontactnumber: String,
-    email: { type: String, unique: true },
+    email: { type: String},
     addictionType: [String],
     addictionDuration: String,
     frequencyOfUse: String,
-    previousTreatmentHistory: String,
-    currentPhysicalHealth: String,
+    previousTreatmentHistory: String
 });
 
 module.exports = mongoose.model('Patient', patientSchema);
