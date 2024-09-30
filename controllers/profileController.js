@@ -93,6 +93,6 @@ exports.centerLogout = (req,res)=>{
         res.set('Pragma', 'no-cache');
         res.set('Expires', '0');
 
-        res.redirect('/center-dashboard');
+        res.redirect('/login');
     });
 }
