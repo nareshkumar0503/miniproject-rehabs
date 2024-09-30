@@ -9,16 +9,22 @@
      padding: 1rem 2rem;
      background: linear-gradient(90deg, #343a40, #495057);
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     font-family: 'Poppins', sans-serif;
+
  }
 .navbar-brand {
      color: white;
      font-weight: 600;
      font-size: 1.8rem;
+     font-family: 'Poppins', sans-serif;
+
  }
 .nav-link {
      color: white;
      margin-right: 1.5rem;
      font-size: 1rem;
+     font-family: 'Poppins', sans-serif;
+
  }
 .nav-link:hover {
      color: #f8f9fa;
