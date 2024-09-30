@@ -3,6 +3,10 @@ const Center = require('../models/Center')
 
 // -----------------------------------------------------------------------------------------------------------------------
 exports.getLoginPage = (req, res) => {
+    if(req.session.email)
+    {
+        res.redirect('/')
+    }
     res.render('login');
 };
 // -----------------------------------------------------------------------------------------------------------------------
@@ -74,3 +78,21 @@ exports.Logout = (req, res) => {
 };
 
 // -----------------------------------------------------------------------------------------------------------------------
+
+exports.centerLogout = (req,res)=>{
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ message: 'Failed to log out' });
+        }
+
+        // Clear the cookie related to the session
+        res.clearCookie('connect.sid');  // 'connect.sid' is the default cookie name for sessions
+
+        // Prevent caching of logged-in content
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+
+        res.redirect('/center-dashboard');
+    });
+}

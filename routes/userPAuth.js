@@ -56,6 +56,7 @@ router.get('/login', profileController.getLoginPage);
 router.post('/login', profileController.postLogin);
 router.get('/profile', isAuthenticated, profileController.getProfilePage);
 router.get('/logout', profileController.Logout);
+router.get('/center-logout', profileController.centerLogout);
 //--------------------------------------------------------------------------------// 
 
 module.exports = router;

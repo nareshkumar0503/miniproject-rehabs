@@ -39,7 +39,10 @@ app.use(session({
   saveUninitialized: false,
   cookie: { secure:false, maxAge: 7 * 24 * 60 * 60 * 1000 },
 }));
-
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
 // Middleware setup
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
