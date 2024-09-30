@@ -5,41 +5,36 @@
  }
 
  /* Navbar */
- .descPage .navbar {
+.navbar {
      padding: 1rem 2rem;
      background: linear-gradient(90deg, #343a40, #495057);
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
  }
-
- .descPage .navbar-brand {
+.navbar-brand {
      color: white;
      font-weight: 600;
      font-size: 1.8rem;
  }
-
- .descPage .nav-link {
+.nav-link {
      color: white;
      margin-right: 1.5rem;
      font-size: 1rem;
  }
-
- .descPage .nav-link:hover {
+.nav-link:hover {
      color: #f8f9fa;
  }
-
- .descPage .navbar-toggler {
+.navbar-toggler {
      border-color: white;
  }
-
- .descPage .dropdown-menu {
+.dropdown-menu {
      background-color: #343a40;
  }
 
- .descPage .dropdown-item {
+.dropdown-item {
      color: white;
  }
 
- .descPage .dropdown-item:hover {
+ .dropdown-item:hover {
      background-color: #495057;
  }
 
