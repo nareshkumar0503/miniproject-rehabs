@@ -2,7 +2,7 @@ const Patient = require('../models/patientSchema')
 const Center = require('../models/Center')
 
 // -----------------------------------------------------------------------------------------------------------------------
-exports.getLoginPage = (req,res) => {
+exports.getLoginPage = (req, res) => {
     res.render('login');
 };
 // -----------------------------------------------------------------------------------------------------------------------
@@ -10,10 +10,13 @@ exports.getLoginPage = (req,res) => {
 exports.postLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
+        // Redirect to the original page if it exists, otherwise go to home page
+        const redirectTo = req.session.redirectTo || '/';
+        delete req.session.redirectTo; // Clear the redirectTo after use
         const center = await Center.findOne({ email })
         if (center) {
             req.session.email = email;
-            return res.status(200).json({success:true, message: '/center-dashboard'});
+            return res.status(200).json({ success: true, message: '/center-dashboard' });
         }
         const user = await Patient.findOne({ email });
         if (!user) {
@@ -25,16 +28,16 @@ exports.postLogin = async (req, res) => {
         //   return res.status(400).json({ message: 'Invalid credentials' });
         // }
         if (password != user.password) {
-            return res.status(400).json({success:false, message: 'Invalid password' });
+            return res.status(400).json({ success: false, message: 'Invalid password' });
         }
         req.login(user, (err) => {
             if (err) {
-                return res.status(500).json({success:false, message: 'Login error' });
+                return res.status(500).json({ success: false, message: 'Login error' });
             }
             req.session.userId = user._id;
             req.session.email = user.email;
             req.session.username = user.patientname;
-            return res.status(200).json({success : true, message: '/'});
+            return res.status(200).json({ success: true, message: redirectTo });
         });
     } catch (err) {
         return res.status(500).json({ message: 'Server error' });

@@ -1,17 +1,15 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-const User = require('../models/UserSchema');
 // const bcrypt = require('bcryptjs');
 const Patient = require('../models/patientSchema');
-const Center = require('../models/Center');
 const profileController = require('../controllers/profileController');
 
 // Middleware to check if user is authenticated
 async function isAuthenticated(req, res, next) {
   if (req.session.userId) {
     try {
-      const user = await User.findById(req.session.userId).lean();
+      const user = await Patient.findById(req.session.userId).lean();
       if (user) {
         res.locals.user = user;
         return next();

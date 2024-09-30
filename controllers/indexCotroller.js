@@ -19,21 +19,22 @@ exports.getLandingPage = async (req, res) => {
 //-------Get Description Page******Get Description Page******Get Description Page******/
 exports.getDescPage = async (req, res) => {
   const email = req.query.email || 'No email provided';
-  console.log(email)
   try {
     const patientEmail = req.session.email;
     const patient = await Patient.findOne({ email: patientEmail });
-    const appointment = await Appointment.findOne({ patientEmail });
+    if (!patient) {
+       // Store the original URL the user wanted to visit
+      req.session.redirectTo = req.originalUrl;
+      return res.redirect('/login');
+    }
+    const username = req.session.username;
+    const appointment = await Appointment.findOne({ patientEmail: patient.email });
     var status = 0;
     if (appointment) {
       status = 1;
     }
-    const username = req.session.username
-    if (!patient) {
-      return res.redirect('/login');
-    }
     const center = await Center.findOne({ email });
-    return res.render('descPage', { center, patient, username, status });
+    return res.render('descPage', { center, username, patient, status });
   } catch (err) {
     return res.status(500).send('Server Error');
   }

@@ -48,9 +48,10 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                console.log(data.message);
                 window.location.href= data.message;
             }else{
-                showNotification(data.message,false);
+                // showNotification(data.message,false);
                 setTimeout(()=>{
                     location.reload();
                 },1000);
@@ -58,7 +59,7 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            showNotification('Internal Server Error',false);
+            // showNotification('Internal Server Error',false);
         });
     })
     </script>
