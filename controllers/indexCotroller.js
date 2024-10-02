@@ -2,6 +2,7 @@ const Center = require('../models/Center');
 const Patient = require('../models/patientSchema');
 const Appointment = require('../models/appointmentSchema');
 const Event = require('../models/eventSchema');
+const BookedEvent = require('../models/bookedEventSchema')
 
 //*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender***** */
 // ------Landing Page------Landing Page------Landing Page------Landing Page------//
@@ -23,7 +24,7 @@ exports.getDescPage = async (req, res) => {
     const patientEmail = req.session.email;
     const patient = await Patient.findOne({ email: patientEmail });
     if (!patient) {
-       // Store the original URL the user wanted to visit
+      // Store the original URL the user wanted to visit
       req.session.redirectTo = req.originalUrl;
       return res.redirect('/login');
     }
@@ -87,6 +88,10 @@ exports.postAppointment = async (req, res) => {
 //******view-Appointment******view-Appointment******view-Appointment******view-Appointment*/
 exports.getAppointment = async (req, res) => {
   const patientEmail = req.session.email;
+  if(!patientEmail){
+    req.session.redirectTo = req.originalUrl;
+    return res.redirect('/login');
+  }
   const appointments = await Appointment.find({ patientEmail });
   const formatTime = (time24) => {
     const [hours, minutes] = time24.split(':');
@@ -106,28 +111,112 @@ exports.getAppointment = async (req, res) => {
 
 // ********cancel-appointment ********cancel-appointment ********cancel-appointment ******** */
 exports.cancelAppointment = async (req, res) => {
-  const { centerEmail, appointmentDate} = req.body;
+  const { centerEmail } = req.body;
   const patientEmail = req.session.email;
-   try {
+  try {
     // Find and delete the appointment based on the provided centerEmail and appointmentDate
     const result = await Appointment.deleteOne({
-        patientEmail,
-        centerEmail: centerEmail,
-        appointmentDate: appointmentDate
+      patientEmail,
+      centerEmail: centerEmail,
     });
-
+    console.log(result);
     // Check if the deletion was successful
     if (result.deletedCount > 0) {
-        return res.json({ success: true, message: 'Appointment deleted successfully' });
+      return res.status(200).json({ success: true, message: 'Appointment deleted successfully' });
     } else {
-       return res.json({ success: false, message: 'No appointment found to delete' });
+      return res.status(404).json({ success: false, message: 'No appointment found to delete' });
     }
-} catch (error) {
+  } catch (error) {
     console.error('Error deleting appointment:', error);
     return res.status(500).json({ success: false, message: 'Server error, could not delete appointment' });
-}
+  }
 };
-//*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender***** */
+
+// ******Event ******Event ******Event ******Event ******Event ******Event ******Event ******Event ****** */
+exports.getPEventPage = async (req, res) => {
+  try {
+    const patientEmail = req.session.email;
+    const username = req.session.username;
+
+    if (!patientEmail) {
+      // Store the original URL the user wanted to visit
+      req.session.redirectTo = req.originalUrl;
+      return res.redirect('/login');
+    }
+
+    // Find all events the patient has booked
+    const bookedEvents = await BookedEvent.find({ patientEmail }).populate('eventId');
+    const allEvents = await Event.find();
+
+    // Prepare the data for booked events (myEvents)
+    const myEvents = bookedEvents.map(bookedEvent => {
+      const event = bookedEvent.eventId; // Refer to the event document
+      return {
+        id: bookedEvent._id,
+        name: event.eventName,
+        date: event.eventDate,
+        time: event.eventTime,
+        bookedOn: bookedEvent.timestamp, // The time when the event was booked
+        host: event.centerName,
+        description: event.eventDesc
+      };
+    });
+
+    // Filter out events that are already booked
+    const bookedEventIds = bookedEvents.map(bookedEvent => bookedEvent.eventId._id.toString());
+    const availableEvents = allEvents.filter(event => !bookedEventIds.includes(event._id.toString()));
+
+    // Render the EJS view with myEvents and availableEvents
+    return res.render('events', { myEvents, availableEvents, username });
+
+  } catch (err) {
+    console.error('Error fetching events:', err);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// ******************************************************************************************************* */
+
+// ******book-event ******book-event ******book-event ******book-event ******book-event ******book-event * */
+exports.postBookEvent = async (req, res) => {
+  try {
+    const patientEmail = req.session.email;
+    const eventId = req.params.eventId;
+    const exists = await BookedEvent.findOne({ patientEmail, eventId });
+    if (exists) {
+      return res.status(409).json({ success: false, message: 'You have already booked' });
+    }
+    // Create a new booked event document
+    const newEvent = new BookedEvent({
+      patientEmail,
+      eventId
+    });
+    await newEvent.save();
+    return res.status(200).json({ success: true, message: 'Event Booked Successfully' })
+  } catch (err) {
+    console.error('Error booking event:', err);
+    return res.status(500);
+  }
+}
+// ******************************************************************************************************* */
+
+// *******Delete-Book-Event *******Delete-Book-Event *******Delete-Book-Event *******Delete-Book-Event**** */
+exports.deleteBookEvent = async (req, res) => {
+  const eventId = req.params.eventId;
+  try{
+    const deleted = await BookedEvent.findByIdAndDelete(eventId);
+    if(deleted){
+      return res.status(200).json({ success: true, message: 'Event deleted successfully'});
+    }else{
+      return res.status(404).json({ success: false, message: 'Event not found'});
+    }
+  }catch(err){
+    console.error('Error deleting event:', err);
+    return res.status(500);
+  }
+}
+
+//*****Pateint-Attender-End*****Pateint-Attender-End*****Pateint-Attender-End*****Pateint-Attender-End***** */
 
 
 
@@ -247,3 +336,4 @@ exports.getAppointments = async (req, res) => {
 }
 
 // *************************************************************************************************************//
+

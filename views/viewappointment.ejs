@@ -161,7 +161,8 @@
                                 <div class="appointment-info">
                                     <label>Appointment Date:</label>
                                     <p id="appointmentDate">
-                                        <%= appointment.appointmentDate %>
+    
+                                        <%= new Date(appointment.appointmentDate).toLocaleDateString('en-IN', {day:'numeric', month: 'long', year: 'numeric' }) %>
                                     </p>
                                 </div>
                                 <div class="appointment-info">
@@ -229,16 +230,14 @@
     // Handle 'Yes, Cancel' button click
     confirmCancelBtn.addEventListener('click', () => {
         const centerEmail = document.getElementById('centerEmail').textContent.trim();
-        const appointmentDate = document.getElementById('appointmentDate').textContent.trim();
 
-        fetch('/cancel-appointment', {
+        fetch('/cancel/appointment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                centerEmail,
-                appointmentDate
+                centerEmail
             })
         })
             .then(response => response.json())
@@ -264,6 +263,7 @@
         cancelAppointmentBtn.style.display = 'block';
     });
     </script>
+    <script src="/js/showNotification.js"></script>
 </body>
 
 </html>

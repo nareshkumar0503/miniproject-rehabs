@@ -5,9 +5,12 @@ const indexCtrl = require('../controllers/indexCotroller');
 //*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender***** */
 router.get('/', indexCtrl.getLandingPage);
 router.get('/descPage', indexCtrl.getDescPage);
-router.post('/book-appointment', indexCtrl.postAppointment);
-router.get('/view-appointment', indexCtrl.getAppointment);
-router.post('/cancel-appointment', indexCtrl.cancelAppointment);
+router.post('/book/appointment', indexCtrl.postAppointment);
+router.get('/view/appointment', indexCtrl.getAppointment);
+router.post('/cancel/appointment', indexCtrl.cancelAppointment);
+router.get('/patient/events', indexCtrl.getPEventPage);
+router.post('/book/:eventId/event', indexCtrl.postBookEvent);
+router.delete('/cancel/:eventId/event', indexCtrl.deleteBookEvent);
 // ---------------------------------------------------------------------------------------------------------
 
 // *****Center *****Center *****Center *****Center *****Center *****Center *****Center ***** */

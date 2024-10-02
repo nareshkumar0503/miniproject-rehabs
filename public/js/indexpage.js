@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const patientBloodGroup = document.getElementById('bloodGroup').value;
         if (appointmentDate && appointmentSession) {
             // Logic to handle booking the appointment (e.g., send a request to the server)
-            fetch('/book-appointment', {
+            fetch('/book/appointment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
