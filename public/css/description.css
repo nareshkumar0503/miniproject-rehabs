@@ -71,10 +71,11 @@
 
 /* Info Section */
 .descPage .info-section {
-    padding: 60px 0;
+    
     background-color: #ffffff; /* Clean white section */
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for elevated look */
+    
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); Soft shadow for elevated look */
 }
 
 .descPage .center-image {
@@ -188,7 +189,7 @@
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
-.descPage .appointment-button {
+.descPage .appointment-button { 
     background-color: #28a745;
     color: white;
     border: none;
