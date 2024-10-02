@@ -6,43 +6,57 @@ body {
 
 /* Navbar */
 .navbar {
-    padding: 1rem 2rem;
-    background: linear-gradient(90deg, #343a40, #495057);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, #0d0d0d, #333333); /* Sleeker dark gradient */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for modernity */
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+.navbar:hover {
+    background: linear-gradient(90deg, #141414, #4c4c4c); /* Darker on hover */
 }
 
 .navbar-brand {
-    color: white;
-    font-weight: 600;
-    font-size: 1.8rem;
+    color: #ffc107;
+    font-weight: 800;
+    font-size: 2.2rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
 }
 
 .nav-link {
-    color: white;
+    color: #ffffff;
     margin-right: 1.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.4s ease;
 }
 
 .nav-link:hover {
-    color: #f8f9fa;
+    color: #ffc107; /* Golden hover effect */
 }
 
 .navbar-toggler {
-    border-color: white;
+    border-color: #ffc107;
 }
 
+/* Dropdown menu */
 .dropdown-menu {
-    background-color: #343a40;
+    background-color: #212529;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Elevated dropdown */
 }
 
 .dropdown-item {
-    color: white;
+    color: #ffffff;
+    padding: 0.9rem 1.5rem;
+    transition: background-color 0.3s ease;
 }
 
 .dropdown-item:hover {
-    background-color: #495057;
+    background-color: #ffc107;
 }
-
 /* Welcome Section */
 .welcome-section {
     position: relative;

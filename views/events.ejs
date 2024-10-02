@@ -16,257 +16,292 @@
         }
 
         /* Navbar */
-        .navbar {
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, #212529, #495057);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+.navbar {
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, #0d0d0d, #333333); /* Sleeker dark gradient */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for modernity */
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
 
-        .navbar-brand {
-            color: white;
-            font-weight: 600;
-            font-size: 1.8rem;
-        }
+.navbar:hover {
+    background: linear-gradient(90deg, #141414, #4c4c4c); /* Darker on hover */
+}
 
-        .navbar-brand img {
-            width: 60px;
+.navbar-brand {
+    color: #ffc107;
+    font-weight: 800;
+    font-size: 2.2rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
 
-        }
+.nav-link {
+    color: #ffffff;
+    margin-right: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.4s ease;
+}
 
-        .nav-link {
-            color: white;
-            margin-right: 1.5rem;
-            font-size: 1rem;
-        }
+.nav-link:hover {
+    color: #ffc107; /* Golden hover effect */
+}
 
-        .nav-link:hover {
-            color: #f8f9fa;
-        }
+.navbar-toggler {
+    border-color: #ffc107;
+}
 
+/* Dropdown menu */
+.dropdown-menu {
+    background-color: #212529;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Elevated dropdown */
+}
+
+.dropdown-item {
+    color: #ffffff;
+    padding: 0.9rem 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #ffc107;
+}
         /* Flip Card Design */
-        .flip-card {
-            perspective: 1000px;
-            cursor: pointer;
-            margin: 20px 0;
-            transition: transform 0.5s;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            height: 320px;
-            background-color: #ffffff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
+.flip-card {
+    perspective: 1200px;
+    margin: 25px 0;
+    transition: transform 0.6s ease-in-out;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+    background-color: #f8f9fa;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
 
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: left;
-            transition: transform 0.6s ease-in-out;
-            transform-style: preserve-3d;
-            border-radius: 15px;
-        }
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s ease-in-out;
+    transform-style: preserve-3d;
+}
 
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-        }
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
 
-        .flip-card-front {
-            background-color: #fff;
-            color: #333;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+.flip-card-front {
+    background-color: #ffffff;
+    color: #212529;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
 
-        .flip-card-back {
-            background-color: #343a40;
-            color: white;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: left;
-            transform: rotateY(180deg);
-        }
+.flip-card-back {
+    background-color: #495057;
+    color: #f8f9fa;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+}
 
-        .card-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #212529;
-        }
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
 
-        .flip-card-back .card-title {
-            color: #f8f9fa;
-        }
+/* Card Title */
+.card-title {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #343a40;
+    font-size: 1.25rem;
+}
 
-        .card-text {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
+.flip-card-back .card-title {
+    color: #ffc107;
+}
 
-        .label {
-            color: #6c757d;
-            font-weight: 500;
-        }
+/* Card Text */
+.card-text {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
 
-        .value {
-            font-weight: 600;
-            color: #212529;
-        }
+.label {
+    font-weight: 500;
+    color: #6c757d;
+}
 
-        .flip-card-back .value {
-            color: #f8f9fa;
-        }
+.value {
+    font-weight: 600;
+    color: #212529;
+}
 
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
+.flip-card-back .value {
+    color: #f8f9fa;
+}
 
-        /* Click Indicator */
-        .click-indicator {
-            font-size: 0.85rem;
-            text-align: center;
-            color: #6c757d;
-            margin-top: 10px;
-            font-style: italic;
-        }
+/* Click Indicator */
+.click-indicator {
+    font-size: 0.9rem;
+    text-align: center;
+    color: #6c757d;
+    margin-top: 15px;
+    font-style: italic;
+}
 
-        .click-indicator i {
-            margin-left: 5px;
-        }
+.click-indicator i {
+    margin-left: 5px;
+}
 
-        /* Section Titles */
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            color: yellow;
-            font-size: 2rem;
-            width: 100;
-            background-color: #212529;
-        }
+/* Section Titles */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 2.25rem;
+    color: #343a40;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+}
 
-        /* Book Button */
-        .btn-book {
-            background-color: #212529;
-            color: white;
-            margin-top: 20px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
+/* Book Button */
+.btn-book {
+    background-color: #343a40;
+    color: white;
+    margin-top: 25px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        .btn-book:hover {
-            background-color: #495057;
-            color: #f8f9fa;
-        }
+.btn-book:hover {
+    background-color: #495057;
+    transform: translateY(-3px);
+    color: #f8f9fa;
+}
 
-        /* Modal Styling */
-        .modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            z-index: 1000;
-            /* Sits on top of other content */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Semi-transparent background */
-            justify-content: center;
-            align-items: center;
-        }
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
 
-        .modal-content {
-            background-color: white;
-            color: #333;
-            /* Text color to ensure visibility */
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
 
-        h3 {
-            color: #000;
-            /* Ensure the heading has high contrast */
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
+.modal h3 {
+    color: #212529;
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+}
 
-        p {
-            color: #555;
-            /* Subtle text color for the body text */
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
+.modal p {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
 
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 24px;
-            cursor: pointer;
-        }
+.close-btn {
+    color: #999;
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+}
 
-        .close-btn:hover {
-            color: black;
-        }
+.close-btn:hover {
+    color: #333;
+}
 
-        .modal-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-        }
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
 
-        .btn-confirm {
-            background-color: #343a40;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.btn-confirm, .btn-cancel {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
 
-        .btn-confirm:hover {
-            background-color: #495057;
-        }
+.btn-confirm {
+    background-color: #28a745;
+    color: white;
+}
 
-        .btn-cancel {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.btn-confirm:hover {
+    background-color: #218838;
+}
 
-        .btn-cancel:hover {
-            background-color: #c82333;
-        }
+.btn-cancel {
+    background-color: #dc3545;
+    color: white;
+}
 
+.btn-cancel:hover {
+    background-color: #c82333;
+}
 
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .flip-card {
-                margin-bottom: 30px;
-            }
+/* Responsiveness */
+@media (max-width: 768px) {
+    .flip-card {
+        margin-bottom: 25px;
+        height: 280px;
+    }
 
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+}
+
     </style>
 </head>
 

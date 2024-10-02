@@ -69,45 +69,43 @@
   </div>
 
   <!-- Nearby Centers Section -->
-  <div class="container mt-5">
-    <h2>Centers Near You</h2>
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <button class="scroll-button" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
-      <div class="center-cards nearby-cards">
-        <% centers.forEach(center=> { %>
-          <div class="card center-card">
-            <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= center.centerName %>
-              </h5>
-              <!-- <p class="card-text"><%= center.description %></p> -->
-              <p class="card-text">
-                Rating:
-                <span class="rating">
-                  <% for (let i=1; i <=5; i++) { %>
-                    <% if (i <=Math.floor(3)) { %>
-                      <!-- Full star -->
-                      <i class="fas fa-star"></i>
-                      <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
-                        <!-- Half star for decimal part -->
-                        <i class="fas fa-star-half-alt"></i>
-                        <% } else { %>
-                          <!-- Empty star -->
-                          <i class="far fa-star"></i>
-                          <% } %>
-                            <% } %>
-                </span>
-              </p>
-              <p class="card-text">Price Range: <%= center.priceRange %>
-              </p>
-            </div>
+<div class="container mt-5">
+  <h2>Centers Near You</h2>
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <button class="scroll-button" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
+    <div class="center-cards nearby-cards">
+      <% centers.forEach(center => { %>
+        <div class="card center-card" onclick="Description('<%= center.email %>')">
+          <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= center.centerName %>
+            </h5>
+            <p class="card-text">
+              Rating:
+              <span class="rating">
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <% if (i <= Math.floor(3)) { %>
+                    <!-- Full star -->
+                    <i class="fas fa-star"></i>
+                  <% } else if (i === Math.ceil(3) && 3 % 1 !== 0) { %>
+                    <!-- Half star for decimal part -->
+                    <i class="fas fa-star-half-alt"></i>
+                  <% } else { %>
+                    <!-- Empty star -->
+                    <i class="far fa-star"></i>
+                  <% } %>
+                <% } %>
+              </span>
+            </p>
+            <p class="card-text">Price Range: <%= center.priceRange %></p>
           </div>
-          <% }) %>
-      </div>
-      <button class="scroll-button" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
+        </div>
+      <% }) %>
     </div>
+    <button class="scroll-button" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
   </div>
+</div>
 
   <!-- Footer -->
   <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">

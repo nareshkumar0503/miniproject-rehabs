@@ -1,132 +1,231 @@
- .descPage {
-     font-family: 'Poppins', sans-serif;
-     overflow-x: hidden;
-     /* Prevent horizontal scrollbar */
- }
+.descPage {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background-color: #f2f5f9; /* Subtle gray background for a clean look */
+    color: #333;
+    padding-bottom: 50px; /* Padding to create space at the bottom */
+}
 
- /* Navbar */
+/* Navbar */
 .navbar {
-     padding: 1rem 2rem;
-     background: linear-gradient(90deg, #343a40, #495057);
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-     font-family: 'Poppins', sans-serif;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, #0d0d0d, #333333); /* Sleeker dark gradient */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for modernity */
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
 
- }
+.navbar:hover {
+    background: linear-gradient(90deg, #141414, #4c4c4c); /* Darker on hover */
+}
+
 .navbar-brand {
-     color: white;
-     font-weight: 600;
-     font-size: 1.8rem;
-     font-family: 'Poppins', sans-serif;
+    color: #ffc107;
+    font-weight: 800;
+    font-size: 2.2rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
 
- }
 .nav-link {
-     color: white;
-     margin-right: 1.5rem;
-     font-size: 1rem;
-     font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    margin-right: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.4s ease;
+}
 
- }
 .nav-link:hover {
-     color: #f8f9fa;
- }
+    color: #ffc107; /* Golden hover effect */
+}
+
 .navbar-toggler {
-     border-color: white;
- }
+    border-color: #ffc107;
+}
+
+/* Dropdown menu */
 .dropdown-menu {
-     background-color: #343a40;
- }
+    background-color: #212529;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Elevated dropdown */
+}
 
 .dropdown-item {
-     color: white;
- }
+    color: #ffffff;
+    padding: 0.9rem 1.5rem;
+    transition: background-color 0.3s ease;
+}
 
- .dropdown-item:hover {
-     background-color: #495057;
- }
+.dropdown-item:hover {
+    background-color: #ffc107;
+}
 
- /* nav bar end */
+/* Carousel */
+.descPage .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
 
- .descPage .carousel-caption {
-     background-color: rgba(0, 0, 0, 0.6);
-     padding: 10px;
-     border-radius: 10px;
- }
+/* Info Section */
+.descPage .info-section {
+    padding: 60px 0;
+    background-color: #ffffff; /* Clean white section */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for elevated look */
+}
 
- .descPage .info-section {
-     padding: 50px 0;
- }
+.descPage .center-image {
+    height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Soft shadow for images */
+}
 
- .descPage .center-image {
-     height: 500px;
-     /* Adjust this value to reduce or increase the image height */
-     object-fit: cover;
-     /* Ensures the image fits within the specified height */
- }
+/* Info Card */
+.descPage .info-card {
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
- .descPage .info-card {
-     background-color: #fff;
-     border-radius: 10px;
-     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-     padding: 30px;
- }
+.descPage .info-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+}
 
- .descPage .services-list {
-     list-style-type: none;
-     padding: 0;
- }
+/* Services List */
+.descPage .services-list {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1.2rem;
+}
 
- .descPage .services-list li {
-     padding: 10px 0;
-     border-bottom: 1px solid #eaeaea;
-     font-size: 1.1rem;
-     color: #333;
- }
+.descPage .services-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid #e1e4e8;
+    color: #555;
+    padding-left: 0; /* Remove padding left to align the text properly */
+}
 
- .descPage .contact-card {
-     border-left: 5px solid #ffc107;
-     padding: 20px;
-     margin-top: 20px;
- }
+.descPage .services-list li:last-child {
+    border-bottom: none;
+}
 
- .descPage .emergency-banner {
-     background-color: #dc3545;
-     color: white;
-     text-align: center;
-     padding: 20px;
-     border-radius: 8px;
-     margin-top: 30px;
- }
+/* Contact Card with Icons */
+.descPage .contact-card {
+    background-color: #f8f9fa;
+    border-left: 8px solid #ffc107;
+    padding: 25px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
 
- .descPage h4 {
-     font-weight: bold;
-     margin-bottom: 15px;
- }
+.descPage .contact-card i {
+    color: #28a745; /* Green icon for contacts */
+    font-size: 1.4rem;
+    margin-right: 15px;
+}
 
- .descPage .appointment-card {
-     background-color: #e9f7ef;
-     /* Light green background for visibility */
-     border-radius: 10px;
-     padding: 30px;
+.descPage .contact-card .contact-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    color: #333;
+}
 
-     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
- }
+.descPage .contact-card .contact-item a {
+    color: inherit;
+    text-decoration: none;
+}
 
- .descPage .appointment-button {
-     background-color: #28a745;
-     /* Bootstrap success color */
-     color: white;
-     border: none;
-     padding: 10px 20px;
-     border-radius: 5px;
-     cursor: pointer;
-     transition: background-color 0.3s;
- }
+.descPage .contact-card .contact-item a:hover {
+    text-decoration: underline;
+}
 
- .descPage .appointment-button:hover {
-     background-color: #218838;
-     /* Darker green on hover */
- }
+/* Emergency Banner */
+.descPage .emergency-banner {
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
 
- .descPage .hidden {
-     display: none;
- }
+/* Headings */
+.descPage h4 {
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+/* Appointment Card */
+.descPage .appointment-card {
+    background-color: #d4edda;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.descPage .appointment-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.descPage .appointment-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.descPage .appointment-button:hover {
+    background-color: #218838;
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+/* Hidden Element */
+.descPage .hidden {
+    display: none;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .descPage .info-card,
+    .descPage .appointment-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .descPage .center-image {
+        height: 300px;
+    }
+
+    .descPage .contact-card {
+        padding: 20px;
+    }
+}
