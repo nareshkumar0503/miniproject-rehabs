@@ -67,7 +67,7 @@
                     </button>
                 </div>
 
-                <div class="container info-section">
+                <div class="container info-section">c
                     <div class="row">
                         <!-- Left Column: Center Information -->
                         <div class="col-lg-6">
@@ -221,6 +221,11 @@
                     </div>
                 </div>
 
+                <!-- Add a Google Maps container in your HTML -->
+                <div class="container info-section mt-3">
+                    <h4>Location Map</h4>
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                </div>
 
                 <!-- Footer -->
                 <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
@@ -319,7 +324,112 @@
                 // Initialize the appointment options setup on page load
                 window.onload = setupAppointmentOptions;
             </script>
+            <script>
+                // Initialize and add the map
+                function initMap() {
+                    const latitude = parseFloat("<%= center.geolocation.latitude %>");
+                    const longitude = parseFloat("<%= center.geolocation.longitude %>");
 
+                    // The location of the center
+                    const centerLocation = { lat: latitude, lng: longitude };
+
+                    // The map, centered at the center's location
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: centerLocation,
+                    });
+
+                    // The marker for the center
+                    const centerMarker = new google.maps.Marker({
+                        position: centerLocation,
+                        map: map,
+                        title: "<%= center.centerName %>",
+                    });
+                    // Add an InfoWindow for the user's location
+                    // Info window content (customize this with the details you want to show)
+                    const contentString = `
+                        <div style="font-family: Arial, sans-serif;">
+                            <h6><strong><%= center.centerName %></strong></h6>
+                            <p><strong>Rating:</strong> 
+                                <span class="rating">
+                    <% for (let i=1; i <=5; i++) { %>
+                      <% if (i <=Math.floor(3.5)) { %>
+                        <!-- Full star -->
+                        <i class="fas fa-star"></i>
+                        <% } else if (i===Math.ceil(3.5) && 3.5 % 1 !==0) { %>
+                          <!-- Half star for decimal part -->
+                          <i class="fas fa-star-half-alt"></i>
+                          <% } else { %>
+                            <!-- Empty star -->
+                            <i class="far fa-star"></i>
+                            <% } %>
+                              <% } %>
+                  </span>
+                                </p>
+                            <p><strong>Contact:</strong> <%= center.contactNo %></p>
+                            <p><strong>Email:</strong> <%= center.email %></p>
+                            <p><strong>Address:</strong> <%= center.address %></p>
+                            <p><a href="<%= center.websiteURL %>" target="_blank">Visit Website</a></p>
+                        </div>
+                    `;
+
+                    // Create an InfoWindow
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: contentString,
+                    });
+
+                    // Add click event to marker to show the info window
+                    centerMarker.addListener("click", () => {
+                        infoWindow.open(map, centerMarker);
+                    });
+
+                    // Get the user's current location using the Geolocation API
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                const userLocation = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+
+                                // Place a marker for the user's location
+                                const userMarker = new google.maps.Marker({
+                                    position: userLocation,
+                                    map: map,
+                                    title: "Your Location",
+                                    icon: {
+                                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Custom blue marker for the user
+                                    },
+                                });
+
+                                // Add an InfoWindow for the user's location
+                                const userInfoWindow = new google.maps.InfoWindow({
+                                    content: "You are here",
+                                });
+
+                                // Show the info window when clicking the user's marker
+                                userMarker.addListener("click", () => {
+                                    userInfoWindow.open(map, userMarker);
+                                });
+
+                                // Optionally, adjust the map to fit both locations (center and user)
+                                const bounds = new google.maps.LatLngBounds();
+                                bounds.extend(centerLocation);
+                                bounds.extend(userLocation);
+                                map.fitBounds(bounds);
+                            },
+                            () => {
+                                console.error("Geolocation service failed.");
+                            }
+                        );
+                    } else {
+                        console.error("Geolocation is not supported by this browser.");
+                    }
+                }
+            </script>
+            <!-- Google Maps JavaScript API script -->
+            <script async
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfZk0O9LtdbGphzBBOQVvHy_0_8y3Q6R8&libraries=places&callback=initMap"></script>
             <!-- Bootstrap JS and dependencies -->
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

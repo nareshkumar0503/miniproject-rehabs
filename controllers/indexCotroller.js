@@ -10,9 +10,9 @@ exports.getLandingPage = async (req, res) => {
   try {
     const centers = await Center.find();
     const username = req.session.username;
-    res.render('index', { centers, username });
+    return res.render('index', { centers, username });
   } catch (err) {
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 };
 //****************************************************************************** */
@@ -105,7 +105,7 @@ exports.getAppointment = async (req, res) => {
       appointment.formattedTime = formatTime(appointment.time);
     }
   });
-  res.render('viewappointment', { appointments });
+  return res.render('viewappointment', { appointments });
 };
 //****************************************************************************** */
 
@@ -171,7 +171,7 @@ exports.getPEventPage = async (req, res) => {
 
   } catch (err) {
     console.error('Error fetching events:', err);
-    res.status(500).send('Internal Server Error');
+    return res.status(500).send('Internal Server Error');
   }
 };
 
@@ -241,7 +241,7 @@ exports.getCenterDashboard = async (req, res) => {
     return res.render('centerdash', { center, appointments });
   } catch (error) {
     console.error('Error fetching data for center dashboard:', error);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 }
 // ********************************************************************************************//
@@ -274,10 +274,10 @@ exports.postCancelAppointment = async (req, res) => {
       time: '-',
       status: 'Cancelled'
     });
-    res.status(200).json({ success: true, message: 'Cancelled Successfully' }); // Redirect back to appointments page
+    return res.status(200).json({ success: true, message: 'Cancelled Successfully' }); // Redirect back to appointments page
   } catch (error) {
     console.error('Error Cancelling appointment:', error);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 }
 // ********************************************************************************************//
@@ -332,7 +332,7 @@ exports.getAppointments = async (req, res) => {
       appointments: appointmentsByDate[date]
     };
   });
-  res.render('center-view-app', { appointmentsByDate: appointmentsByDateArray });
+ return res.render('center-view-app', { appointmentsByDate: appointmentsByDateArray });
 }
 
 // *************************************************************************************************************//

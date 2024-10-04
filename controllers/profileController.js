@@ -5,9 +5,9 @@ const Center = require('../models/Center')
 exports.getLoginPage = (req, res) => {
     if(req.session.email)
     {
-        res.redirect('/')
+       return res.redirect('/')
     }
-    res.render('login');
+    return res.render('login');
 };
 // -----------------------------------------------------------------------------------------------------------------------
 
@@ -52,9 +52,9 @@ exports.postLogin = async (req, res) => {
 exports.getProfilePage = async (req, res) => {
     try {
         const user = res.locals.user;
-        res.render('profile', { user });
+       return res.render('profile', { user });
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+       return res.status(500).json({ message: 'Server error' });
     }
 };
 // -----------------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ exports.Logout = (req, res) => {
         res.set('Pragma', 'no-cache');
         res.set('Expires', '0');
 
-        res.redirect('/');
+        return res.redirect('/');
     });
 };
 
@@ -93,7 +93,7 @@ exports.centerLogout = (req,res)=>{
         res.set('Pragma', 'no-cache');
         res.set('Expires', '0');
 
-        res.redirect('/login');
+        return res.redirect('/login');
     });
 };
 

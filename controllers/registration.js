@@ -5,7 +5,7 @@ const Center = require('../models/Center');
 // get patient register page
 exports.getPatientRegister = (req, res) => {
     const email ='';
-    res.render('patientreg', {email});
+      res.render('patientreg', {email});
 };
 
 // post patient register
@@ -78,7 +78,7 @@ exports.postPatientRegister = async (req, res) => {
 
 // get center registration page
 exports.getCenterRegister = (req, res) => {
-    res.render('centerregistration');
+    return res.render('centerregistration');
 };
 
 // post center registration data
@@ -115,7 +115,7 @@ exports.postCenterRegister = async (req, res) => {
         });
 
         await newCenter.save();
-        res.status(201).json({ message: 'Registered successfully' });
+        return res.status(201).json({ message: 'Registered successfully' });
     } catch (error) {
         console.error('Error saving data to MongoDB', error);
         if (!res.headersSent) {

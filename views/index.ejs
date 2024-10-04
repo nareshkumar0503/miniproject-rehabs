@@ -15,146 +15,184 @@
 <body>
   <%- include('navbar') %>
 
-  <!-- Welcome Section -->
-  <div class="welcome-section">
-    <div>
-      <% if (username) { %>
-        <h1>Welcome, <%= username %>!</h1>
-        <% } else { %>
-          <h1>Welcome to our website!</h1>
-          <% } %>
-            <h2>Explore your center</h2>
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <div>
+        <% if (username) { %>
+          <h1>Welcome, <%= username %>!</h1>
+          <% } else { %>
+            <h1>Welcome to our website!</h1>
+            <% } %>
+              <h2>Explore your center</h2>
+      </div>
     </div>
-  </div>
-
-  <!-- Centers Section -->
-  <div class="container mt-5">
-    <h2>Centers in Coimbatore</h2>
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <button class="scroll-button" onclick="scrollLeftCards('.coimbatore-cards')">&#8249;</button>
-      <div class="center-cards coimbatore-cards">
-        <% centers.forEach(center=> { %>
-          <div class="card center-card" onclick="Description('<%= center.email %>')">
-            <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%= center.centerName %>
-              </h5>
-              <!-- <p class="card-text"><%= center.description %></p> -->
-              <p class="card-text">
-                Rating:
-                <span class="rating">
-                  <% for (let i=1; i <=5; i++) { %>
-                    <% if (i <=Math.floor(3)) { %>
-                      <!-- Full star -->
-                      <i class="fas fa-star"></i>
-                      <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
-                        <!-- Half star for decimal part -->
-                        <i class="fas fa-star-half-alt"></i>
-                        <% } else { %>
-                          <!-- Empty star -->
-                          <i class="far fa-star"></i>
-                          <% } %>
+    <!-- Add this search bar above the centers section -->
+    <div class="container mt-4">
+      <input type="text" id="searchInput" class="form-control"
+        placeholder="Search by center name, location, or addiction">
+    </div>
+    <!-- Centers Section -->
+    <div class="container mt-5">
+      <h2>Centers in Coimbatore</h2>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <button class="scroll-button" onclick="scrollLeftCards('.coimbatore-cards')">&#8249;</button>
+        <div class="center-cards coimbatore-cards">
+          <% centers.forEach(center=> { %>
+            <div class="card center-card" onclick="Description('<%= center.email %>')">
+              <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= center.centerName %>
+                </h5>
+                <!-- <p class="card-text"><%= center.description %></p> -->
+                <p class="card-text">
+                  Rating:
+                  <span class="rating">
+                    <% for (let i=1; i <=5; i++) { %>
+                      <% if (i <=Math.floor(3)) { %>
+                        <!-- Full star -->
+                        <i class="fas fa-star"></i>
+                        <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
+                          <!-- Half star for decimal part -->
+                          <i class="fas fa-star-half-alt"></i>
+                          <% } else { %>
+                            <!-- Empty star -->
+                            <i class="far fa-star"></i>
                             <% } %>
-                </span>
-              </p>
-              <p class="card-text">Price Range: <%= center.priceRange %>
-              </p>
+                              <% } %>
+                  </span>
+                </p>
+                <p class="card-text" style="display:none">Location: <%= center.address %>
+                </p> <!-- Include location -->
+                <p class="addiction-info" style="display:none" data-addictions='<%= JSON.stringify(center.addictions) %>'>
+                  Addiction: <%= center.addictions.join(', ') %>
+                </p>
+                </p> <!-- Include addiction -->
+                <p class="card-text" style="display:none">Price Range: <%= center.priceRange %>
+                </p>
+              </div>
             </div>
-          </div>
-          <% }) %>
-      </div>
-      <button class="scroll-button" onclick="scrollRightCards('.coimbatore-cards')">&#8250;</button>
-    </div>
-  </div>
-
-  <!-- Nearby Centers Section -->
-<div class="container mt-5">
-  <h2>Centers Near You</h2>
-  <div class="d-flex justify-content-between align-items-center mb-2">
-    <button class="scroll-button" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
-    <div class="center-cards nearby-cards">
-      <% centers.forEach(center => { %>
-        <div class="card center-card" onclick="Description('<%= center.email %>')">
-          <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-          <div class="card-body">
-            <h5 class="card-title">
-              <%= center.centerName %>
-            </h5>
-            <p class="card-text">
-              Rating:
-              <span class="rating">
-                <% for (let i = 1; i <= 5; i++) { %>
-                  <% if (i <= Math.floor(3)) { %>
-                    <!-- Full star -->
-                    <i class="fas fa-star"></i>
-                  <% } else if (i === Math.ceil(3) && 3 % 1 !== 0) { %>
-                    <!-- Half star for decimal part -->
-                    <i class="fas fa-star-half-alt"></i>
-                  <% } else { %>
-                    <!-- Empty star -->
-                    <i class="far fa-star"></i>
-                  <% } %>
-                <% } %>
-              </span>
-            </p>
-            <p class="card-text">Price Range: <%= center.priceRange %></p>
-          </div>
+            <% }) %>
         </div>
-      <% }) %>
-    </div>
-    <button class="scroll-button" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
-  </div>
-</div>
+        <button class="scroll-button" onclick="scrollRightCards(' .coimbatore-cards')">&#8250;</button>
+              </div>
+            </div>
 
-  <!-- Footer -->
-  <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
-    <div class="container">
-      <div class="row">
-        <!-- About Section -->
-        <div class="col-md-4">
-          <h5>About Us</h5>
-          <p>DEADDICTION is dedicated to helping individuals overcome addiction through our comprehensive rehabilitation
-            programs. Our centers are equipped with the latest facilities and experienced professionals to ensure the
-            best care.</p>
-        </div>
-        <!-- Quick Links -->
-        <div class="col-md-4">
-          <h5>Quick Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
-            <li><a href="#" style="color: #ffffff;">Guidance</a></li>
-            <li><a href="#" style="color: #ffffff;">Map</a></li>
-            <li><a href="/patient/events" style="color: #ffffff;">Events</a></li>
-            <li><a href="/view/appointment" style="color: #ffffff;">Appointments</a></li>
-            <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
-          </ul>
-        </div>
-        <!-- Contact Section -->
-        <div class="col-md-4">
-          <h5>Contact Us</h5>
-          <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
-          <p><i class="fas fa-phone"></i> +91 9361169510</p>
-          <p><i class="fas fa-phone"></i> +91 9655442017</p>
-          <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
-        </div>
-      </div>
-      <hr style="border-color: #ffffff;">
-      <div class="row">
-        <div class="col-md-12">
-          <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+            <!-- Nearby Centers Section -->
+            <div class="container mt-5">
+              <h2>Centers Near You</h2>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <button class="scroll-button" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
+                <div class="center-cards nearby-cards">
+                  <% centers.forEach(center=> { %>
+                    <div class="card center-card" onclick="Description('<%= center.email %>')">
+                      <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <%= center.centerName %>
+                        </h5>
+                        <p class="card-text">
+                          Rating:
+                          <span class="rating">
+                            <% for (let i=1; i <=5; i++) { %>
+                              <% if (i <=Math.floor(3)) { %>
+                                <!-- Full star -->
+                                <i class="fas fa-star"></i>
+                                <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
+                                  <!-- Half star for decimal part -->
+                                  <i class="fas fa-star-half-alt"></i>
+                                  <% } else { %>
+                                    <!-- Empty star -->
+                                    <i class="far fa-star"></i>
+                                    <% } %>
+                                      <% } %>
+                          </span>
+                        </p>
+                        <p class="card-text">Price Range: <%= center.priceRange %>
+                        </p>
+                      </div>
+                    </div>
+                    <% }) %>
+                </div>
+                <button class="scroll-button" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
+              <div class="container">
+                <div class="row">
+                  <!-- About Section -->
+                  <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>DEADDICTION is dedicated to helping individuals overcome addiction through our comprehensive
+                      rehabilitation
+                      programs. Our centers are equipped with the latest facilities and experienced professionals to
+                      ensure the
+                      best care.</p>
+                  </div>
+                  <!-- Quick Links -->
+                  <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                      <li><a href="http://localhost:3000/" style="color: #ffffff;">Home</a></li>
+                      <li><a href="#" style="color: #ffffff;">Guidance</a></li>
+                      <li><a href="#" style="color: #ffffff;">Map</a></li>
+                      <li><a href="/patient/events" style="color: #ffffff;">Events</a></li>
+                      <li><a href="/view/appointment" style="color: #ffffff;">Appointments</a></li>
+                      <li><a href="#" style="color: #ffffff;">Contact Us</a></li>
+                    </ul>
+                  </div>
+                  <!-- Contact Section -->
+                  <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <!-- <p><i class="fas fa-map-marker-alt"></i> 123 Rehab Center St., Coimbatore, TN</p> -->
+                    <p><i class="fas fa-phone"></i> +91 9361169510</p>
+                    <p><i class="fas fa-phone"></i> +91 9655442017</p>
+                    <p><i class="fas fa-envelope"></i> nareshpandurangan25@gmail.com</p>
+                  </div>
+                </div>
+                <hr style="border-color: #ffffff;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>&copy; 2024 DEADDICTION. All Rights Reserved.</p>
+                  </div>
+                </div>
+              </div>
+            </footer>
 
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <!-- Scripts -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script>
+              document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase(); // Get search term and convert to lowercase for case-insensitive search
+                filterCenters(searchTerm);
+              });
+              function filterCenters(searchTerm) {
+                const centerCards = document.querySelectorAll('.center-card'); // Select all center cards
+                centerCards.forEach(card => {
+                  const centerName = card.querySelector('.card-title').textContent.toLowerCase();
+                  const location = card.querySelector('.card-text').textContent.toLowerCase();
+                  // Get addiction array from the data attribute and parse it
+                  const addictionElement = card.querySelector('.addiction-info');
+                  const addictions = JSON.parse(addictionElement?.getAttribute('data-addictions') || '[]');
 
-  <script src="/js/indexpage.js"></script>
+                  // Check if the search term matches the center name, location, or any addiction
+                  const matchesAddiction = addictions.some(addiction => addiction.toLowerCase().includes(searchTerm));
+                  // Check if the center name, location, or addiction matches the search term
+                  if (centerName.includes(searchTerm) || location.includes(searchTerm) || matchesAddiction) {
+                    card.style.display = 'block'; // Show card if it matches
+                  } else {
+                    card.style.display = 'none';  // Hide card if it doesn't match
+                  }
+                });
+              }
+
+            </script>
+            <script src="/js/indexpage.js"></script>
 
 </body>
 
