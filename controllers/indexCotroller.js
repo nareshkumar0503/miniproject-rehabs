@@ -216,6 +216,15 @@ exports.deleteBookEvent = async (req, res) => {
   }
 }
 
+// *****Guidance *****Guidance *****Guidance *****Guidance *****Guidance *****Guidance *****Guidance ***** */
+exports.getGuidancePage = (req,res)=>{
+  const score = parseInt(req.query.score) || 0;
+  return res.render('guidance',{score});
+}
+
+exports.getScorePage = (req,res) => {
+  return res.render('score');
+}
 //*****Pateint-Attender-End*****Pateint-Attender-End*****Pateint-Attender-End*****Pateint-Attender-End***** */
 
 

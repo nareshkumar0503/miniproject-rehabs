@@ -11,6 +11,8 @@ router.post('/cancel/appointment', indexCtrl.cancelAppointment);
 router.get('/patient/events', indexCtrl.getPEventPage);
 router.post('/book/:eventId/event', indexCtrl.postBookEvent);
 router.delete('/cancel/:eventId/event', indexCtrl.deleteBookEvent);
+router.get('/patient/guidance', indexCtrl.getGuidancePage);
+router.get('/score', indexCtrl.getScorePage);
 // ---------------------------------------------------------------------------------------------------------
 
 // *****Center *****Center *****Center *****Center *****Center *****Center *****Center ***** */
