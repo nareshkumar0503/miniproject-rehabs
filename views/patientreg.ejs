@@ -16,23 +16,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(-45deg, #83a4d4, #b6fbff, #f5f7fa, #c4e0e5);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            background-image: url('/img/back.jpg');
+            background-position: center;
+            background-size: cover;
         }
 
         .container {
@@ -63,9 +49,7 @@
             margin-bottom: 8px;
         }
 
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -73,9 +57,7 @@
             box-sizing: border-box;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             border-color: #3498db;
             outline: none;
             box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
@@ -116,6 +98,12 @@
             margin-bottom: 5px;
         }
 
+        /* Inline error styling */
+        .form-text {
+            display: none;
+            color: red;
+        }
+
         /* Responsive styles */
         @media (max-width: 767px) {
             h2 {
@@ -131,186 +119,302 @@
 </head>
 
 <body>
-    <%- include('notifications') %>
-        <div class="container">
-            <h2>Patient Registration</h2>
-            <form id="patientForm">
-                <!-- Page 1: Personal Information -->
-                <div id="page1" class="form-section active">
-                    <div class="form-group">
-                        <label for="patientName">Patient Name</label>
-                        <input type="text" class="form-control" id="patientName" name="patientname" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="attenderName">Attender Name</label>
-                        <input type="text" class="form-control" id="attenderName" name="attendername" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <!-- If email is provided, display it as a disabled field -->
-                        <input type="email" class="form-control" id="email" name="email" value="<%= email ? email : '' %>" <%=email ? 'disabled' : '' %>  required >
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="nextButton">Next</button>
+    <div class="container">
+        <h2>Patient Registration</h2>
+        <div id="notification" style="display:none;">
+            <p id="message"></p>
+            <button id="close" onclick="document.getElementById('notification').style.display='none'">×</button>
+        </div>
+        <form id="patientForm">
+            <!-- Page 1: Personal Information -->
+            <div id="page1" class="form-section active">
+                <div class="form-group">
+                    <label for="patientName">Patient Name</label>
+                    <input type="text" class="form-control" id="patientName" name="patientname" required>
+                    <small id="patientNameError" class="form-text">Please enter the patient's name.</small>
                 </div>
-
-                <!-- Page 2: Medical Details -->
-                <div id="page2" class="form-section">
-                    <div class="form-group">
-                        <label for="patientAge">Patient Age</label>
-                        <input type="number" class="form-control" id="patientAge" name="patientAge" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="bloodGroup">Blood Group</label>
-                        <select class="form-control" id="bloodGroup" name="bloodgroup" required>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="height">Height (cm)</label>
-                        <input type="number" class="form-control" id="height" name="height" required>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="nextButton2">Next</button>
-                    <button type="button" class="btn btn-secondary" id="backButton1">Back</button>
+                <div class="form-group">
+                    <label for="attenderName">Attender Name</label>
+                    <input type="text" class="form-control" id="attenderName" name="attendername" required>
+                    <small id="attenderNameError" class="form-text">Please enter the attender's name.</small>
                 </div>
-
-                <!-- Page 3: Contact Details -->
-                <div id="page3" class="form-section">
-                    <div class="form-group">
-                        <label for="weight">Weight (kg)</label>
-                        <input type="number" class="form-control" id="weight" name="weight" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="patientContactNumber">Patient Contact Number</label>
-                        <input type="tel" class="form-control" id="patientContactNumber" name="patientcontactnumber"
-                            pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="attenderContactNumber">Attender Contact Number (optional)</label>
-                        <input type="tel" class="form-control" id="attenderContactNumber" name="attendercontactnumber"
-                            pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
-                    </div>
-                    <button type="button" class="btn btn-primary" id="nextButton3">Next</button>
-                    <button type="button" class="btn btn-secondary" id="backButton2">Back</button>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <small id="emailError" class="form-text">Please enter a valid email address.</small>
                 </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <small id="passwordError" class="form-text">Password must be at least 8 characters long.</small>
+                </div>
+                <button type="button" class="btn btn-primary" id="nextButton1">Next</button>
+            </div>
 
-                <!-- Page 4: Addiction Information -->
-                <div id="page4" class="form-section">
-                    <div class="form-group">
-                        <label>Type of Addiction</label>
-                        <div class="checkbox-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Alcohol"
-                                    id="addictionAlcohol">
-                                <label class="form-check-label" for="addictionAlcohol">Alcohol</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Drugs"
-                                    id="addictionDrugs">
-                                <label class="form-check-label" for="addictionDrugs">Drugs</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Gambling"
-                                    id="addictionGambling">
-                                <label class="form-check-label" for="addictionGambling">Gambling</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Smoking"
-                                    id="addictionSmoking">
-                                <label class="form-check-label" for="addictionSmoking">Smoking</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Internet"
-                                    id="addictionInternet">
-                                <label class="form-check-label" for="addictionInternet">Internet</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="addictionType[]" value="Other"
-                                    id="addictionOther">
-                                <label class="form-check-label" for="addictionOther">Other</label>
-                            </div>
+            <!-- Page 2: Medical Details -->
+            <div id="page2" class="form-section">
+                <div class="form-group">
+                    <label for="patientAge">Patient Age</label>
+                    <input type="number" class="form-control" id="patientAge" name="patientAge" required>
+                </div>
+                <div class="form-group">
+                    <label for="bloodGroup">Blood Group</label>
+                    <select class="form-control" id="bloodGroup" name="bloodgroup" required>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="height">Height (cm)</label>
+                    <input type="number" class="form-control" id="height" name="height" required>
+                </div>
+                <button type="button" class="btn btn-primary" id="nextButton2">Next</button>
+                <button type="button" class="btn btn-secondary" id="backButton1">Back</button>
+            </div>
+
+            <!-- Page 3: Contact Details -->
+            <div id="page3" class="form-section">
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" class="form-control" id="weight" name="weight" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientContactNumber">Patient Contact Number</label>
+                    <input type="tel" class="form-control" id="patientContactNumber" name="patientcontactnumber"
+                        pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                    <small id="patientContactNumberError" class="form-text">Please enter a valid 10-digit phone number.</small>
+                </div>
+                <div class="form-group">
+                    <label for="attenderContactNumber">Attender Contact Number (optional)</label>
+                    <input type="tel" class="form-control" id="attenderContactNumber" name="attendercontactnumber"
+                        pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+                </div>
+                <button type="button" class="btn btn-primary" id="nextButton3">Next</button>
+                <button type="button" class="btn btn-secondary" id="backButton2">Back</button>
+            </div>
+
+            <!-- Page 4: Addiction Information -->
+            <div id="page4" class="form-section">
+                <div class="form-group">
+                    <label>Type of Addiction</label>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Alcohol" id="addictionAlcohol">
+                            <label class="form-check-labelHere's the continuation and completion of your HTML code for the patient registration form, along with some necessary corrections:
+
+### Completed HTML Code
+
+```html
+                        <label class="form-check-label" for="addictionAlcohol">Alcohol</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Drugs" id="addictionDrugs">
+                            <label class="form-check-label" for="addictionDrugs">Drugs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Gambling" id="addictionGambling">
+                            <label class="form-check-label" for="addictionGambling">Gambling</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Smoking" id="addictionSmoking">
+                            <label class="form-check-label" for="addictionSmoking">Smoking</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Internet" id="addictionInternet">
+                            <label class="form-check-label" for="addictionInternet">Internet</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="addictionType[]" value="Other" id="addictionOther">
+                            <label class="form-check-label" for="addictionOther">Other</label>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="addictionDuration">Addiction Duration (Years)</label>
-                        <select class="form-control" id="addictionDuration" name="addictionDuration" required>
-                            <option value="Less than 1 year">Less than 1 year</option>
-                            <option value="1-2 years">1-2 years</option>
-                            <option value="3-5 years">3-5 years</option>
-                            <option value="5-10 years">5-10 years</option>
-                            <option value="More than 10 years">More than 10 years</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="frequencyOfUse">Frequency of Use</label>
-                        <select class="form-control" id="frequencyOfUse" name="frequencyOfUse" required>
-                            <option value="Occasionally">Occasionally</option>
-                            <option value="Once a week">Once a week</option>
-                            <option value="Several times a week">Several times a week</option>
-                            <option value="Daily">Daily</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="previousTreatmentHistory">Previous Treatment History (optional)</label>
-                        <textarea class="form-control" id="previousTreatmentHistory" name="previousTreatmentHistory"
-                            rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="registerButton">Submit</button>
-                    <button type="button" class="btn btn-secondary" id="backButton3">Back</button>
                 </div>
-            </form>
-        </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                let currentPage = 1;
+                <div class="form-group">
+                    <label for="addictionDuration">Addiction Duration (Years)</label>
+                    <select class="form-control" id="addictionDuration" name="addictionDuration" required>
+                        <option value="Less than 1 year">Less than 1 year</option>
+                        <option value="1-2 years">1-2 years</option>
+                        <option value="3-5 years">3-5 years</option>
+                        <option value="5-10 years">5-10 years</option>
+                        <option value="More than 10 years">More than 10 years</option>
+                    </select>
+                </div>
 
-                const formSections = document.querySelectorAll('.form-section');
-                const nextButtons = document.querySelectorAll('button[id^="nextButton"]');
-                const backButtons = document.querySelectorAll('button[id^="backButton"]');
+                <div class="form-group">
+                    <label for="frequencyOfUse">Frequency of Use</label>
+                    <select class="form-control" id="frequencyOfUse" name="frequencyOfUse" required>
+                        <option value="Occasionally">Occasionally</option>
+                        <option value="Once a week">Once a week</option>
+                        <option value="Several times a week">Several times a week</option>
+                        <option value="Daily">Daily</option>
+                    </select>
+                </div>
 
-                nextButtons.forEach((btn, index) => {
-                    btn.addEventListener('click', () => {
+                <div class="form-group">
+                    <label for="previousTreatmentHistory">Previous Treatment History (optional)</label>
+                    <textarea class="form-control" id="previousTreatmentHistory" name="previousTreatmentHistory" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="registerButton">Submit</button>
+                <button type="button" class="btn btn-secondary" id="backButton3">Back</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentPage = 1;
+    
+            const formSections = document.querySelectorAll('.form-section');
+            const nextButtons = document.querySelectorAll('button[id^="nextButton"]');
+            const backButtons = document.querySelectorAll('button[id^="backButton"]');
+    
+            // Function to clear error messages
+            function clearErrors(inputs) {
+                inputs.forEach(input => {
+                    const errorElement = document.getElementById(input.id + 'Error');
+                    if (errorElement) {
+                        errorElement.style.display = 'none'; // Hide error message
+                    }
+                    input.classList.remove('is-invalid'); // Remove invalid class
+                });
+            }
+    
+            // Function to display error messages
+            function showError(input, message) {
+                const errorElement = document.getElementById(input.id + 'Error');
+                if (errorElement) {
+                    errorElement.innerText = message;
+                    errorElement.style.display = 'block'; // Show error message
+                    input.classList.add('is-invalid'); // Add invalid class
+                }
+            }
+    
+            // Validation function for the current page
+            function validateCurrentPage(page) {
+                let isValid = true;
+    
+                switch (page) {
+                    case 1:
+                        const patientName = document.getElementById('patientName');
+                        const attenderName = document.getElementById('attenderName');
+                        const email = document.getElementById('email');
+                        const password = document.getElementById('password');
+    
+                        clearErrors([patientName, attenderName, email, password]);
+    
+                        if (patientName.value.trim() === '') {
+                            showError(patientName, 'Please enter the patient\'s name');
+                            isValid = false;
+                        }
+                        if (attenderName.value.trim() === '') {
+                            showError(attenderName, 'Please enter the attender\'s name');
+                            isValid = false;
+                        }
+                        if (!validateEmail(email.value)) {
+                            showError(email, 'Invalid email format');
+                            isValid = false;
+                        }
+                        if (!validatePassword(password.value)) {
+                            showError(password, 'Password must be at least 8 characters long');
+                            isValid = false;
+                        }
+                        break;
+    
+                    case 2:
+                        const patientAge = document.getElementById('patientAge');
+                        const bloodGroup = document.getElementById('bloodGroup');
+                        const gender = document.getElementById('gender');
+                        const height = document.getElementById('height');
+    
+                        clearErrors([patientAge, bloodGroup, gender, height]);
+    
+                        if (patientAge.value <= 0) {
+                            showError(patientAge, 'Please enter a valid age');
+                            isValid = false;
+                        }
+                        if (bloodGroup.value === '') {
+                            showError(bloodGroup, 'Please select a blood group');
+                            isValid = false;
+                        }
+                        if (gender.value === '') {
+                            showError(gender, 'Please select a gender');
+                            isValid = false;
+                        }
+                        if (height.value <= 0) {
+                            showError(height, 'Please enter a valid height');
+                            isValid = false;
+                        }
+                        break;
+    
+                    case 3:
+                        const weight = document.getElementById('weight');
+                        const address = document.getElementById('address');
+                        const patientContactNumber = document.getElementById('patientContactNumber');
+    
+                        clearErrors([weight, address, patientContactNumber]);
+    
+                        if (weight.value <= 0) {
+                            showError(weight, 'Please enter a valid weight');
+                            isValid = false;
+                        }
+                        if (address.value.trim() === '') {
+                            showError(address, 'Please enter the address');
+                            isValid = false;
+                        }
+                        if (!validatePhoneNumber(patientContactNumber.value)) {
+                            showError(patientContactNumber, 'Invalid phone number. Must be 10 digits');
+                            isValid = false;
+                        }
+                        break;
+    
+                    default:
+                        break;
+                }
+    
+                return isValid; // Return whether the current page is valid
+            }
+    
+            // Event listeners for each next button
+            nextButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    if (validateCurrentPage(currentPage)) {
                         formSections[currentPage - 1].classList.remove('active');
                         currentPage++;
                         formSections[currentPage - 1].classList.add('active');
-                    });
+                    }
                 });
-
-                backButtons.forEach((btn, index) => {
-                    btn.addEventListener('click', () => {
+            });
+    
+            backButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    if (currentPage > 1) {
                         formSections[currentPage - 1].classList.remove('active');
                         currentPage--;
                         formSections[currentPage - 1].classList.add('active');
-                    });
+                    }
                 });
             });
-        </script>
+        });
+    </script>    
         <script src="/js/patientRegister.js"></script>
 </body>
 
