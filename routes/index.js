@@ -12,6 +12,7 @@ router.get('/patient/events', indexCtrl.getPEventPage);
 router.post('/book/:eventId/event', indexCtrl.postBookEvent);
 router.delete('/cancel/:eventId/event', indexCtrl.deleteBookEvent);
 router.get('/patient/guidance', indexCtrl.getGuidancePage);
+router.post('/save/patient/addiction', indexCtrl.saveAddiction);
 router.get('/score', indexCtrl.getScorePage);
 // ---------------------------------------------------------------------------------------------------------
 
