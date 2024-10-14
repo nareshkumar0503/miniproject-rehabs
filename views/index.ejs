@@ -28,93 +28,91 @@
     </div>
     <!-- Add this search bar above the centers section -->
     <div class="container mt-4">
-      <input type="text" id="searchInput" class="form-control"
-        placeholder="Search by center name, location, or addiction">
+      <input type="text" id="searchInput" class="form-control" placeholder="Search by center name, location, or addiction">
+      <button id="clearSearch" class="btn btn-secondary mt-2">Clear Search</button>
     </div>
+    
     <!-- Centers Section -->
-    <div class="container mt-5">
-      <h2>Centers in Coimbatore</h2>
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <button class="scroll-button" onclick="scrollLeftCards('.coimbatore-cards')">&#8249;</button>
-        <div class="center-cards coimbatore-cards">
-          <% centers.forEach(center=> { %>
-            <div class="card center-card" onclick="Description('<%= center.email %>')">
-              <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <%= center.centerName %>
-                </h5>
-                <!-- <p class="card-text"><%= center.description %></p> -->
-                <p class="card-text">
-                  Rating:
-                  <span class="rating">
-                    <% for (let i=1; i <=5; i++) { %>
-                      <% if (i <=Math.floor(3)) { %>
-                        <!-- Full star -->
-                        <i class="fas fa-star"></i>
-                        <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
-                          <!-- Half star for decimal part -->
-                          <i class="fas fa-star-half-alt"></i>
-                          <% } else { %>
-                            <!-- Empty star -->
-                            <i class="far fa-star"></i>
-                            <% } %>
-                              <% } %>
-                  </span>
-                </p>
-                <p class="card-text" style="display:none">Location: <%= center.address %>
-                </p> <!-- Include location -->
-                <p class="addiction-info" style="display:none" data-addictions='<%= JSON.stringify(center.addictions) %>'>
-                  Addiction: <%= center.addictions.join(', ') %>
-                </p>
-                </p> <!-- Include addiction -->
-                <p class="card-text" style="display:none">Price Range: <%= center.priceRange %>
-                </p>
-              </div>
-            </div>
-            <% }) %>
+<div class="container mt-5">
+  <h2>Centers in Coimbatore</h2>
+  <p id="centerCount" class="text-muted"></p> <!-- Shows how many centers match the search -->
+  
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <button class="scroll-button" id="scrollLeftCoimbatore" onclick="scrollLeftCards('.coimbatore-cards')" disabled>&#8249;</button>
+    <div class="center-cards coimbatore-cards">
+      <% centers.forEach(center=> { %>
+      <div class="card center-card" onclick="Description('<%= center.email %>')">
+        <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= center.centerName %></h5>
+          <p class="card-text">
+            <strong>Location:</strong> <%= center.address %><br>
+            <strong>Price Range:</strong> <%= center.priceRange %>
+          </p>
+          <p class="card-text">
+            Rating: 
+            <span class="rating">
+              <% for (let i=1; i <=5; i++) { %>
+                <% if (i <=Math.floor(center.rating)) { %>
+                  <i class="fas fa-star"></i>
+                <% } else if (i === Math.ceil(center.rating) && center.rating % 1 !== 0) { %>
+                  <i class="fas fa-star-half-alt"></i>
+                <% } else { %>
+                  <i class="far fa-star"></i>
+                <% } %>
+              <% } %>
+            </span>
+          </p>
+          <p class="addiction-info" data-addictions='<%= JSON.stringify(center.addictions) %>' style="display:none">
+            Addiction: <%= center.addictions.join(', ') %>
+          </p>
         </div>
-        <button class="scroll-button" onclick="scrollRightCards(' .coimbatore-cards')">&#8250;</button>
-              </div>
-            </div>
+      </div>
+      <% }) %>
+    </div>
+    <button class="scroll-button" id="scrollRightCoimbatore" onclick="scrollRightCards('.coimbatore-cards')">&#8250;</button>
+  </div>
+</div>
 
             <!-- Nearby Centers Section -->
             <div class="container mt-5">
-              <h2>Centers Near You</h2>
+              <h2>Centers in Coimbatore</h2>
+              <p id="centerCount" class="text-muted"></p> <!-- Shows how many centers match the search -->
+              
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <button class="scroll-button" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
-                <div class="center-cards nearby-cards">
+                <button class="scroll-button" id="scrollLeftCoimbatore" onclick="scrollLeftCards('.coimbatore-cards')" disabled>&#8249;</button>
+                <div class="center-cards coimbatore-cards">
                   <% centers.forEach(center=> { %>
-                    <div class="card center-card" onclick="Description('<%= center.email %>')">
-                      <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-                      <div class="card-body">
-                        <h5 class="card-title">
-                          <%= center.centerName %>
-                        </h5>
-                        <p class="card-text">
-                          Rating:
-                          <span class="rating">
-                            <% for (let i=1; i <=5; i++) { %>
-                              <% if (i <=Math.floor(3)) { %>
-                                <!-- Full star -->
-                                <i class="fas fa-star"></i>
-                                <% } else if (i===Math.ceil(3) && 3 % 1 !==0) { %>
-                                  <!-- Half star for decimal part -->
-                                  <i class="fas fa-star-half-alt"></i>
-                                  <% } else { %>
-                                    <!-- Empty star -->
-                                    <i class="far fa-star"></i>
-                                    <% } %>
-                                      <% } %>
-                          </span>
-                        </p>
-                        <!-- <p class="card-text">Price Range: <%= center.priceRange %> -->
-                        </p>
-                      </div>
+                  <div class="card center-card" onclick="Description('<%= center.email %>')">
+                    <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= center.centerName %></h5>
+                      <p class="card-text">
+                        <strong>Location:</strong> <%= center.address %><br>
+                        <strong>Price Range:</strong> <%= center.priceRange %>
+                      </p>
+                      <p class="card-text">
+                        Rating: 
+                        <span class="rating">
+                          <% for (let i=1; i <=5; i++) { %>
+                            <% if (i <=Math.floor(center.rating)) { %>
+                              <i class="fas fa-star"></i>
+                            <% } else if (i === Math.ceil(center.rating) && center.rating % 1 !== 0) { %>
+                              <i class="fas fa-star-half-alt"></i>
+                            <% } else { %>
+                              <i class="far fa-star"></i>
+                            <% } %>
+                          <% } %>
+                        </span>
+                      </p>
+                      <p class="addiction-info" data-addictions='<%= JSON.stringify(center.addictions) %>' style="display:none">
+                        Addiction: <%= center.addictions.join(', ') %>
+                      </p>
                     </div>
-                    <% }) %>
+                  </div>
+                  <% }) %>
                 </div>
-                <button class="scroll-button" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
+                <button class="scroll-button" id="scrollRightCoimbatore" onclick="scrollRightCards('.coimbatore-cards')">&#8250;</button>
               </div>
             </div>
 
@@ -171,24 +169,30 @@
                 const searchTerm = this.value.toLowerCase(); // Get search term and convert to lowercase for case-insensitive search
                 filterCenters(searchTerm);
               });
+              document.getElementById('clearSearch').addEventListener('click', function () {
+                document.getElementById('searchInput').value = '';
+                filterCenters(''); // Reset search
+              });
+
               function filterCenters(searchTerm) {
                 const centerCards = document.querySelectorAll('.center-card'); // Select all center cards
+                let visibleCount = 0;
+
                 centerCards.forEach(card => {
                   const centerName = card.querySelector('.card-title').textContent.toLowerCase();
                   const location = card.querySelector('.card-text').textContent.toLowerCase();
-                  // Get addiction array from the data attribute and parse it
-                  const addictionElement = card.querySelector('.addiction-info');
-                  const addictions = JSON.parse(addictionElement?.getAttribute('data-addictions') || '[]');
+                  const addictions = JSON.parse(card.querySelector('.addiction-info')?.getAttribute('data-addictions') || '[]');
 
-                  // Check if the search term matches the center name, location, or any addiction
                   const matchesAddiction = addictions.some(addiction => addiction.toLowerCase().includes(searchTerm));
-                  // Check if the center name, location, or addiction matches the search term
                   if (centerName.includes(searchTerm) || location.includes(searchTerm) || matchesAddiction) {
-                    card.style.display = 'block'; // Show card if it matches
+                    card.style.display = 'block';
+                    visibleCount++;
                   } else {
-                    card.style.display = 'none';  // Hide card if it doesn't match
+                    card.style.display = 'none';
                   }
                 });
+                document.getElementById('centerCount').textContent = `${visibleCount} centers found`;
+
               }
 
             </script>
