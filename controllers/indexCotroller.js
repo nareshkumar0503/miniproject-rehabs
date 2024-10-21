@@ -4,7 +4,16 @@ const Appointment = require('../models/appointmentSchema');
 const Event = require('../models/eventSchema');
 const BookedEvent = require('../models/bookedEventSchema');
 const Addiction = require('../models/addictionSchema');
+const nodemailer = require('nodemailer');
 
+// ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer***** /
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: '23mx315@psgtech.ac.in',
+      pass: process.env.EMAIL_PASS
+  }
+});
 //*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender***** */
 // ------Landing Page------Landing Page------Landing Page------Landing Page------//
 exports.getLandingPage = async (req, res) => {
@@ -55,7 +64,6 @@ exports.postAppointment = async (req, res) => {
       appointmentDate: formattedAppointmentDate, // Correct field name
     });
 
-    console.log('Existing appointment:', existingAppointment);
     if (existingAppointment) {
       // Step 2: If an appointment already exists, send a response to the client
       return res.status(400).json({ success: false, message: 'Appointment already exists.' });
@@ -77,7 +85,36 @@ exports.postAppointment = async (req, res) => {
     });
     // Step 4: Save the new appointment to the database
     await newAppointment.save();
-    // Step 5: Respond with a success message
+    // Step 5: Send confirmation email to the patient
+    const mailOptions = {
+      from: '23mx315@psgtech.ac.in',
+      to: patientEmail,
+      subject: `Appointment Confirmation with ${centerName}`,
+      html: `
+      <p>Dear ${patientName},</p>
+      <p>Your appointment with <strong>${centerName}</strong> has been successfully booked.</p>
+      
+      <h3>Appointment Details:</h3>
+      <ul>
+        <li><strong>Date:</strong> ${formattedAppointmentDate}</li>
+        <li><strong>Session:</strong> ${appointmentSession}</li>
+        <li><strong>Center Name:</strong> ${centerName}</li>
+        <li><strong>Attender Phone:</strong> ${attenderPhone}</li>
+        <li><strong>Patient Name:</strong> ${patientName}</li>
+        <li><strong>Patient Blood Group:</strong> ${patientBloodGroup}</li>
+        <li><strong>Patient Addiction:</strong> ${patientAddiction}</li>
+      </ul>
+      
+      <p>Please make sure to arrive 10 minutes before your scheduled appointment. If you need to make any changes or cancel the appointment, feel free to contact us at <a href="mailto:${centerEmail}" style="color:rgb(0, 115, 255);">${centerEmail}</a>.</p>
+      
+      <p><strong>Best regards,</strong><br>
+      The ${centerName} Team</p>
+      `
+    };
+
+    // Step 6: Send the email
+    await transporter.sendMail(mailOptions);
+    // Step 7: Respond with a success message
     return res.status(201).json({ success: true, message: 'Appointment booked successfully!' });
   } catch (error) {
     console.error('Error booking appointment:', error);
@@ -120,7 +157,6 @@ exports.cancelAppointment = async (req, res) => {
       patientEmail,
       centerEmail: centerEmail,
     });
-    console.log(result);
     // Check if the deletion was successful
     if (result.deletedCount > 0) {
       return res.status(200).json({ success: true, message: 'Appointment deleted successfully' });
@@ -281,7 +317,6 @@ exports.getGuidancePage = async (req, res) => {
         // Get tips based on addiction type and score
         const tip = getTips(addiction.addictionType, score);
         tips[addiction.addictionType] = tip;
-        console.log(tips[addiction.addictionType])
         // Check for previous day's value
         const previousValue = addiction.entries[addiction.entries.length - 2]?.value || 0; // Get previous value
         const currentValue = lastEntry.value;
@@ -523,7 +558,6 @@ exports.getScorePage = (req, res) => {
 exports.saveAddiction = async (req, res) => {
   const email = req.session.email;
   const { type, quantity, frequency } = req.body;
-  console.log(quantity);
   if (!email) {
     req.session.redirectTo = '/patient/guidance';
     return res.status(401).json({ success: false, message: 'Unauthorized' });
