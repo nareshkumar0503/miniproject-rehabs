@@ -1,7 +1,7 @@
 /* Global Styles */
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  background: linear-gradient(135deg, #f6f6f6, #f8f8f8);
   color: #333;
   margin: 0;
   padding: 0;
@@ -117,27 +117,83 @@ body {
 }
 
 
-/* Dashboard Cards - Neumorphism */
+/* Card Styling */
 .dashboard-card {
-  background-color: #f8f9fa;
-  border-radius: 20px;
-  box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.1), -9px -9px 16px rgba(255, 255, 255, 0.7);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.2), -12px -12px 24px rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .card-header {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
+  font-weight: bold;
+  border-bottom: 2px solid #dee2e6;
 }
+
+.shadow-lg {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Inputs */
+.form-control {
+  padding: 12px 20px;
+  font-size: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+/* Image Upload */
+.drag-drop-area {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+}
+
+.drag-drop-area:hover {
+  background-color: #e2e6ea;
+  border-color: #80bdff;
+}
+
+img {
+  border-radius: 4px;
+  max-width: 100%;
+}
+
+.no-image,
+.no-images {
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
 
 /* Grid Layout */
 .grid-container {
@@ -375,3 +431,70 @@ body {
       font-size: 0.9rem;
   }
 }
+
+
+.profile-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.main-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main-image::before {
+  content: "Main";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.image-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.image-grid img:hover {
+  transform: scale(1.05);
+}
+
+.add-image-btn, .cancel-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-image-btn:hover, .cancel-btn:hover {
+  background-color: #0056b3;
+}
+

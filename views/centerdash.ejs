@@ -11,126 +11,358 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/centerDashBoard.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
     <%- include('notifications') %>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-<div class="col-md-2 sidebar">
-    <div class="sidebar-header">
-        <h2>Rehab Center</h2>
-    </div>
-    <nav class="sidebar-nav">
-        <a class="sidebar-item" href="#">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
-        </a>
-        <a class="sidebar-item" href="#profileManager" onclick="showSection('profileManager')">
-            <i class="fas fa-user-cog"></i> Profile Manager
-        </a>
-        <a class="sidebar-item" href="#hostEvent" onclick="showSection('hostEvent')">
-            <i class="fas fa-calendar-plus"></i> Host Event
-        </a>
-        <h3 class="appointments-title">Appointments</h3>
-        <a class="sidebar-item" href="#appointmentManagement" onclick="showSection('appointmentManagement')">
-            <i class="fas fa-calendar-check"></i> Manage Appointments
-        </a>
-        <a class="sidebar-item" href="/center-view-appointment/<%= encodeURIComponent(center.email) %>">
-            <i class="fas fa-eye"></i> View Appointments
-        </a>
-    </nav>
-</div>
-
-
-            <!-- Main Content -->
-            <div class="col-md-10 main-content">
-                <!-- Top Navigation -->
-                <div class="top-nav">
-                    <img src="https://via.placeholder.com/40" alt="User">
-                    <button class="logout-btn" title="Logout" onclick="window.location.href='/center-logout'"><i class="fas fa-sign-out-alt"></i></button>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-2 sidebar">
+                    <div class="sidebar-header">
+                        <h2>Rehab Center</h2>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <a class="sidebar-item" href="#">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a class="sidebar-item" href="#profileManager" onclick="showSection('profileManager')">
+                            <i class="fas fa-user-cog"></i> Profile Manager
+                        </a>
+                        <a class="sidebar-item" href="#hostEvent" onclick="showSection('hostEvent')">
+                            <i class="fas fa-calendar-plus"></i> Host Event
+                        </a>
+                        <h3 class="appointments-title">Appointments</h3>
+                        <a class="sidebar-item" href="#appointmentManagement"
+                            onclick="showSection('appointmentManagement')">
+                            <i class="fas fa-calendar-check"></i> Manage Appointments
+                        </a>
+                        <a class="sidebar-item" href="/center-view-appointment/<%= encodeURIComponent(center.email) %>">
+                            <i class="fas fa-eye"></i> View Appointments
+                        </a>
+                    </nav>
                 </div>
 
-                <!-- Dashboard Cards -->
-                <div class="grid-container">
 
-                    <!-- Profile Manager Card -->
-                    <div class="dashboard-card profile-card" id="profileManager" style="display: none;">
-                        <div class="card-header">Profile Manager</div>
-                        <form id="update-center">
-                            <div class="mb-3">
-                                <label for="centerName" class="form-label">Center Name</label>
-                                <input type="text" class="form-control" id="centerName" value="<%= center?.centerName || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="registrationNo" class="form-label">Registration No</label>
-                                <input type="text" class="form-control" id="registrationNo" value="<%= center?.registrationNo || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" value="<%= center?.address || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="<%= center?.contactNo || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email (Read-only)</label>
-                                <input type="email" class="form-control" id="email" value="<%= center?.email || '' %>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="servicesOffered" class="form-label">Services Offered</label>
-                                <select class="form-select" id="servicesOffered" multiple>
-                                    <% ['Detoxification', 'Counseling', 'In-patient Rehab'].forEach(service => { %>
-                                        <option value="<%= service %>" <%= center?.servicesOffered?.includes(service) ? 'selected' : '' %>><%= service %></option>
-                                    <% }) %>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="programsAvailable" class="form-label">Programs Available</label>
-                                <input type="text" class="form-control" id="programsAvailable" value="<%= center?.programsAvailable?.join(', ') || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="addictions" class="form-label">Addictions Treated</label>
-                                <input type="text" class="form-control" id="addictions" value="<%= center?.addictions?.join(', ') || '' %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="operatingHours" class="form-label">Operating Hours</label>
-                                <div class="d-flex">
-                                    <input type="time" class="form-control me-2" id="startTime" value="<%= center?.startTime || '09:00' %>" required>
-                                    <input type="time" class="form-control" id="endTime" value="<%= center?.endTime || '18:00' %>" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="emergencyServices" class="form-label">Emergency Services</label>
-                                <select class="form-select" id="emergencyServices" required>
-                                    <option value="Yes" <%= center?.emergencyServices === 'Yes' ? 'selected' : '' %>>Yes</option>
-                                    <option value="No" <%= center?.emergencyServices === 'No' ? 'selected' : '' %>>No</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="priceRange" class="form-label">Price Range</label>
-                                <input type="text" class="form-control" id="priceRange" value="<%= center?.priceRange?.join(' - ') || '' %>" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
-                        </form>
+                <!-- Main Content -->
+                <div class="col-md-10 main-content">
+                    <!-- Top Navigation -->
+                    <div class="top-nav">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <button class="logout-btn" title="Logout" onclick="window.location.href='/center-logout'"><i
+                                class="fas fa-sign-out-alt"></i></button>
                     </div>
 
-                    <!-- Appointment Card Section -->
-                    <div class="dashboard-card appointment-card" id="appointmentManagement" style="display: none;">
-                        <div class="card-header">Appointment Management</div>
-                        <div class="row">
-                            <% if (appointments.length > 0) { %>
-                                <% appointments.forEach(appointment => { %>
+                    <div class="profile-container py-5">
+                        <!-- Image Section First -->
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body p-0">
+                                <h5 class="card-title text-primary mb-3 p-3">Center Images</h5>
+                                <div class="row g-0">
+                                    <% if(center?.centerImages && center.centerImages.length > 0) { %>
+                                        <% center.centerImages.forEach(function(image, index) { %>
+                                            <div class="col-12 mb-3">
+                                                <img src="<%= image %>" class="img-fluid rounded shadow-sm w-100" alt="Center Image <%= index + 1 %>">
+                                            </div>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <p class="text-muted p-3">No images available</p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Profile Header -->
+                        <div class="profile-header d-flex justify-content-between align-items-center mb-4">
+                            <div class="profile-title">
+                                <h2 class="fw-bold text-primary mb-1"><%= center?.centerName || 'Center Name' %></h2>
+                                <p class="text-muted mb-0">Registration No: <%= center?.registrationNo || 'N/A' %></p>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-outline-primary rounded-pill px-4" onclick="window.location.href='/edit-profile'">
+                                    Edit Profile
+                                </button>
+                                <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.location.href='/center-appointments'">
+                                    View Appointments
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <!-- Profile Details -->
+                        <div class="profile-details">
+                            <!-- Contact Information -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Contact Information</h5>
+                                    <p><strong>Address:</strong> <%= center?.address || 'N/A' %></p>
+                                    <p><strong>Phone:</strong> <%= center?.contactNo || 'N/A' %></p>
+                                    <p><strong>Email:</strong> <%= center?.email || 'N/A' %></p>
+                                    <% if(center?.websiteURL) { %>
+                                        <p><strong>Website:</strong> <a href="<%= center.websiteURL %>" target="_blank"><%= center.websiteURL %></a></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                    
+                            <!-- Services Offered -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Services Offered</h5>
+                                    <ul class="list-inline">
+                                        <% center?.servicesOffered?.forEach(service => { %>
+                                            <li class="list-inline-item badge bg-primary text-white shadow-sm mb-2">
+                                                <%= service %>
+                                            </li>
+                                        <% }) %>
+                                    </ul>
+                                </div>
+                            </div>
+                    
+                            <!-- Programs Available -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Programs Available</h5>
+                                    <ul class="list-inline">
+                                        <% center?.programsAvailable?.forEach(program => { %>
+                                            <li class="list-inline-item badge bg-secondary text-white shadow-sm mb-2">
+                                                <%= program %>
+                                            </li>
+                                        <% }) %>
+                                    </ul>
+                                </div>
+                            </div>
+                    
+                            <!-- Addictions Treated -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Addictions Treated</h5>
+                                    <p><%= center?.addictions?.join(', ') || 'N/A' %></p>
+                                </div>
+                            </div>
+                    
+                            <!-- Operating Hours -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Operating Hours</h5>
+                                    <p><strong>From:</strong> <%= center?.startTime || 'N/A' %> <strong>To:</strong> <%= center?.endTime || 'N/A' %></p>
+                                </div>
+                            </div>
+                    
+                            <!-- Emergency Services -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Emergency Services</h5>
+                                    <p><strong>Available:</strong> <%= center?.emergencyServices === 'Yes' ? 'Yes' : 'No' %></p>
+                                </div>
+                            </div>
+                    
+                            <!-- Price Range -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Price Range</h5>
+                                    <p><%= center?.priceRange?.join(' - ') || 'N/A' %></p>
+                                </div>
+                            </div>
+                    
+                            <!-- Center Description -->
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary mb-3">Center Description</h5>
+                                    <p><%= center?.description || 'No description available' %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- Dashboard Cards -->
+                    <div class="grid-container">
+
+                        <!-- Profile Manager Card -->
+                        <div class="dashboard-card profile-card shadow-lg" id="profileManager" style="display: none;">
+                            <div class="card-header bg-primary text-white p-3 rounded-top">
+                                <h5 class="mb-0">Profile Manager</h5>
+                            </div>
+                            <form id="update-center" class="p-4">
+                                <!-- Existing Form Fields (Name, Registration No, etc.) -->
+                                <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <div class="card appointment-card">
-                                            <div class="card-body">
-                                                <h5 class="card-title"><strong>Patient Name:</strong> <%= appointment.patientName %></h5>
-                                                <p><strong>Attender Phone:</strong> <%= appointment.attenderPhone %></p>
-                                                <p><strong>Patient Email:</strong> <%= appointment.patientEmail %></p>
-                                                <p><strong>Appointment Date:</strong> <%= appointment.appointmentDate || 'Not Scheduled' %></p>
-                                                <p><strong>Appointment Session:</strong> <%= appointment.appointmentSession %></p>
-                                                <p><strong>Patient Addiction(s):</strong> <%= appointment.patientAddiction.join(', ') %></p>
+                                        <label for="centerName" class="form-label">Center Name</label>
+                                        <input type="text" class="form-control rounded-pill shadow-sm" id="centerName"
+                                            value="<%= center?.centerName || '' %>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registrationNo" class="form-label">Registration No</label>
+                                        <input type="text" class="form-control rounded-pill shadow-sm"
+                                            id="registrationNo" value="<%= center?.registrationNo || '' %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control rounded-pill shadow-sm" id="address"
+                                        value="<%= center?.address || '' %>" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control rounded-pill shadow-sm" id="phone"
+                                            value="<%= center?.contactNo || '' %>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email (Read-only)</label>
+                                        <input type="email" class="form-control rounded-pill shadow-sm" id="email"
+                                            value="<%= center?.email || '' %>" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="servicesOffered" class="form-label">Services Offered</label>
+                                    <select class="form-select rounded-pill shadow-sm" id="servicesOffered" multiple>
+                                        <% ['Detoxification', 'Counseling' , 'In-patient Rehab' ].forEach(service=> { %>
+                                            <option value="<%= service %>" <%=center?.servicesOffered?.includes(service)
+                                                ? 'selected' : '' %>><%= service %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="programsAvailable" class="form-label">Programs Available</label>
+                                    <input type="text" class="form-control rounded-pill shadow-sm"
+                                        id="programsAvailable"
+                                        value="<%= center?.programsAvailable?.join(', ') || '' %>" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="addictions" class="form-label">Addictions Treated</label>
+                                    <input type="text" class="form-control rounded-pill shadow-sm" id="addictions"
+                                        value="<%= center?.addictions?.join(', ') || '' %>" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="operatingHours" class="form-label">Operating Hours</label>
+                                    <div class="d-flex">
+                                        <input type="time" class="form-control me-2 rounded-pill shadow-sm"
+                                            id="startTime" value="<%= center?.startTime || '09:00' %>" required>
+                                        <input type="time" class="form-control rounded-pill shadow-sm" id="endTime"
+                                            value="<%= center?.endTime || '18:00' %>" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="emergencyServices" class="form-label">Emergency Services</label>
+                                    <select class="form-select rounded-pill shadow-sm" id="emergencyServices" required>
+                                        <option value="Yes" <%=center?.emergencyServices==='Yes' ? 'selected' : '' %>
+                                            >Yes</option>
+                                        <option value="No" <%=center?.emergencyServices==='No' ? 'selected' : '' %>>No
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="priceRange" class="form-label">Price Range</label>
+                                    <input type="text" class="form-control rounded-pill shadow-sm" id="priceRange"
+                                        value="<%= center?.priceRange?.join(' - ') || '' %>" required>
+                                </div>
+
+                                <!-- Images Section -->
+                                <div class="mb-3">
+                                    <label for="centerImages" class="form-label">Center Images</label>
+                                    <div class="image-preview-container">
+                                        <!-- Main Image Section -->
+                                        <div class="main-image mb-3">
+                                            <label class="text-primary">Main Image (Head Image)</label>
+                                            <% if (center.centerImages && center.centerImages.length> 0) { %>
+                                                <img src="<%= center.centerImages[0] %>"
+                                                    class="img-fluid shadow-sm rounded" alt="Main Image"
+                                                    id="headImagePreview">
+                                                <% } else { %>
+                                                    <div class="no-image rounded bg-light text-muted text-center p-2">No
+                                                        Image Available</div>
+                                                    <% } %>
+                                        </div>
+
+                                        <!-- Other Images Section -->
+                                        <div class="other-images mb-3">
+                                            <label>Other Images</label>
+                                            <div id="otherImagesContainer" class="d-flex flex-wrap gap-3">
+                                                <% if (center.centerImages && center.centerImages.length> 1) { %>
+                                                    <% center.centerImages.slice(1).forEach(function(image, index) { %>
+                                                        <div class="other-image-item">
+                                                            <img src="<%= image %>" class="img-fluid shadow-sm rounded"
+                                                                alt="Image <%= index + 1 %>">
+                                                            <button type="button"
+                                                                class="btn btn-danger btn-sm mt-1 rounded-pill remove-image-btn"
+                                                                onclick="removeImage('<%= index + 1 %>')">Remove</button>
+                                                        </div>
+                                                        <% }); %>
+                                                            <% } else { %>
+                                                                <div
+                                                                    class="no-images rounded bg-light text-muted text-center p-2">
+                                                                    No Additional Images</div>
+                                                                <% } %>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add New Image Button -->
+                                        <button type="button" class="btn btn-secondary rounded-pill shadow-sm"
+                                            id="addImageBtn" onclick="showImageUpload()">Add Image</button>
+
+                                        <!-- Image Upload Section (Hidden initially) -->
+                                        <div id="imageUploadContainer" style="display: none;">
+                                            <label for="newImageUpload" class="form-label">Upload New Image</label>
+                                            <div class="drag-drop-area border rounded p-3 text-center bg-light"
+                                                id="dragDropArea">
+                                                <p class="text-muted">Drag & Drop an image here or click to upload</p>
+                                                <input type="file" id="newImageUpload"
+                                                    class="form-control rounded-pill shadow-sm" accept="image/*"
+                                                    onchange="handleImageUpload(event)">
+                                            </div>
+                                            <button type="button" class="btn btn-danger mt-2 rounded-pill"
+                                                onclick="cancelImageUpload()">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary rounded-pill shadow-sm px-4">Update
+                                        Profile</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!-- Appointment Card Section -->
+                        <div class="dashboard-card appointment-card" id="appointmentManagement" style="display: none;">
+                            <div class="card-header">Appointment Management</div>
+                            <div class="row">
+                                <% if (appointments.length> 0) { %>
+                                    <% appointments.forEach(appointment=> { %>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card appointment-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><strong>Patient Name:</strong>
+                                                        <%= appointment.patientName %>
+                                                    </h5>
+                                                    <p><strong>Attender Phone:</strong>
+                                                        <%= appointment.attenderPhone %>
+                                                    </p>
+                                                    <p><strong>Patient Email:</strong>
+                                                        <%= appointment.patientEmail %>
+                                                    </p>
+                                                    <p><strong>Appointment Date:</strong>
+                                                        <%= appointment.appointmentDate || 'Not Scheduled' %>
+                                                    </p>
+                                                    <p><strong>Appointment Session:</strong>
+                                                        <%= appointment.appointmentSession %>
+                                                    </p>
+                                                    <p><strong>Patient Addiction(s):</strong>
+                                                        <%= appointment.patientAddiction.join(', ') %></p>
 
                                                 <!-- Time selection dropdown -->
                                                 <div class="time-update mb-2">
@@ -138,26 +370,30 @@
                                                     <select id="time-<%= appointment._id %>" name="time" class="form-select mb-2">
                                                         <% 
                                                             let timeSlots = [];
-                                                            if (appointment.appointmentSession === 'Morning') {
-                                                                timeSlots = ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00'];
-                                                            } else if (appointment.appointmentSession === 'Evening') {
-                                                                timeSlots = ['15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'];
-                                                            } 
-                                                        %>
-                                                        <% timeSlots.forEach(slot => { %>
-                                                            <option value="<%= slot %>" <%= appointment.time === slot ? 'selected' : '' %>><%= slot %></option>
-                                                        <% }); %>
-                                                    </select>
+                                                            if (appointment.appointmentSession === ' Morning') {
+                                                            timeSlots=['07:00', '08:00' , '09:00' , '10:00' , '11:00'
+                                                            , '12:00' , '13:00' ]; } else if
+                                                            (appointment.appointmentSession==='Evening' ) {
+                                                            timeSlots=['15:00', '16:00' , '17:00' , '18:00' , '19:00'
+                                                            , '20:00' , '21:00' ]; } %>
+                                                            <% timeSlots.forEach(slot=> { %>
+                                                                <option value="<%= slot %>" <%=appointment.time===slot
+                                                                    ? 'selected' : '' %>><%= slot %>
+                                                                </option>
+                                                                <% }); %>
+                                                                    </select>
                                                 </div>
-                                                <button class="btn btn-approve" id="approvetime" onclick="approveAppointment('<%= appointment._id %>')">Approve</button>
-                            <button class="btn btn-cancel" id="cancelBtn" onclick="triggerCancelModal('<%= appointment._id %>')">Cancel</button>
+                                                <button class="btn btn-approve" id="approvetime"
+                                                    onclick="approveAppointment('<%= appointment._id %>')">Approve</button>
+                                                <button class="btn btn-cancel" id="cancelBtn"
+                                                    onclick="triggerCancelModal('<%= appointment._id %>')">Cancel</button>
                                             </div>
                                         </div>
-                                    </div>
-                                <% }); %>
-                            <% } else { %>
-                                <p>No appointments available at this time.</p>
-                            <% } %>
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No appointments available at this time.</p>
+                                    <% } %>
                         </div>
                     </div>
 
@@ -177,13 +413,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="eventDate" class="form-label">Event Date</label>
-                                <input type="date" class="form-control" id="eventDate" name="eventDate"
-                                    required>
+                                <input type="date" class="form-control" id="eventDate" name="eventDate" required>
                             </div>
                             <div class="mb-3">
                                 <label for="eventTime" class="form-label">Event Time</label>
-                                <input type="time" class="form-control" id="eventTime" name="eventTime"
-                                    required>
+                                <input type="time" class="form-control" id="eventTime" name="eventTime" required>
                             </div>
                             <input type="hidden" id="centerName" name="centerName" value="<%= center.centerName %>">
                             <input type="hidden" id="centerEmail" name="centerEmail" value="<%= center.email %>">
@@ -193,40 +427,103 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 
-    <!-- Modal for Cancel Confirmation -->
-<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="cancelModalLabel">Confirm Cancellation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to cancel this appointment?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="confirmCancel">Yes, Cancel Appointment</button>
+        <!-- Modal for Cancel Confirmation -->
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cancelModalLabel">Confirm Cancellation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to cancel this appointment?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-danger" id="confirmCancel">Yes, Cancel Appointment</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-    <!-- JavaScript -->
-    <script>
-        function showSection(sectionId) {
-            const sections = ['profileManager', 'appointmentManagement', 'hostEvent'];
-            sections.forEach(section => {
-                document.getElementById(section).style.display = (section === sectionId) ? 'block' : 'none';
+        <!-- JavaScript -->
+        <script>
+            function showSection(sectionId) {
+                const sections = ['profileManager', 'appointmentManagement', 'hostEvent'];
+                sections.forEach(section => {
+                    document.getElementById(section).style.display = (section === sectionId) ? 'block' : 'none';
+                });
+            }
+        </script>
+        <script>
+            // Function to show the image upload section
+            function showImageUpload() {
+                document.getElementById('imageUploadContainer').style.display = 'block';
+                document.getElementById('addImageBtn').style.display = 'none';
+            }
+
+            // Function to cancel the image upload
+            function cancelImageUpload() {
+                document.getElementById('imageUploadContainer').style.display = 'none';
+                document.getElementById('addImageBtn').style.display = 'block';
+                document.getElementById('newImageUpload').value = ''; // Clear file input
+            }
+
+            // Handle image upload preview (drag-and-drop or file select)
+            function handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        // Create an image preview in the UI
+                        const imgElement = document.createElement('img');
+                        imgElement.src = e.target.result;
+                        imgElement.classList.add('img-fluid');
+
+                        const imageContainer = document.getElementById('otherImagesContainer');
+                        imageContainer.appendChild(imgElement);
+
+                        // Hide the upload section after adding the image
+                        cancelImageUpload();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            // Function to remove an image
+            function removeImage(index) {
+                // Remove the image from the UI
+                const images = document.getElementById('otherImagesContainer').children;
+                if (images[index]) {
+                    images[index].remove();
+                }
+            }
+
+            // Drag and Drop Feature
+            const dragDropArea = document.getElementById('dragDropArea');
+            dragDropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dragDropArea.classList.add('dragging');
             });
-        }
-    </script>
-   <script src="/js/centerDashBoard.js"></script>
+            dragDropArea.addEventListener('dragleave', () => {
+                dragDropArea.classList.remove('dragging');
+            });
+            dragDropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dragDropArea.classList.remove('dragging');
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+                const file = e.dataTransfer.files[0];
+                document.getElementById('newImageUpload').files = e.dataTransfer.files;
+
+                handleImageUpload({ target: { files: [file] } });
+            });
+        </script>
+        <script src="/js/centerDashBoard.js"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
