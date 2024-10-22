@@ -63,8 +63,10 @@
                     <input type="text" class="form-control" id="centerName" name="centerName" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="registrationNo">Registration Number:</label>
-                    <input type="text" class="form-control" id="registrationNo" name="registrationNo" required>
+                    <label for="contactNo">Contact Number:</label>
+                    <input type="tel" class="form-control" id="contactNo" name="contactNo" 
+                            title="Please enter a valid 10-digit phone number" required>
+                    <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
                 </div>
             </div>
 
@@ -77,14 +79,13 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="contactNo">Contact Number:</label>
-                    <input type="tel" class="form-control" id="contactNo" name="contactNo" 
-                            title="Please enter a valid 10-digit phone number" required>
-                    <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
-                </div>
-                <div class="form-group col-md-6">
                     <label for="email">Email:</label>
                     <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <small id="passwordError" class="form-text">Password must be at least 8 characters long.</small>
                 </div>
             </div>
 
@@ -103,8 +104,20 @@
                         <label class="form-check-label" for="service1">Detoxification</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="service2" name="servicesOffered[]" value="Counseling">
-                        <label class="form-check-label" for="service2">Counseling</label>
+                        <input type="checkbox" class="form-check-input" id="service2" name="servicesOffered[]" value="Inpatient Rehabilitation">
+                        <label class="form-check-label" for="service1">Inpatient Rehabilitation</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="service3" name="servicesOffered[]" value="Outpatient Rehabilitation">
+                        <label class="form-check-label" for="service1">Outpatient Rehabilitation</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="service4" name="servicesOffered[]" value="Aftercare Programs">
+                        <label class="form-check-label" for="service1">Aftercare Programs</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="service5" name="servicesOffered[]" value="Therapy and Counseling">
+                        <label class="form-check-label" for="service2">Therapy and Counseling</label>
                     </div>
                     <!-- Add more services as needed -->
                 </div>
@@ -115,8 +128,16 @@
                         <label class="form-check-label" for="program1">12-Step Program</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="program2" name="programsAvailable[]" value="Outpatient Program">
-                        <label class="form-check-label" for="program2">Outpatient Program</label>
+                        <input type="checkbox" class="form-check-input" id="program2" name="programsAvailable[]" value="Holistic Programs">
+                        <label class="form-check-label" for="program1">Holistic Programs</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="program3" name="programsAvailable[]" value="Dual Diagnosis">
+                        <label class="form-check-label" for="program1">Dual Diagnosis</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="program4" name="programsAvailable[]" value="Gender-Specific Programs">
+                        <label class="form-check-label" for="program1">Gender-Specific Programs</label>
                     </div>
                     <!-- Add more programs as needed -->
                 </div>
@@ -134,15 +155,15 @@
                         <label class="form-check-label" for="addiction2">Drugs</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction2" name="addictions[]" value="Drugs">
+                        <input type="checkbox" class="form-check-input" id="addiction3" name="addictions[]" value="Smoking">
                         <label class="form-check-label" for="addiction2">Smoking</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction2" name="addictions[]" value="Drugs">
+                        <input type="checkbox" class="form-check-input" id="addiction4" name="addictions[]" value="Internet">
                         <label class="form-check-label" for="addiction2">Internet</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="addiction2" name="addictions[]" value="Drugs">
+                        <input type="checkbox" class="form-check-input" id="addiction5" name="addictions[]" value="Gambling">
                         <label class="form-check-label" for="addiction2">Gambling</label>
                     </div>
                     <!-- Add more addictions as needed -->

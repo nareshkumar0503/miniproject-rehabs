@@ -135,10 +135,10 @@ exports.postCenterRegister = async (req, res) => {
 
         const newCenter = new Center({
             centerName: req.body.centerName,
-            registrationNo: req.body.registrationNo,
-            address: req.body.address,
             contactNo: req.body.contactNo,
+            address: req.body.address,
             email: req.body.email,
+            password: req.body.password,
             websiteURL: req.body.websiteURL,
             servicesOffered: req.body.servicesOffered,
             programsAvailable: req.body.programsAvailable,

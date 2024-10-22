@@ -196,21 +196,30 @@
                             </div>
 
                             <!-- Contact Information -->
-                            <div class="info-card contact-card mt-3">
-                                <h4>Contact Information</h4>
-                                <p><strong>Phone:</strong>
-                                    <%= center.contactNo %>
-                                </p>
-                                <p><strong>Email:</strong>
-                                    <%= center.email %>
-                                </p>
-                                <p>
-                                    <strong>Website:</strong>
-                                    <a href="<%= center.websiteURL %>" target="_blank">
-                                        <%= center.websiteURL %>
-                                    </a>
-                                </p>
-                            </div>
+<div class="info-card contact-card mt-3">
+    <h4>Contact Information</h4>
+    
+    <p class="contact-item">
+        <i class="fas fa-phone-alt"></i> 
+        <strong>Phone:</strong>
+        <%= center.contactNo %>
+    </p>
+
+    <p class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <strong>Email:</strong>
+        <%= center.email %>
+    </p>
+
+    <p class="contact-item">
+        <i class="fas fa-globe"></i>
+        <strong>Website:</strong>
+        <a href="<%= center.websiteURL %>" target="_blank">
+            <%= center.websiteURL %>
+        </a>
+    </p>
+</div>
+
                         </div>
                     </div>
 
