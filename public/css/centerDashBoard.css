@@ -448,9 +448,11 @@ img {
 .main-image {
   position: relative;
   width: 100%;
-  height: auto;
+  height: auto; /* Adjust height automatically */
+  max-height: 300px; /* Set a max height if needed */
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  object-fit: cover; /* Ensure the image maintains aspect ratio */
 }
 
 .main-image::before {
@@ -474,9 +476,11 @@ img {
 
 .image-grid img {
   width: 100%;
-  height: auto;
+  height: auto; /* Allow images to adjust based on width */
+  max-height: 150px; /* Set a maximum height if necessary */
   border-radius: 8px;
   transition: transform 0.3s ease;
+  object-fit: cover; /* Maintain the aspect ratio and avoid distortion */
 }
 
 .image-grid img:hover {
@@ -497,4 +501,5 @@ img {
 .add-image-btn:hover, .cancel-btn:hover {
   background-color: #0056b3;
 }
+
 
