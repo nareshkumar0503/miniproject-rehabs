@@ -12,336 +12,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/guidance.css">
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif; /* Changed font to Poppins for a modern look */
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-        }
-
-        /* Navbar */
-        .navbar {
-            padding: 1.5rem 2rem;
-            background: linear-gradient(90deg, #0d0d0d, #333333);
-            /* Sleeker dark gradient */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            /* Stronger shadow for modernity */
-            font-family: 'Poppins', sans-serif;
-            transition: background-color 0.3s ease-in-out;
-            /* Smooth transition on hover */
-        }
-
-        .navbar:hover {
-            background: linear-gradient(90deg, #141414, #4c4c4c);
-            /* Darker on hover */
-        }
-
-        .navbar-brand {
-            color: #ffc107;
-            font-weight: 800;
-            font-size: 2.2rem;
-            letter-spacing: 0.08rem;
-            text-transform: uppercase;
-        }
-
-        .nav-link {
-            color: #ffffff;
-            margin-right: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.4s ease;
-        }
-
-        .nav-link:hover {
-            color: #ffc107;
-            /* Golden hover effect */
-        }
-
-        .navbar-toggler {
-            border-color: #ffc107;
-        }
-
-        /* Dropdown menu */
-.dropdown-menu {
-    background-color: #1a1a1a;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-item {
-    color: #ffffff;
-    padding: 1rem 1.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-weight: 500;
-}
-
-.dropdown-item:hover {
-    background-color: #f0a500;
-    color: #fff;
-    border-radius: 5px;
-}
-
-/* General Container */
-.container {
-    width: 85%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header Section */
-.header-section h1 {
-    text-align: center;
-    color: #2c3e50;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
-}
-
-/* Guidance Section */
-.guidance-section {
-    background-color: #ffffff;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-bottom: 30px;
-    transition: box-shadow 0.3s ease;
-}
-
-.guidance-section:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.guidance-section h2 {
-    text-align: center;
-    color: #34495e;
-    margin-bottom: 25px;
-    font-size: 2rem;
-    font-weight: 600;
-}
-
-.guidance-section .content {
-    font-size: 1.15em;
-    line-height: 1.8;
-    color: #555;
-}
-
-.guidance-section .score-btn {
-    display: block;
-    margin: 30px auto;
-    padding: 14px 28px;
-    background: linear-gradient(135deg, #28a745, #218838);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background 0.4s ease;
-    text-align: center;
-}
-
-.guidance-section .score-btn:hover {
-    background: linear-gradient(135deg, #218838, #1e7e34);
-}
-
-/* Accordion Section */
-.accordion-header button {
-    font-size: 1.15rem;
-    font-weight: 600;
-    background-color: #f1f3f5;
-    padding: 12px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-.accordion-header button:hover {
-    background-color: #e9ecef;
-}
-
-.accordion-body {
-    background-color: #ffffff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    border-radius: 8px;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 12px;
-    position: relative;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-.modal-content h2 {
-    text-align: center;
-    color: #2c3e50;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.modal-content .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 18px;
-    font-size: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #999;
-}
-
-.modal-content .close-btn:hover {
-    color: #e74c3c;
-}
-
-/* Score Section Inside Modal */
-.score-section {
-    font-size: 1.15rem;
-    color: #555;
-}
-
-.score-section .score-item {
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
-}
-
-/* Footer Section */
-.footer-section {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 0.95em;
-    color: #666;
-}
-
-.footer-section a {
-    color: #28a745;
-    text-decoration: none;
-}
-
-.footer-section a:hover {
-    color: #218838;
-}
-
-/* Risk Section */
-.risk-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border-radius: 12px;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.3s;
-}
-
-.risk-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-.risk-item h3 {
-    flex: 1;
-    font-size: 1.75rem;
-    color: #34495e;
-    margin: 0;
-}
-
-.risk-item h3 i {
-    margin-right: 12px;
-    color: #3498db;
-}
-
-/* Inputs */
-.quantity-input,
-.frequency-dropdown {
-    width: 120px;
-    height: 45px;
-    border-radius: 8px;
-    border: 1px solid #3498db;
-    text-align: center;
-    margin: 0 15px;
-    font-size: 1.1rem;
-    color: #2c3e50;
-    background-color: #f1f3f5;
-    transition: all 0.3s;
-}
-
-.quantity-input:focus,
-.frequency-dropdown:focus {
-    border-color: #2980b9;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
-}
-
-/* Buttons */
-.btn-primary {
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 24px;
-    background-color: #3498db;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-left: 10px;
-}
-
-.btn-primary:hover {
-    background-color: #2980b9;
-    transform: translateY(-3px);
-}
-
-/* Progress Bar */
-.progress-bar-custom {
-    height: 20px;
-    border-radius: 50px;
-    background-color: #e0e0e0;
-    overflow: hidden;
-    position: relative;
-}
-
-.progress-bar-custom::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 0;
-    background-color: #3498db;
-    transition: width 0.5s ease, background-color 0.5s ease;
-}
-
-    </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <%- include('navbar') %>
         <!-- Language Selection -->
         <select id="languageSelect" onchange="updatePageLanguage()">
-            <option value="en-US">English</option>
+            <option value="en-IN">English</option>
             <option value="hi-IN">Hindi</option>
             <option value="ta-IN">Tamil</option>
             <option value="te-IN">Telugu</option>
@@ -364,7 +42,7 @@
                             <%= type.charAt(0).toUpperCase() + type.slice(1) %> Addiction
                         </h4>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width:<%= score * 20 %>%;"
+                            <div class="progress-bar" role="progressbar" style="width: <%= score * 20 %>%; "
                                 aria-valuenow="<%= score * 20 %>" aria-valuemin="0" aria-valuemax="100">
                                 <%= score %>
                             </div>
@@ -384,7 +62,8 @@
                                         <% if (message) { %>
                                             <% if(message==='login' ) { %>
                                                 <p class="alert alert-info">
-                                                    <a href="/login" id="logint">Please log in to view your guidance.</a>
+                                                    <a href="/login" id="logint">Please log in to view your
+                                                        guidance.</a>
                                                 </p>
                                                 <% } else { %>
                                                     <p class="alert alert-info">
@@ -397,38 +76,43 @@
 
             <!-- Accordion Section for Risk Factors -->
             <div class="accordion" id="riskFactorsAccordion">
+
                 <!-- Introduction -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingIntro">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseIntro" aria-expanded="true" aria-controls="collapseIntro" id="headerTitle">
+                            data-bs-target="#collapseIntro" aria-expanded="true" aria-controls="collapseIntro"
+                            id="headerTitle">
                             <i class="fas fa-info-circle icon"></i> Understanding Risk Factors for Addiction
                         </button>
-
-
                     </h2>
                     <div id="collapseIntro" class="accordion-collapse collapse show" aria-labelledby="headingIntro"
                         data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="introduction">
-                            <span id="introduction1">Discovering that your child’s friends are getting into vaping, drinking, or trying other
-                            substances,
-                            or maybe even your own child has started experimenting, can make you wonder: Is this just a
-                            normal
-                            phase of growing up, or could it lead to serious problems? Instead of leaving things to
-                            chance, let’s
-                            dive into what you need to know about risk factors for addiction.</span>
+                            <span id="introduction1">Discovering that your child’s friends are getting into vaping,
+                                drinking, or trying other substances, or maybe even your own child has started
+                                experimenting,
+                                can make you wonder: Is this just a normal phase of growing up, or could it lead to
+                                serious problems?
+                                Instead of leaving things to chance, let’s dive into what you need to know about risk
+                                factors for addiction.</span>
                             <br><br>
-                            <span id="introduction2">Just like heart disease has risk factors like high blood pressure, high cholesterol, lack of
-                            exercise,
-                            poor diet, family history, and smoking, substance use has its own set of risk factors. They
-                            can make
-                            some people more at risk of developing problems with substance use including addiction. And
-                            just like
-                            heart disease, the earlier we recognize these risks, the better we can prevent serious
-                            problems down
-                            the road.</span>
+                            <span id="introduction2">Just like heart disease has risk factors like high blood pressure,
+                                high cholesterol, lack of exercise, poor diet, family history, and smoking, substance
+                                use has its own set of
+                                risk factors. They can make some people more at risk of developing problems with
+                                substance use including addiction.
+                                And just like heart disease, the earlier we recognize these risks, the better we can
+                                prevent serious problems down the road.</span>
                             <br><br>
                             <span id="introduction3">Here are some important risk factors for addiction:</span>
+
+                            <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('introduction')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -445,17 +129,21 @@
                     <div id="collapseMentalHealth" class="accordion-collapse collapse"
                         aria-labelledby="headingMentalHealth" data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="mentalhealthtext">
-                            <span id="mentalHealth1">Mental health conditions like depression, anxiety, conduct disorder, or ADHD create a
-                            greater risk
-                            for substance use problems. If your child struggles with any mental health issues, they may
-                            see
-                            alcohol or drugs as a way to deal with their symptoms.</span>
+                            <span id="mentalHealth1">Mental health conditions like depression, anxiety, conduct
+                                disorder, or ADHD create a
+                                greater risk
+                                for substance use problems. If your child struggles with any mental health issues, they
+                                may
+                                see
+                                alcohol or drugs as a way to deal with their symptoms.</span>
                             <br><br>
-                            <span id="mentalHealth2">Getting mental health help, including therapy or medications if needed, can go a long way in
-                            protecting your child. Not only is it important to look after your child’s mental health,
-                            but yours
-                            matters too. Kids often model what they see. Prioritize your own well-being to set a
-                            powerful example.</span> 
+                            <span id="mentalHealth2">Getting mental health help, including therapy or medications if
+                                needed, can go a long way in
+                                protecting your child. Not only is it important to look after your child’s mental
+                                health,
+                                but yours
+                                matters too. Kids often model what they see. Prioritize your own well-being to set a
+                                powerful example.</span>
                         </div>
                     </div>
                 </div>
@@ -472,17 +160,20 @@
                     <div id="collapseImpulseControl" class="accordion-collapse collapse"
                         aria-labelledby="headingImpulseControl" data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="behavioralorimpulsetext">
-                            <span id="impulseControl1">Children who frequently take risks and have difficulty controlling impulses or following
-                            rules
-                            are at higher risk for substance use problems. Often, they seek a thrill from pushing
-                            boundaries,
-                            which can include experimenting with substances.</span>
+                            <span id="impulseControl1">Children who frequently take risks and have difficulty
+                                controlling impulses or following
+                                rules
+                                are at higher risk for substance use problems. Often, they seek a thrill from pushing
+                                boundaries,
+                                which can include experimenting with substances.</span>
                             <br><br>
-                            <span id="impulseControl2">It’s important for parents to help children develop coping skills and teach problem-solving
-                            and
-                            anger management techniques. Being fair, firm, and consistent with rules at home also helps
-                            mitigate
-                            these risks.</span>
+                            <span id="impulseControl2">It’s important for parents to help children develop coping skills
+                                and teach problem-solving
+                                and
+                                anger management techniques. Being fair, firm, and consistent with rules at home also
+                                helps
+                                mitigate
+                                these risks.</span>
                         </div>
                     </div>
                 </div>
@@ -491,21 +182,26 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingTrauma">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTrauma" aria-expanded="false" aria-controls="collapseTrauma" id="exposuretotrauma">
+                            data-bs-target="#collapseTrauma" aria-expanded="false" aria-controls="collapseTrauma"
+                            id="exposuretotrauma">
                             <i class="fas fa-heart-broken icon"></i> Exposure to Trauma
                         </button>
                     </h2>
                     <div id="collapseTrauma" class="accordion-collapse collapse" aria-labelledby="headingTrauma"
                         data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="exposuretotraumatext">
-                            <span id="exposure1">Trauma is another critical risk factor for addiction. Children who have experienced or
-                            witnessed
-                            violence, abuse, or the loss of a loved one are at higher risk for substance use problems
-                            later in life.</span>
+                            <span id="exposure1">Trauma is another critical risk factor for addiction. Children who have
+                                experienced or
+                                witnessed
+                                violence, abuse, or the loss of a loved one are at higher risk for substance use
+                                problems
+                                later in life.</span>
                             <br><br>
-                            <span id="exposure2">Trauma can also include experiences like accidents or natural disasters. Recognizing the
-                            possible impact
-                            of trauma and getting appropriate help is crucial for protecting a child’s well-being.</span>
+                            <span id="exposure2">Trauma can also include experiences like accidents or natural
+                                disasters. Recognizing the
+                                possible impact
+                                of trauma and getting appropriate help is crucial for protecting a child’s
+                                well-being.</span>
                         </div>
                     </div>
                 </div>
@@ -522,15 +218,18 @@
                     <div id="collapseEnvironment" class="accordion-collapse collapse"
                         aria-labelledby="headingEnvironment" data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="environmentalfactorstext">
-                            <span id="environmental1">Substance use among peers, easy access to nicotine, alcohol, or drugs, and media influences
-                            can all
-                            contribute to substance use problems. Social media, movies, and television often glamorize
-                            substance use
-                            without showing the consequences.</span>
+                            <span id="environmental1">Substance use among peers, easy access to nicotine, alcohol, or
+                                drugs, and media influences
+                                can all
+                                contribute to substance use problems. Social media, movies, and television often
+                                glamorize
+                                substance use
+                                without showing the consequences.</span>
                             <br><br>
-                            <span id="environmental2">Monitoring your child’s environment, knowing their friends, and being aware of their
-                            exposure to media
-                            can help reduce these risks.</span>
+                            <span id="environmental2">Monitoring your child’s environment, knowing their friends, and
+                                being aware of their
+                                exposure to media
+                                can help reduce these risks.</span>
                         </div>
                     </div>
                 </div>
@@ -547,15 +246,18 @@
                     <div id="collapseAgeFirstUse" class="accordion-collapse collapse"
                         aria-labelledby="headingAgeFirstUse" data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="ageoffirstusetext">
-                            <span id="age1">The age at which a teen first uses substances is one of the strongest predictors of
-                            addiction. The
-                            earlier the exposure, the higher the risk. Delaying first use is crucial because the brain
-                            is still
-                            developing until the mid-20s.</span>
+                            <span id="age1">The age at which a teen first uses substances is one of the strongest
+                                predictors of
+                                addiction. The
+                                earlier the exposure, the higher the risk. Delaying first use is crucial because the
+                                brain
+                                is still
+                                developing until the mid-20s.</span>
                             <br><br>
-                            <span id="age2">Substance use before the age of 15 can lead to a higher likelihood of addiction. Delaying
-                            use until
-                            adulthood reduces this risk significantly.</span>
+                            <span id="age2">Substance use before the age of 15 can lead to a higher likelihood of
+                                addiction. Delaying
+                                use until
+                                adulthood reduces this risk significantly.</span>
                         </div>
                     </div>
                 </div>
@@ -563,30 +265,37 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingRiskTool">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseRiskTool" aria-expanded="false" aria-controls="collapseRiskTool" id="riskfactortool">
+                            data-bs-target="#collapseRiskTool" aria-expanded="false" aria-controls="collapseRiskTool"
+                            id="riskfactortool">
                             <i class="fas fa-tools icon"></i> Risk Factor Tool
                         </button>
                     </h2>
                     <div id="collapseRiskTool" class="accordion-collapse collapse" aria-labelledby="headingRiskTool"
                         data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="riskfactortooltext">
-                           <span id="riskfactor1">All these risk factors were brought together to create a <strong>Risk Assessment
-                                Tool</strong> that
-                            you can use for free and in confidence. It’s available <a href="#" target="_blank">here</a>.
-                            Simply
-                            answer a series of questions to the best of your ability to find out what risk factors, if
-                            any, your
-                            child may face. It usually takes about 5 to 6 minutes to answer all of the questions.
-                        </span> <br><br>
-                            <span id="riskfactor2">After you submit your answers, you’ll receive a report that shows the factors you’ve
-                            identified, along
-                            with suggestions on how to lower these risks. Remember, the tool won’t provide a diagnosis
-                            or a score.
-                            Generally speaking, if more risk factors show up, the situation is more concerning.
-                        </span> <br><br>
-                            <span id="riskfactor3"></span>Should you need more help understanding the report or creating a plan to help your child,
+                            <span id="riskfactor1">All these risk factors were brought together to create a <strong>Risk
+                                    Assessment
+                                    Tool</strong> that
+                                you can use for free and in confidence. It’s available <a href="#"
+                                    target="_blank">here</a>.
+                                Simply
+                                answer a series of questions to the best of your ability to find out what risk factors,
+                                if
+                                any, your
+                                child may face. It usually takes about 5 to 6 minutes to answer all of the questions.
+                            </span> <br><br>
+                            <span id="riskfactor2">After you submit your answers, you’ll receive a report that shows the
+                                factors you’ve
+                                identified, along
+                                with suggestions on how to lower these risks. Remember, the tool won’t provide a
+                                diagnosis
+                                or a score.
+                                Generally speaking, if more risk factors show up, the situation is more concerning.
+                            </span> <br><br>
+                            <span id="riskfactor3"></span>Should you need more help understanding the report or creating
+                            a plan to help your child,
                             don’t hesitate
-                            to ask for support.</span> 
+                            to ask for support.</span>
                         </div>
                     </div>
                 </div>
@@ -595,27 +304,33 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingWhatToDo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseWhatToDo" aria-expanded="false" aria-controls="collapseWhatToDo" id="whatcanyoudo">
+                            data-bs-target="#collapseWhatToDo" aria-expanded="false" aria-controls="collapseWhatToDo"
+                            id="whatcanyoudo">
                             <i class="fas fa-hands-helping icon"></i> What Can You Do?
                         </button>
                     </h2>
                     <div id="collapseWhatToDo" class="accordion-collapse collapse" aria-labelledby="headingWhatToDo"
                         data-bs-parent="#riskFactorsAccordion" id="whatcanyoudotext">
                         <div class="accordion-body">
-                           <span id="what1"> <strong>Focus on preventing and delaying substance use</strong> as long as possible, and
-                            address any
-                            underlying risk factors. Work on helping your child develop strong coping skills and healthy
-                            relationships.</span> 
+                            <span id="what1"> <strong>Focus on preventing and delaying substance use</strong> as long as
+                                possible, and
+                                address any
+                                underlying risk factors. Work on helping your child develop strong coping skills and
+                                healthy
+                                relationships.</span>
                             <br><br>
-                           <span id="what2"> Reach out for help if you are concerned about any mental health problems that arise. And, be
-                            sure to
-                            manage your own mental health and well-being to set a positive example.
-                        </span> <br><br>
-                            <span id="what3">Remember, a supportive environment is one of the best protective measures you can provide.
-                            Building
-                            trust, having open conversations, and providing a safe and secure atmosphere can go a long
-                            way in
-                            reducing your child’s risk for addiction.</span> 
+                            <span id="what2"> Reach out for help if you are concerned about any mental health problems
+                                that arise. And, be
+                                sure to
+                                manage your own mental health and well-being to set a positive example.
+                            </span> <br><br>
+                            <span id="what3">Remember, a supportive environment is one of the best protective measures
+                                you can provide.
+                                Building
+                                trust, having open conversations, and providing a safe and secure atmosphere can go a
+                                long
+                                way in
+                                reducing your child’s risk for addiction.</span>
                         </div>
                     </div>
                 </div>
@@ -785,26 +500,79 @@
 
         </script>
         <script>
-            
+            let prevElementId = '';
             // Function to handle speech synthesis
             function speakText(elementId) {
                 if ('speechSynthesis' in window) {
                     const element = document.getElementById(elementId);
                     const selectedLanguage = document.getElementById('languageSelect').value;
-                    if (element && element.innerText) {
+                    const speakButton = document.querySelector('.sound-button'); // Get the speak button element
+
+                    if (element && element.innerText && prevElementId != elementId) {
+                        prevElementId = elementId;
                         const text = element.innerText;
                         const speech = new SpeechSynthesisUtterance(text);
+
+                        // Set language and properties
                         speech.lang = selectedLanguage;
                         speech.rate = 1;
                         speech.pitch = 1;
-                        window.speechSynthesis.speak(speech);
+
+                        // Clear the previous speech synthesis queue to avoid conflicts
+                        window.speechSynthesis.cancel();
+
+                        // Get available voices and set the correct voice for the selected language
+                        const voices = window.speechSynthesis.getVoices();
+                        const matchedVoice = voices.find(voice => voice.lang === selectedLanguage);
+
+                        if (matchedVoice) {
+                            speech.voice = matchedVoice;
+                        } else {
+                            console.error(`No matching voice found for language: ${selectedLanguage}`);
+                        }
+
+                        // Add a slight delay to ensure voices are ready
+                        setTimeout(() => {
+                            // Add glowing effect when speaking starts
+                            speakButton.classList.add('speaking');
+
+                            window.speechSynthesis.speak(speech);
+                        }, 100); // Delay of 100ms
+
+                        // Remove glowing effect when speech ends
+                        speech.onend = () => {
+                            speakButton.classList.remove('speaking');
+                        };
                     } else {
+                        // Clear the previous speech synthesis queue to avoid conflicts
+                        window.speechSynthesis.cancel();
+                        speakButton.classList.remove('speaking');
+                        prevElementId='';
                         console.error('Element not found or no text content');
                     }
                 } else {
                     alert('Sorry, your browser does not support speech synthesis.');
                 }
             }
+
+            // Ensure voices are loaded before speaking
+            function ensureVoicesLoaded(callback) {
+                let voicesLoaded = false;
+
+                window.speechSynthesis.onvoiceschanged = function () {
+                    if (!voicesLoaded) {
+                        voicesLoaded = true;
+                        callback();
+                    }
+                };
+            }
+
+            // Call the speakText function after voices are loaded
+            ensureVoicesLoaded(() => {
+                console.log("Voices loaded, ready to speak");
+            });
+
+
         </script>
 </body>
 
