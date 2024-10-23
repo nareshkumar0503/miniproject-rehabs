@@ -319,7 +319,6 @@
     position: absolute;
     top: -20px;
     right: 0;
-    
     background-color: #f0f0f0;
     border: none;
     border-radius: 50%;
@@ -339,12 +338,23 @@
 .speaking {
     animation: glowing 1s infinite alternate;
 }
-
-@keyframes glowing {
+.speaking i {
+    animation: glowing-icon 1s infinite alternate;
+}
+@keyframes glowing-icon {
     0% {
-        box-shadow: 0 0 5px #4caf50;
+        color: rgb(0, 110, 255);
     }
     100% {
-        box-shadow: 0 0 20px #4caf50;
+        color: rgb(0, 180, 255);
+    }
+}
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px rgb(0, 110, 255);
+        
+    }
+    100% {
+        box-shadow: 0 0 20px rgb(0, 110, 255);
     }
 }

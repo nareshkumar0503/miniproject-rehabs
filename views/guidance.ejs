@@ -29,11 +29,11 @@
         <div class="container">
             <!-- Header Section -->
             <div class="header-section">
-                <h1>Understanding Risk Factors for Addiction</h1>
+                <h1 id="headerTitle">Understanding Risk Factors for Addiction</h1>
             </div>
             <!-- Guidance Section -->
             <div class="guidance-section">
-                <h2>Personalized Guidance</h2>
+                <h2 id="personalizedGuidance">Personalized Guidance</h2>
                 <button class="score-btn" id="showScore">View My Risk Score</button>
                 <% if (scores && Object.keys(scores).length> 0) { %>
                     <% for (const [type, score] of Object.entries(scores)) { %>
@@ -56,7 +56,7 @@
                             <% } %>
                                 <% } else { %>
                                     <div class="content">
-                                        <p>Welcome to your personalized addiction guidance plan.</p>
+                                        <p id="welcome">Welcome to your personalized addiction guidance plan.</p>
                                     </div>
                                     <% } %>
                                         <% if (message) { %>
@@ -144,6 +144,12 @@
                                 but yours
                                 matters too. Kids often model what they see. Prioritize your own well-being to set a
                                 powerful example.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('mentalhealthtext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,6 +180,12 @@
                                 helps
                                 mitigate
                                 these risks.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('behavioralorimpulsetext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,20 +214,27 @@
                                 possible impact
                                 of trauma and getting appropriate help is crucial for protecting a child’s
                                 well-being.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('exposuretotraumatext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Family Conflict -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
+                    <h2 class="accordion-header" id="headingfactors">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <i class="fas fa-users icon"></i> Family Conflict
+                            data-bs-target="#collapseEnvi" aria-expanded="false" aria-controls="collapseEnvi"
+                            id="environmentalfactors">
+                            <i class="fas fa-heart-broken icon"></i> Environmental Factors
                         </button>
                     </h2>
-                    <div id="collapseEnvironment" class="accordion-collapse collapse"
-                        aria-labelledby="headingEnvironment" data-bs-parent="#riskFactorsAccordion">
+                    <div id="collapseEnvi" class="accordion-collapse collapse"
+                        aria-labelledby="headingfactors" data-bs-parent="#riskFactorsAccordion">
                         <div class="accordion-body" id="environmentalfactorstext">
                             <span id="environmental1">Substance use among peers, easy access to nicotine, alcohol, or
                                 drugs, and media influences
@@ -229,6 +248,12 @@
                                 being aware of their
                                 exposure to media
                                 can help reduce these risks.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('environmentalfactorstext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,6 +282,12 @@
                                 addiction. Delaying
                                 use until
                                 adulthood reduces this risk significantly.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('ageoffirstusetext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -295,6 +326,12 @@
                             a plan to help your child,
                             don’t hesitate
                             to ask for support.</span>
+                            <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('riskfactortooltext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -309,8 +346,8 @@
                         </button>
                     </h2>
                     <div id="collapseWhatToDo" class="accordion-collapse collapse" aria-labelledby="headingWhatToDo"
-                        data-bs-parent="#riskFactorsAccordion" id="whatcanyoudotext">
-                        <div class="accordion-body">
+                        data-bs-parent="#riskFactorsAccordion" >
+                        <div class="accordion-body" id="whatcanyoudotext">
                             <span id="what1"> <strong>Focus on preventing and delaying substance use</strong> as long as
                                 possible, and
                                 address any
@@ -330,6 +367,12 @@
                                 long
                                 way in
                                 reducing your child’s risk for addiction.</span>
+                                <!-- Speak Button (moved to right corner) -->
+                            <div class="speak-button-container speaking">
+                                <button class="sound-button" onclick="speakText('whatcanyoudotext')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -344,7 +387,7 @@
                 <div class="modal-content">
                     <button class="close-btn" id="closeModal">&times;</button>
                     <h1>Addiction Risk Scoring</h1>
-
+                    <h3>Enter the usage:</h3>
                     <!-- Drug Addiction -->
                     <div class="risk-item">
                         <h3><i class="fas fa-pills"></i>Drug Addiction</h3>
@@ -430,7 +473,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+        <script src="/js/gLangChange.js"></script>
         <script>
             // Get modal and buttons
             const scoreModal = document.getElementById('scoreModal');
@@ -499,14 +542,14 @@
         </script>
         <script>
             let prevElementId = '';
-            // Function to handle speech synthesis
             function speakText(elementId) {
                 if ('speechSynthesis' in window) {
                     const element = document.getElementById(elementId);
                     const selectedLanguage = document.getElementById('languageSelect').value;
                     const speakButton = document.querySelector('.sound-button'); // Get the speak button element
+                    const speakIcon = speakButton.querySelector('i'); // Get the icon inside the button
 
-                    if (element && element.innerText && prevElementId != elementId) {
+                    if (element && element.innerText && prevElementId !== elementId) {
                         prevElementId = elementId;
                         const text = element.innerText;
                         const speech = new SpeechSynthesisUtterance(text);
@@ -529,23 +572,33 @@
                             console.error(`No matching voice found for language: ${selectedLanguage}`);
                         }
 
-                        // Add a slight delay to ensure voices are ready
-                        setTimeout(() => {
-                            // Add glowing effect when speaking starts
+                        // Add glowing effect when speech starts
+                        speech.onstart = () => {
                             speakButton.classList.add('speaking');
+                            speakIcon.classList.add('speaking'); // Add glow to the icon
+                        };
 
-                            window.speechSynthesis.speak(speech);
-                        }, 100); // Delay of 100ms
+                        // Start speaking
+                        window.speechSynthesis.speak(speech);
 
                         // Remove glowing effect when speech ends
                         speech.onend = () => {
                             speakButton.classList.remove('speaking');
+                            speakIcon.classList.remove('speaking');
+                        };
+
+                        // Handle errors and ensure glowing effect is removed in case of an error
+                        speech.onerror = () => {
+                            speakButton.classList.remove('speaking');
+                            speakIcon.classList.remove('speaking');
+                            console.error('Error occurred while speaking');
                         };
                     } else {
-                        // Clear the previous speech synthesis queue to avoid conflicts
+                        // Clear the previous speech synthesis queue if conditions are not met
                         window.speechSynthesis.cancel();
                         speakButton.classList.remove('speaking');
-                        prevElementId='';
+                        speakIcon.classList.remove('speaking');
+                        prevElementId = '';
                         console.error('Element not found or no text content');
                     }
                 } else {
@@ -569,7 +622,6 @@
             ensureVoicesLoaded(() => {
                 console.log("Voices loaded, ready to speak");
             });
-
 
         </script>
 </body>

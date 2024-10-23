@@ -1,5 +1,5 @@
 const translations = {
-    'en-US': {
+    'en-IN': {
         'logint': 'Please log in to view your guidance.',
         'welcome': 'Welcome to your personalized addiction guidance plan.',
         'headerTitle': 'Understanding Risk Factors for Addiction',
@@ -276,7 +276,8 @@ const translations = {
 function updatePageLanguage() {
     const selectedLanguage = document.getElementById('languageSelect').value;
     const textElements = document.querySelectorAll('[id]');
-
+    // Store the selected language in localStorage
+    localStorage.setItem('selectedLanguage', selectedLanguage);
     textElements.forEach(element => {
         const key = element.id;
         if (translations[selectedLanguage][key]) {
@@ -284,3 +285,14 @@ function updatePageLanguage() {
         }
     });
 }
+// On page load, set the saved language or default language
+document.addEventListener('DOMContentLoaded', function() {
+    const textElements = document.querySelectorAll('[id]');
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en-IN';
+    textElements.forEach(element => {
+        const key = element.id;
+        if (translations[savedLanguage][key]) {
+            element.innerText = translations[savedLanguage][key];
+        }
+    });
+});

@@ -33,7 +33,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <% if (username) { %>
               <a class="dropdown-item" href="profile.html">Profile</a>
-              <a class="dropdown-item" href="/logout">Logout</a>
+              <a class="dropdown-item" onclick="logout()">Logout</a>
               <% } else { %>
                 <a class="dropdown-item" href="/login">Login</a>
                 <% } %>
@@ -42,3 +42,9 @@
       </ul>
     </div>
   </nav>
+  <script>
+    function logout(){
+      localStorage.clear();
+      window.location.href='/logout'
+    }
+  </script>
