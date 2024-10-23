@@ -27,20 +27,25 @@
       </div>
     </div>
     <!-- Add this search bar above the centers section -->
-    <div class="container mt-4">
-      <input type="text" id="searchInput" class="form-control" placeholder="Search by center name, location, or addiction">
-      <button id="clearSearch" class="btn btn-secondary mt-2">Clear Search</button>
+<div class="container mt-4 search-bar-container">
+  <div class="input-group">
+    <input type="text" id="searchInput" class="form-control search-input" placeholder="Search by center name, location, or addiction">
+    <div class="input-group-append">
+      <button id="clearSearch" class="btn clear-search-btn">Clear Search</button>
     </div>
+  </div>
+</div>
     
     <!-- Centers Section -->
 <div class="container mt-5">
   <h2>Centers in Coimbatore</h2>
-  <p id="centerCount" class="text-muted"></p> <!-- Shows how many centers match the search -->
-  
+  <p id="centerCountCoimbatore" class="text-muted"></p> <!-- Unique ID for count -->
+
   <div class="d-flex justify-content-between align-items-center mb-2">
-    <button class="scroll-button" id="scrollLeftCoimbatore" onclick="scrollLeftCards('.coimbatore-cards')" disabled>&#8249;</button>
+    <!-- Unique ID for scroll buttons and cards -->
+    <button class="scroll-button" id="scrollLeftCoimbatore" onclick="scrollLeftCards('.coimbatore-cards')">&#8249;</button>
     <div class="center-cards coimbatore-cards">
-      <% centers.forEach(center=> { %>
+      <% centers.forEach(center => { %>
       <div class="card center-card" onclick="Description('<%= center.email %>')">
         <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
         <div class="card-body">
@@ -52,8 +57,8 @@
           <p class="card-text">
             Rating: 
             <span class="rating">
-              <% for (let i=1; i <=5; i++) { %>
-                <% if (i <=Math.floor(center.rating)) { %>
+              <% for (let i = 1; i <= 5; i++) { %>
+                <% if (i <= Math.floor(center.rating)) { %>
                   <i class="fas fa-star"></i>
                 <% } else if (i === Math.ceil(center.rating) && center.rating % 1 !== 0) { %>
                   <i class="fas fa-star-half-alt"></i>
@@ -74,47 +79,48 @@
   </div>
 </div>
 
-            <!-- Nearby Centers Section -->
-            <div class="container mt-5">
-              <h2>Centers in Coimbatore</h2>
-              <p id="centerCount" class="text-muted"></p> <!-- Shows how many centers match the search -->
-              
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <button class="scroll-button" id="scrollLeftCoimbatore" onclick="scrollLeftCards('.coimbatore-cards')" disabled>&#8249;</button>
-                <div class="center-cards coimbatore-cards">
-                  <% centers.forEach(center=> { %>
-                  <div class="card center-card" onclick="Description('<%= center.email %>')">
-                    <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
-                    <div class="card-body">
-                      <h5 class="card-title"><%= center.centerName %></h5>
-                      <p class="card-text">
-                        <strong>Location:</strong> <%= center.address %><br>
-                        <strong>Consultant Fee:</strong> <%= center.priceRange %>
-                      </p>
-                      <p class="card-text">
-                        Rating: 
-                        <span class="rating">
-                          <% for (let i=1; i <=5; i++) { %>
-                            <% if (i <=Math.floor(center.rating)) { %>
-                              <i class="fas fa-star"></i>
-                            <% } else if (i === Math.ceil(center.rating) && center.rating % 1 !== 0) { %>
-                              <i class="fas fa-star-half-alt"></i>
-                            <% } else { %>
-                              <i class="far fa-star"></i>
-                            <% } %>
-                          <% } %>
-                        </span>
-                      </p>
-                      <p class="addiction-info" data-addictions='<%= JSON.stringify(center.addictions) %>' style="display:none">
-                        Addiction: <%= center.addictions.join(', ') %>
-                      </p>
-                    </div>
-                  </div>
-                  <% }) %>
-                </div>
-                <button class="scroll-button" id="scrollRightCoimbatore" onclick="scrollRightCards('.coimbatore-cards')">&#8250;</button>
-              </div>
-            </div>
+<!-- Nearby Centers Section -->
+<div class="container mt-5">
+  <h2>Nearby Centers</h2>
+  <p id="centerCountNearby" class="text-muted"></p> <!-- Unique ID for count -->
+
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <!-- Unique ID for scroll buttons and cards -->
+    <button class="scroll-button" id="scrollLeftNearby" onclick="scrollLeftCards('.nearby-cards')">&#8249;</button>
+    <div class="center-cards nearby-cards">
+      <% centers.forEach(center => { %>
+      <div class="card center-card" onclick="Description('<%= center.email %>')">
+        <img src="./<%= center.centerImages[0] %>" class="card-img-top" alt="<%= center.centerName %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= center.centerName %></h5>
+          <p class="card-text">
+            <strong>Location:</strong> <%= center.address %><br>
+            <strong>Consultant Fee:</strong> <%= center.priceRange %>
+          </p>
+          <p class="card-text">
+            Rating: 
+            <span class="rating">
+              <% for (let i = 1; i <= 5; i++) { %>
+                <% if (i <= Math.floor(center.rating)) { %>
+                  <i class="fas fa-star"></i>
+                <% } else if (i === Math.ceil(center.rating) && center.rating % 1 !== 0) { %>
+                  <i class="fas fa-star-half-alt"></i>
+                <% } else { %>
+                  <i class="far fa-star"></i>
+                <% } %>
+              <% } %>
+            </span>
+          </p>
+          <p class="addiction-info" data-addictions='<%= JSON.stringify(center.addictions) %>' style="display:none">
+            Addiction: <%= center.addictions.join(', ') %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <button class="scroll-button" id="scrollRightNearby" onclick="scrollRightCards('.nearby-cards')">&#8250;</button>
+  </div>
+</div>
 
             <!-- Footer -->
             <footer class="text-center mt-5 py-4" style="background-color: #343a40; color: white;">
