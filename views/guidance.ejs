@@ -11,6 +11,330 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/guidance.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif; /* Changed font to Poppins for a modern look */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(90deg, #0d0d0d, #333333);
+            /* Sleeker dark gradient */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            /* Stronger shadow for modernity */
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease-in-out;
+            /* Smooth transition on hover */
+        }
+
+        .navbar:hover {
+            background: linear-gradient(90deg, #141414, #4c4c4c);
+            /* Darker on hover */
+        }
+
+        .navbar-brand {
+            color: #ffc107;
+            font-weight: 800;
+            font-size: 2.2rem;
+            letter-spacing: 0.08rem;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            margin-right: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.4s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+            /* Golden hover effect */
+        }
+
+        .navbar-toggler {
+            border-color: #ffc107;
+        }
+
+        /* Dropdown menu */
+.dropdown-menu {
+    background-color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    color: #ffffff;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background-color: #f0a500;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* General Container */
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Section */
+.header-section h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+/* Guidance Section */
+.guidance-section {
+    background-color: #ffffff;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    transition: box-shadow 0.3s ease;
+}
+
+.guidance-section:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.guidance-section h2 {
+    text-align: center;
+    color: #34495e;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.guidance-section .content {
+    font-size: 1.15em;
+    line-height: 1.8;
+    color: #555;
+}
+
+.guidance-section .score-btn {
+    display: block;
+    margin: 30px auto;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.4s ease;
+    text-align: center;
+}
+
+.guidance-section .score-btn:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+}
+
+/* Accordion Section */
+.accordion-header button {
+    font-size: 1.15rem;
+    font-weight: 600;
+    background-color: #f1f3f5;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.accordion-header button:hover {
+    background-color: #e9ecef;
+}
+
+.accordion-body {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    border-radius: 8px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.modal-content h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.modal-content .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal-content .close-btn:hover {
+    color: #e74c3c;
+}
+
+/* Score Section Inside Modal */
+.score-section {
+    font-size: 1.15rem;
+    color: #555;
+}
+
+.score-section .score-item {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+/* Footer Section */
+.footer-section {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.95em;
+    color: #666;
+}
+
+.footer-section a {
+    color: #28a745;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #218838;
+}
+
+/* Risk Section */
+.risk-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.risk-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.risk-item h3 {
+    flex: 1;
+    font-size: 1.75rem;
+    color: #34495e;
+    margin: 0;
+}
+
+.risk-item h3 i {
+    margin-right: 12px;
+    color: #3498db;
+}
+
+/* Inputs */
+.quantity-input,
+.frequency-dropdown {
+    width: 120px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #3498db;
+    text-align: center;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    background-color: #f1f3f5;
+    transition: all 0.3s;
+}
+
+.quantity-input:focus,
+.frequency-dropdown:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Buttons */
+.btn-primary {
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+}
+
+/* Progress Bar */
+.progress-bar-custom {
+    height: 20px;
+    border-radius: 50px;
+    background-color: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-custom::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: #3498db;
+    transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+    </style>
 </head>
 <body>
     <!-- Navbar -->

@@ -120,36 +120,56 @@
 
 /* Contact Card with Icons */
 .descPage .contact-card {
-    background-color: #f8f9fa;
-    border-left: 8px solid #ffc107;
+    background-color: #f8f9fa; /* Light background for contrast */
+    border-left: 8px solid #ffc107; /* Golden left border for emphasis */
     padding: 25px;
     margin-top: 30px;
     border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
 }
 
 .descPage .contact-card i {
-    color: #28a745; /* Green icon for contacts */
-    font-size: 1.4rem;
-    margin-right: 15px;
+    color: #28a745; /* Green for contact icons */
+    font-size: 1.4rem; /* Icon size slightly larger for visibility */
+    margin-right: 15px; /* Space between icon and text */
 }
 
 .descPage .contact-card .contact-item {
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
-    padding: 10px 0;
-    color: #333;
+    font-size: 1.2rem; /* Text size for easy reading */
+    padding: 10px 0; /* Vertical padding for spacing between items */
+    color: #333; /* Darker text for contrast */
 }
 
 .descPage .contact-card .contact-item a {
-    color: inherit;
-    text-decoration: none;
+    color: inherit; /* Inherit color for text links */
+    text-decoration: none; /* No underline for links */
 }
 
 .descPage .contact-card .contact-item a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Underline on hover */
 }
+
+.descPage .contact-card .contact-item:hover i {
+    color: #ffc107; /* Golden color on icon hover for emphasis */
+}
+
+@media (max-width: 768px) {
+    /* Responsive adjustments for smaller screens */
+    .descPage .contact-card {
+        padding: 20px; /* Reduced padding on smaller devices */
+    }
+
+    .descPage .contact-card i {
+        font-size: 1.2rem; /* Adjust icon size for smaller screens */
+    }
+
+    .descPage .contact-card .contact-item {
+        font-size: 1.1rem; /* Slightly smaller text size */
+    }
+}
+
 
 /* Emergency Banner */
 .descPage .emergency-banner {
