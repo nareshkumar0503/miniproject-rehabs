@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         cb(null, uploadPath);  // Save files in the public/uploads folder
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);  // Use timestamp + original file name to avoid conflicts
+        cb(null,file.originalname);  // Use timestamp + original file name to avoid conflicts
     }
 });
 

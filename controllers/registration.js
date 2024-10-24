@@ -130,7 +130,6 @@ exports.postCenterRegister = async (req, res) => {
     try {
         const exists = await Center.findOne({ email: req.body.email });
         const filePaths = req.files.map(file => `uploads\\${file.originalname}`);
-        console.log(req.body);
         // Function to generate the registration number
         const generateRegistrationNo = async (centerName) => {
             // Extract the first letter of each word in the center name
