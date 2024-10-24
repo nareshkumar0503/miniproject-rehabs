@@ -394,7 +394,7 @@
                                                     <select id="time-<%= appointment._id %>" name="time" class="form-select mb-2">
                                                         <% 
                                                             let timeSlots = [];
-                                                            if (appointment.appointmentSession === ' Morning') {
+                                                            if (appointment.appointmentSession ==='Morning') {
                                                             timeSlots=['07:00', '08:00' , '09:00' , '10:00' , '11:00'
                                                             , '12:00' , '13:00' ]; } else if
                                                             (appointment.appointmentSession==='Evening' ) {
@@ -549,23 +549,23 @@
 
             function cancelImageUpload() {
                 document.getElementById('imageUploadContainer').style.display = 'none';
-            } 
+            }
             function updateMainImage(event) {
-    const file = event.target.files[0]; // Get the selected file
-    const reader = new FileReader(); // Create a FileReader object
+                const file = event.target.files[0]; // Get the selected file
+                const reader = new FileReader(); // Create a FileReader object
 
-    // Define what happens when the file is read
-    reader.onload = function(e) {
-        // Update the src attribute of the image to the newly uploaded image
-        document.getElementById('headImagePreview').src = e.target.result;
-    };
+                // Define what happens when the file is read
+                reader.onload = function (e) {
+                    // Update the src attribute of the image to the newly uploaded image
+                    document.getElementById('headImagePreview').src = e.target.result;
+                };
 
-    // Read the file as a data URL
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-}
-       
+                // Read the file as a data URL
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+
         </script>
         <script src="/js/centerDashBoard.js"></script>
 

@@ -1,14 +1,14 @@
 const Patient = require('../models/patientSchema');
 const Center = require('../models/Center');
 const nodemailer = require('nodemailer');
-
+const bcrypt = require('bcrypt');
 
 // ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer***** /
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: '23mx315@psgtech.ac.in',
-        pass: process.env.EMAIL_PASS
+        pass: process.env.PASS
     }
 });
 // ------patient registration------patient registration------patient registration------patient registration------patient registration-------
@@ -49,6 +49,9 @@ exports.postPatientRegister = async (req, res) => {
             // Send a 400 status with an error message
             return res.status(400).json({ message: 'Patient already exists.' });
         } else {
+             // Encrypt the password before storing it
+             const saltRounds = 10; // You can adjust this value for more/less security
+             const hashedPassword = await bcrypt.hash(password, saltRounds);
             // Create new patient record
             const newPatient = new Patient({
                 patientname,
@@ -59,7 +62,7 @@ exports.postPatientRegister = async (req, res) => {
                 height,
                 weight,
                 address,
-                password,
+                password :hashedPassword,
                 patientcontactnumber,
                 attendercontactnumber,
                 email,

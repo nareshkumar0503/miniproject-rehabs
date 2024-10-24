@@ -10,8 +10,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-      user: '23mx315@psgtech.ac.in',
-      pass: 'Nishanth@10'
+    user: process.env.EMAIL,
+    pass: process.env.PASS
   }
 });
 //*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender*****Pateint-Attender***** */
@@ -42,7 +42,8 @@ exports.getDescPage = async (req, res) => {
     const appointment = await Appointment.findOne({ patientEmail: patient.email });
     var status = 0;
     if (appointment) {
-      status = 1;
+      if(appointment.status !== 'Cancelled')
+        status = 1;
     }
     const center = await Center.findOne({ email });
     return res.render('descPage', { center, username, patient, status });
@@ -87,12 +88,12 @@ exports.postAppointment = async (req, res) => {
     await newAppointment.save();
     // Step 5: Send confirmation email to the patient
     const mailOptions = {
-      from: '23mx315@psgtech.ac.in',
+      from: process.env.EMAIL,
       to: patientEmail,
-      subject: `Appointment Confirmation with ${centerName}`,
+      subject: `Appointment Booking Pending Confirmation with ${centerName}`,
       html: `
       <p>Dear ${patientName},</p>
-      <p>Your appointment with <strong>${centerName}</strong> has been successfully booked.</p>
+      <p>Your appointment with <strong>${centerName}</strong> has been successfully <strong>booked</strong>, but it is currently <strong>pending confirmation</strong> from the center.</p>
       
       <h3>Appointment Details:</h3>
       <ul>
@@ -105,7 +106,9 @@ exports.postAppointment = async (req, res) => {
         <li><strong>Patient Addiction:</strong> ${patientAddiction}</li>
       </ul>
       
-      <p>Please make sure to arrive 10 minutes before your scheduled appointment. If you need to make any changes or cancel the appointment, feel free to contact us at <a href="mailto:${centerEmail}" style="color:rgb(0, 115, 255);">${centerEmail}</a>.</p>
+      <p>Please note that the center will review your appointment request and send you a confirmation shortly. Kindly wait for the center to confirm the appointment. We recommend checking your email for updates.</p>
+
+      <p>If you have any urgent inquiries or need to make changes, feel free to contact the center directly at <a href="mailto:${centerEmail}" style="color:rgb(0, 115, 255);">${centerEmail}</a>.</p>
       
       <p><strong>Best regards,</strong><br>
       The ${centerName} Team</p>
@@ -261,7 +264,7 @@ exports.getGuidancePage = async (req, res) => {
     req.session.redirectTo = req.originalUrl;
     return res.render('guidance', { message: 'login', scores: {}, messages: {}, tips: {}, username });
   }
-  
+
   try {
     // Fetch the addictions for the logged-in user
     const addictions = await Addiction.find({ patient: req.session.userId });
@@ -327,10 +330,10 @@ exports.getGuidancePage = async (req, res) => {
           : 'Keep it up! Your consumption is stable or decreasing.';
       }
     }
-    return res.render('guidance', { scores, messages, tips, message: '',username });
+    return res.render('guidance', { scores, messages, tips, message: '', username });
   } catch {
     console.error('Error fetching addiction data:', error);
-    return res.render('guidance', { message: 'An error occurred while fetching your data.', scores: {}, messages:{}, tips:{},username });
+    return res.render('guidance', { message: 'An error occurred while fetching your data.', scores: {}, messages: {}, tips: {}, username });
   }
 }
 
@@ -488,8 +491,8 @@ function getTips(addictionType, score) {
     </ul>
     `;
     }
-  }else if(score == 1){
-    if(addictionType == 'alcohol'){
+  } else if (score == 1) {
+    if (addictionType == 'alcohol') {
       return `<h3>Actions:</h3>
     <ul>
         <li><strong>Track Your Consumption:</strong> Use apps to track your alcohol intake to ensure you stay within safe limits (e.g., one drink per day for women, two for men).</li>
@@ -507,7 +510,7 @@ function getTips(addictionType, score) {
         <li><strong>Aerobic Exercises:</strong> Regular exercise can help maintain your overall health, decreasing the need to use alcohol as a stress reliever.</li>
         <li><strong>Mind-Body Practices:</strong> Yoga and meditation can help in reducing the urge to drink by promoting relaxation and self-awareness.</li>
     </ul>`
-    }else if(addictionType == 'smoking'){
+    } else if (addictionType == 'smoking') {
       return `<h3>Actions:</h3>
     <ul>
         <li><strong>Educate Yourself on Smoking Risks:</strong> Stay updated on the dangers of smoking through reliable resources. Smoking may not be a current issue, but it’s important to keep it that way by understanding its long-term impacts like lung cancer, heart disease, and stroke.
@@ -529,7 +532,7 @@ function getTips(addictionType, score) {
         <li><strong>Yoga & Deep Breathing:</strong> Helps improve lung function and lowers stress, reducing the potential urge to smoke later.</li>
     </ul>
 `
-    }else if(addictionType == 'internet'){
+    } else if (addictionType == 'internet') {
       return ` <h3>Actions:</h3>
     <ul>
         <li><strong>Set Usage Limits:</strong> Set daily screen time limits on your phone for entertainment apps. Keep track of your phone usage through screen time tracking apps.</li>
@@ -662,6 +665,35 @@ exports.postAppoinmentTime = async (req, res) => {
       status: 'Approved',
       time: timeString
     });
+    const appointment = await Appointment.findById(appointmentId)
+    const patientEmail = appointment.patientEmail;
+    const patientName = appointment.patientName;
+    const formattedAppointmentDate = appointment.appointmentDate;
+    const centerName = appointment.centerName;
+    const centerEmail = appointment.centerEmail;
+
+    // Prepare mail options
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: patientEmail,
+      subject: `Appointment Approved by ${centerName}`,
+      html: `
+        <p>Dear ${patientName},</p>
+        <p>We are pleased to inform you that your appointment with <strong>${centerName}</strong> has been <strong>approved</strong>.</p>
+
+        <h3>Appointment Details:</h3>
+        <ul>
+          <li><strong>Date:</strong> ${formattedAppointmentDate}</li>
+          <li><strong>Time:</strong> ${timeString}</li>
+        </ul>
+
+        <p>Please make sure to arrive at <strong>${centerName}</strong> 10 minutes before your scheduled appointment. If you have any further questions or need to make changes, feel free to contact us at <a href="mailto:${centerEmail}" style="color:rgb(0, 115, 255);">${centerEmail}</a>.</p>
+
+        <p><strong>Best regards,</strong><br>
+        The ${centerName} Team</p>
+      `
+    };
+    await transporter.sendMail(mailOptions);
     return res.status(200).json({ success: true, message: 'Schedualed Successfully' }); // Redirect back to appointments page
   } catch (error) {
     console.error('Error scheduling appointment:', error);
@@ -679,6 +711,27 @@ exports.postCancelAppointment = async (req, res) => {
       time: '-',
       status: 'Cancelled'
     });
+    const appointment = await Appointment.findById(appointmentId);
+    const patientEmail = appointment.patientEmail;
+    const patientName = appointment.patientName;
+    const centerName = appointment.centerName;
+    const centerEmail = appointment.centerEmail;
+        // Prepare the apology email
+        const mailOptions = {
+          from: process.env.EMAIL,
+          to: patientEmail,
+          subject: `Appointment Cancellation from ${centerName}`,
+          html: `
+            <p>Dear ${patientName},</p>
+            <p>We regret to inform you that your appointment with <strong>${centerName}</strong> has been <strong>cancelled</strong>.</p>
+            
+            <p>We sincerely apologize for any inconvenience this may have caused. If you have any further questions or would like to reschedule, please feel free to contact us at <a href="mailto:${centerEmail}" style="color:rgb(0, 115, 255);">${centerEmail}</a>.</p>
+            
+            <p><strong>Best regards,</strong><br>
+            The ${centerName} Team</p>
+          `
+        };
+        await transporter.sendMail(mailOptions);
     return res.status(200).json({ success: true, message: 'Cancelled Successfully' }); // Redirect back to appointments page
   } catch (error) {
     console.error('Error Cancelling appointment:', error);

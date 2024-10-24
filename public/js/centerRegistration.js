@@ -171,7 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validate password function
     function validatePassword(password) {
-        return password.length >= 8; // Basic password validation (minimum 8 characters)
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+        return regex.test(password);
     }
 
     // Show error for form fields

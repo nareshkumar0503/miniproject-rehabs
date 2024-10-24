@@ -1,4 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
+       // Event listener for real-time password strength checking
+       document.getElementById("password").addEventListener("input", function () {
+        const password = this.value;
+        const strengthText = evaluatePasswordStrength(password);
+        const passwordStrengthElement = document.getElementById("passwordStrength");
+
+        // Update the strength message in the small tag below the input
+        passwordStrengthElement.textContent = `Password Strength: ${strengthText}`;
+
+        // Optional: Add color coding based on strength
+        if (strengthText === "Weak") {
+            passwordStrengthElement.style.color = "red";
+        } else if (strengthText === "Medium") {
+            passwordStrengthElement.style.color = "orange";
+        } else if (strengthText === "Strong") {
+            passwordStrengthElement.style.color = "green";
+        } else {
+            passwordStrengthElement.style.color = "";
+        }
+    });
+
+    // Function to evaluate password strength
+    function evaluatePasswordStrength(password) {
+        let strength = 0;
+
+        // Check for various conditions and increase the strength accordingly
+        if (password.length >= 8) strength++; // Length condition
+        if (/[A-Z]/.test(password)) strength++; // At least one uppercase letter
+        if (/[a-z]/.test(password)) strength++; // At least one lowercase letter
+        if (/\d/.test(password)) strength++; // At least one digit
+        if (/[@$!%*?&#]/.test(password)) strength++; // At least one special character
+
+        // Return a description based on the strength score
+        switch (strength) {
+            case 0:
+            case 1:
+            case 2:
+                return "Weak";
+            case 3:
+            case 4:
+                return "Medium";
+            case 5:
+                return "Strong";
+            default:
+                return "";
+        }
+    }
     const formSections = document.querySelectorAll('.form-section');
     let currentPage = 1;
 
@@ -120,7 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     isValid = false;
                 }
                 break;
-
             case 2:
                 const patientAge = document.getElementById('patientAge');
                 const bloodGroup = document.getElementById('bloodGroup');
@@ -198,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             input.classList.remove('is-invalid'); // Remove error styling from input
         });
     }
-    
+
 
     function validateEmail(email) {
         const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -206,7 +252,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function validatePassword(password) {
-        return password.length >= 8; // Check if password is at least 8 characters long
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+        return regex.test(password);
     }
 
     function validatePhoneNumber(phoneNumber) {
@@ -218,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNotification(message, isSuccess) {
         const notificationDiv = document.getElementById('notification');
         const messageP = document.getElementById('message'); // This ID must exist in the HTML
-    
+
         messageP.textContent = message;
 
         if (isSuccess) {

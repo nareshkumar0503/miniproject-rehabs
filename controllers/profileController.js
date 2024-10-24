@@ -1,5 +1,6 @@
 const Patient = require('../models/patientSchema')
 const Center = require('../models/Center')
+const bcrypt = require('bcrypt');
 
 // -----------------------------------------------------------------------------------------------------------------------
 exports.getLoginPage = (req, res) => {
@@ -27,13 +28,13 @@ exports.postLogin = async (req, res) => {
             return res.status(400).json({ message: 'user not exists' });
         }
 
-        // const isPasswordValid = await bcrypt.compare(password, user.password);
-        // if (!isPasswordValid) {
-        //   return res.status(400).json({ message: 'Invalid credentials' });
-        // }
-        if (password != user.password) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             return res.status(400).json({ success: false, message: 'Invalid password' });
         }
+        // if (password != user.password) {
+        //     return res.status(400).json({ success: false, message: 'Invalid password' });
+        // }
         req.login(user, (err) => {
             if (err) {
                 return res.status(500).json({ success: false, message: 'Login error' });

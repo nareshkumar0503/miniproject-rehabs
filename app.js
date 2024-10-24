@@ -5,7 +5,8 @@ const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
 const dotenv = require('dotenv');
-
+// Load environment variables from .env file
+dotenv.config();
 // Routes
 // const centerRoutes = require('./routes/center');
 const indexRoutes = require('./routes/index');
@@ -15,8 +16,7 @@ const registerRoutes = require('./routes/registrationRoutes');
 
 //Appointement 
 const Appointment = require('./models/appointmentSchema')
-// Load environment variables from .env file
-dotenv.config();
+const Event = require('./models/eventSchema');
 
 const app = express();
 const PORT = 3000;
@@ -53,7 +53,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 // Middleware to run deleteOutdatedAppointments on every request
 app.use((req, res, next) => {
-  deleteOutdatedAppointments();
+  deleteOutdatedAppointmentsAndEvent();
   next(); // Continue to the next middleware or route handler
 });
 
@@ -68,12 +68,15 @@ app.use(registerRoutes);
 
 
 // Function to delete outdated appointments
-async function deleteOutdatedAppointments() {
+async function deleteOutdatedAppointmentsAndEvent() {
   try {
     // Get the current date in YYYY-MM-DD format
     const currentDate = new Date().toISOString().split('T')[0];
     // Find and delete appointments where appointmentDate is less than the current date
-    const result = await Appointment.deleteMany({ appointmentDate: { $lt: currentDate } });
+    await Appointment.deleteMany({ appointmentDate: { $lt: currentDate } });
+    
+    await Event.deleteMany({eventDate : {$lt: currentDate}});
+    
   } catch (error) {
     console.error('Error deleting outdated appointments:', error);
   }
