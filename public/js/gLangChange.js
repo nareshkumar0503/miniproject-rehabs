@@ -43,6 +43,8 @@ const translations = {
         'smoking': 'Save Data',
         'internet': 'Save Data',
         'gambling': 'Save Data',
+        'addictionriskh':'Addiction Risk Scoring',
+        'enterusageh':'Enter the usage:'
     },
     'hi-IN': {
         'headerTitle': 'नशे के जोखिम कारकों को समझना',
@@ -132,7 +134,9 @@ const translations = {
         'smokingaddictionh': 'புகைப்பிடித்தல் கொள்கை',
         'smoking': 'மூலமாகச் சேமிக்கவும்',
         'gamblingadditionh': 'போக்குவரத்துக்கு கொள்கை',
-        'gambling': 'மூலமாகச் சேமிக்கவும்'
+        'gambling': 'மூலமாகச் சேமிக்கவும்',
+        'addictionriskh' :'அடிமையாதல் ஆபத்து மதிப்பெண்',
+        'enterusageh':'பயன்பாட்டை உள்ளிடவும்:',
     },
 
     'te-IN': {

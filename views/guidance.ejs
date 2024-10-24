@@ -386,11 +386,11 @@
             <div class="modal" id="scoreModal">
                 <div class="modal-content">
                     <button class="close-btn" id="closeModal">&times;</button>
-                    <h1>Addiction Risk Scoring</h1>
-                    <h3>Enter the usage:</h3>
+                    <h1 id="addictionriskh">Addiction Risk Scoring</h1>
+                    <h3 id="enterusageh">Enter the usage:</h3>
                     <!-- Drug Addiction -->
                     <div class="risk-item">
-                        <h3><i class="fas fa-pills"></i>Drug Addiction</h3>
+                        <h3 id="drugaddictionh"><i class="fas fa-pills"></i>Drug Addiction</h3>
                         <input type="number" class="quantity-input" placeholder="Qty" id="drugQuantity" min="0"
                             value="0">
                         <select class="frequency-dropdown" id="drugFrequency">
@@ -405,7 +405,7 @@
 
                     <!-- Alcohol Addiction -->
                     <div class="risk-item">
-                        <h3><i class="fas fa-wine-bottle"></i>Alcohol Addiction</h3>
+                        <h3 id="alcoholaddictionh"><i class="fas fa-wine-bottle"></i>Alcohol Addiction</h3>
                         <input type="number" class="quantity-input" placeholder="Qty" id="alcoholQuantity" min="0"
                             value="0">
                         <select class="frequency-dropdown" id="alcoholFrequency">
@@ -420,9 +420,10 @@
 
                     <!-- Internet Addiction -->
                     <div class="risk-item">
-                        <h3><i class="fas fa-wifi"></i>Internet Addiction</h3>
+                        <h3 id="internetaddictionh"><i class="fas fa-wifi"></i>Internet Addiction</h3>
                         <input type="number" class="quantity-input" placeholder="qunatinty in hours"
                             id="internetQuantity" min="0" value="0">
+                            
                         <select class="frequency-dropdown" id="internetFrequency">
                             <option value="per day">Per Day</option>
                         </select>
@@ -433,7 +434,7 @@
 
                     <!-- Smoking Addiction -->
                     <div class="risk-item">
-                        <h3><i class="fas fa-smoking"></i>Smoking Addiction</h3>
+                        <h3 id="smokingaddictionh"><i class="fas fa-smoking"></i>Smoking Addiction</h3>
                         <input type="number" class="quantity-input" placeholder="Qty" id="smokeQuantity" min="0"
                             value="0">
                         <select class="frequency-dropdown" id="smokeFrequency">
@@ -448,7 +449,7 @@
 
                     <!-- Gambling Addiction -->
                     <div class="risk-item">
-                        <h3><i class="fas fa-coins"></i>Gambling Addiction</h3>
+                        <h3 id="gamblingadditionh"><i class="fas fa-coins"></i>Gambling Addiction</h3>
                         <input type="number" class="quantity-input" placeholder="Qty" id="gamblingQuantity" min="0"
                             value="0">
                         <select class="frequency-dropdown" id="gamblingFrequency">
