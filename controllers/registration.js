@@ -1,7 +1,7 @@
 const Patient = require('../models/patientSchema');
 const Center = require('../models/Center');
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer ******Configure nodemailer***** /
 const transporter = nodemailer.createTransport({
@@ -49,9 +49,9 @@ exports.postPatientRegister = async (req, res) => {
             // Send a 400 status with an error message
             return res.status(400).json({ message: 'Patient already exists.' });
         } else {
-             // Encrypt the password before storing it
-             const saltRounds = 10; // You can adjust this value for more/less security
-             const hashedPassword = await bcrypt.hash(password, saltRounds);
+            // Encrypt the password before storing it
+            const saltRounds = 10; // You can adjust this value for more/less security
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
             // Create new patient record
             const newPatient = new Patient({
                 patientname,
@@ -62,7 +62,7 @@ exports.postPatientRegister = async (req, res) => {
                 height,
                 weight,
                 address,
-                password :hashedPassword,
+                password: hashedPassword,
                 patientcontactnumber,
                 attendercontactnumber,
                 email,
@@ -131,11 +131,27 @@ exports.postCenterRegister = async (req, res) => {
         const exists = await Center.findOne({ email: req.body.email });
         const filePaths = req.files.map(file => `uploads\\${file.originalname}`);
         console.log(req.body);
+        // Function to generate the registration number
+        const generateRegistrationNo = async (centerName) => {
+            // Extract the first letter of each word in the center name
+            const initials = centerName
+                .split(' ') // Split the center name by spaces
+                .map(word => word.charAt(0).toUpperCase()) // Get the first letter of each word
+                .join(''); // Join them to form the initials
+
+            // Count the existing centers
+            const centerCount = await Center.countDocuments();
+
+            // Generate the registration number: RB + initials + (centerCount + 1, padded to 3 digits)
+            const registrationNo = `RB${initials}${String(centerCount + 1).padStart(3, '0')}`;
+            return registrationNo;
+        };
 
         if (exists) {
             return res.status(400).json({ error: 'A center with this email already exists.' });
         }
-
+        // Generate the registration number for the new center
+        const regisNo = await generateRegistrationNo(req.body.centerName);
         const newCenter = new Center({
             centerName: req.body.centerName,
             contactNo: req.body.contactNo,
@@ -145,6 +161,7 @@ exports.postCenterRegister = async (req, res) => {
             websiteURL: req.body.websiteURL,
             servicesOffered: req.body.servicesOffered,
             programsAvailable: req.body.programsAvailable,
+            registrationNo: regisNo,
             addictions: req.body.addictions,
             startTime: req.body.startTime,
             endTime: req.body.endTime,

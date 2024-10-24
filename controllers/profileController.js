@@ -1,6 +1,6 @@
 const Patient = require('../models/patientSchema')
 const Center = require('../models/Center')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // -----------------------------------------------------------------------------------------------------------------------
 exports.getLoginPage = (req, res) => {
