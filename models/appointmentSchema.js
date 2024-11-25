@@ -13,7 +13,8 @@ const appointmentSchema = new mongoose.Schema({
     centerName:{type:String, required:true},
     patientBloodGroup :{type:String},
     patientAddiction: { type: [String], required: true },
-    status:{type:String}
+    status:{type:String},
+    reschedule:{type: Number, default: 0 }
 },{
     timestamps : true
 });

@@ -42,7 +42,7 @@ exports.getDescPage = async (req, res) => {
     const appointment = await Appointment.findOne({ patientEmail: patient.email });
     var status = 0;
     if (appointment) {
-      if(appointment.status !== 'Cancelled')
+      if (appointment.status !== 'Cancelled')
         status = 1;
     }
     const center = await Center.findOne({ email });
@@ -116,7 +116,7 @@ exports.postAppointment = async (req, res) => {
     };
 
     // Step 6: Send the email
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions); 
     // Step 7: Respond with a success message
     return res.status(201).json({ success: true, message: 'Appointment booked successfully!' });
   } catch (error) {
@@ -133,7 +133,9 @@ exports.getAppointment = async (req, res) => {
     req.session.redirectTo = req.originalUrl;
     return res.redirect('/login');
   }
+  
   const appointments = await Appointment.find({ patientEmail });
+  const username = appointments.patientName;
   const formatTime = (time24) => {
     const [hours, minutes] = time24.split(':');
     let hours12 = (hours % 12) || 12;
@@ -146,14 +148,42 @@ exports.getAppointment = async (req, res) => {
       appointment.formattedTime = formatTime(appointment.time);
     }
   });
-  return res.render('viewappointment', { appointments });
+  return res.render('viewappointment', { appointments, username });
 };
 //****************************************************************************** */
 
+// ******Reschedule-Appointment ******Reschedule-Appointment ******Reschedule */
+exports.rescheduleAppointment = async (req, res) => {
+  const { appointmentId, newDate } = req.body;
+  // Ensure date is in 'YYYY-MM-DD' format
+  const formattedAppointmentDate = newDate.substring(0, 10);
+  try {
+    // Find the appointment to retrieve the current `reschedule` count
+    const existingAppointment = await Appointment.findById(appointmentId);
+    // Update the appointment using appointmentId
+    const appointment = await Appointment.findByIdAndUpdate(
+      appointmentId,{
+       appointmentDate: formattedAppointmentDate ,
+        status: 'Not Confirmed',
+        reschedule : existingAppointment.reschedule + 1
+    });
+
+    if (appointment) {
+      return res.json({ success: true, message: 'Appointment rescheduled successfully.' });
+    } else {
+     return res.json({ success: false, message: 'Appointment not found.' });
+    }
+  } catch (error) {
+    console.error('Error updating appointment:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error.' });
+  }
+}
+
+// ****************************************************************************** */
 // ********cancel-appointment ********cancel-appointment ********cancel-appointment ******** */
 exports.cancelAppointment = async (req, res) => {
   const { centerEmail } = req.body;
-  const patientEmail = req.session.email;
+  const patientEmail = req.session.email;   
   try {
     // Find and delete the appointment based on the provided centerEmail and appointmentDate
     const result = await Appointment.deleteOne({
@@ -716,12 +746,12 @@ exports.postCancelAppointment = async (req, res) => {
     const patientName = appointment.patientName;
     const centerName = appointment.centerName;
     const centerEmail = appointment.centerEmail;
-        // Prepare the apology email
-        const mailOptions = {
-          from: process.env.EMAIL,
-          to: patientEmail,
-          subject: `Appointment Cancellation from ${centerName}`,
-          html: `
+    // Prepare the apology email
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: patientEmail,
+      subject: `Appointment Cancellation from ${centerName}`,
+      html: `
             <p>Dear ${patientName},</p>
             <p>We regret to inform you that your appointment with <strong>${centerName}</strong> has been <strong>cancelled</strong>.</p>
             
@@ -730,8 +760,8 @@ exports.postCancelAppointment = async (req, res) => {
             <p><strong>Best regards,</strong><br>
             The ${centerName} Team</p>
           `
-        };
-        await transporter.sendMail(mailOptions);
+    };
+    await transporter.sendMail(mailOptions);
     return res.status(200).json({ success: true, message: 'Cancelled Successfully' }); // Redirect back to appointments page
   } catch (error) {
     console.error('Error Cancelling appointment:', error);

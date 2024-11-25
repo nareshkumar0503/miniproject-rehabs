@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const centerName = document.getElementById('centerName').value;
         const attenderPhone = document.getElementById('attenderPhone').value;
         const patientBloodGroup = document.getElementById('bloodGroup').value;
+        const submitBtn = document.getElementById('submit-btn');
         if (appointmentDate && appointmentSession) {
             // Logic to handle booking the appointment (e.g., send a request to the server)
+            submitBtn.textContent = 'Booking...!'
             fetch('/book/appointment', {
                 method: 'POST',
                 headers: {
@@ -70,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             location.reload();
                         }, 2000)
                     } else {
-
+                        submitBtn.textContent = 'Book Appointment';
                         showNotification(data.message, false);
                         setTimeout(() => {
                             location.reload();
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
         } else {
+            submitBtn.textContent = 'Book Appointment';
             showNotification('Please fillout appointment data and session', false);
         }
     })
